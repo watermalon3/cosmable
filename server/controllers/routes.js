@@ -51,7 +51,10 @@ router.put("updateProfile/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const body = req.body;
-    const updatedProfile = await Profile.updateOne({ _id: id }, { $set: body });
+    const updatedProfile = await Profile.updateOne(
+      { userId: id },
+      { $set: body }
+    );
 
     res.status(200).json({
       message: `profile successfully updated`,
@@ -67,7 +70,7 @@ router.put("updateProfile/:id", async (req, res) => {
 router.delete("/deleteProfile/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const findProfile = await Profile.findByIdAndDelete(id);
+    const findProfile = await Profile.findOneAndDelete({ userId: id });
     if (!findProfile) {
       throw new Error(`This Profile does not exist`);
     } else {
@@ -87,7 +90,7 @@ router.get("/profile/:id", async (req, res) => {
     const { id } = req.params;
 
     const foundProfile = await Profile.find({
-      _ID: id,
+      userId: id,
     });
     if (!foundProfile) {
       throw new Error(`Profile not found`);
