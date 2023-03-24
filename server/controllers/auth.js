@@ -1,24 +1,30 @@
 const router = require("express").Router();
-const User = require("../models/User");
+const User = require("../models/Users");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const SALT = Number(process.env.SALT);
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 router.post("/register", async (req, res) => {
+  console.log(req.body)
   try {
-    const { userName, email, password } = req.body;
-
-    if ((!userName, !email, !password)) {
+    const { userName, email, password, name, title, practiceName, zipCode, occupation, profilePicture } = req.body;
+    if ((!userName, !email, !password, !name, !title, !practiceName, !zipCode, !occupation, !profilePicture )) {
       res.status(406).json({
         message: "Invalid",
       });
       throw new Error("The user has provided undefined schema values");
     }
     const newUser = new User({
-      username,
+      userName,
       email,
       password: bcrypt.hashSync(password, SALT),
+      name,
+      title,
+      practiceName,
+      zipCode,
+      occupation,
+      profilePicture
     });
     await newUser.save();
 
@@ -41,9 +47,9 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   console.log("login route hit");
   try {
-    const { userName, password } = req.body;
+    const { email, password } = req.body;
 
-    const foundUser = await userName.findOne({ userName });
+    const foundUser = await User.findOne({ email });
 
     if (!foundUser) {
       res.status(404).json({
