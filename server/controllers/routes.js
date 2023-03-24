@@ -1,6 +1,6 @@
 const Profile = require("../models/Profile");
 const router = require("express").Router();
-const User = require("../models/User");
+const User = require("../models/Users");
 
 router.put("/updateUser/:id", async (req, res) => {
   try {
@@ -40,7 +40,7 @@ router.delete("/deleteUser/:id", async (req, res) => {
 router.post("/createprofile", async (req, res) => {
   try {
     const newProfile = new Profile(req.body);
-    newProfile.save;
+    newProfile.save();
     res.status(201).json({ newProfile });
   } catch (error) {
     console.log(error);
