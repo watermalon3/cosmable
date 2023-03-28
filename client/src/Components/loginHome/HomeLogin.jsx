@@ -24,7 +24,19 @@ function HomeLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLoginClick = () => {};
+  const handleLoginClick = () => {
+    if (email && password) {
+      
+      if (email === "example@gmail.com" && password === "password123") {
+        window.alert("Login successful!");
+      } else {
+        window.alert("Invalid email or password. Please try again.");
+      }
+    } else {
+      window.alert("Please enter your email and password.");
+    }
+
+  };
 
   return (
     <div className={classes.hero}>

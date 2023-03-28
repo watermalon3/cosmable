@@ -1,6 +1,7 @@
 import React from "react";
 import { Stack, Typography, TextField, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
+import "./login.css";
 
 const Login = () => {
   const {
@@ -19,7 +20,9 @@ const Login = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={2}>
-        <Typography variant="h3">Create your account</Typography>
+        <Typography className="create-header" variant="h3">
+          Create your account
+        </Typography>
         <TextField
           label="Username"
           {...register("userName")}
@@ -64,7 +67,16 @@ const Login = () => {
           error={Boolean(errors.confirmPassword)}
           helperText={errors.confirmPassword?.message}
         />
-        <Button color="success" variant="contained" type="submit">
+        <Typography className="create-header" variant="h6">
+          By clicking, you agree to the Terms of Service & Privacy Policy for Cosmable.
+        </Typography>
+        
+        <Button
+          className="btn"
+          color="success"
+          variant="contained"
+          type="submit"
+        >
           join for Free
         </Button>
       </Stack>
