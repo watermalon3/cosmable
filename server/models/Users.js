@@ -49,7 +49,7 @@ const User = new mongoose.Schema({
     required: true,
     unique: true,
     default: function () {
-      return this.userName.tolowercase();
+      return this.userName.toLowerCase();
     }
   }
 });
