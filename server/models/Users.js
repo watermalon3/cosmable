@@ -44,6 +44,14 @@ const User = new mongoose.Schema({
     type: String,
     required: false,
   },
+  url: {
+    type: String,
+    required: true,
+    unique: true,
+    default: function () {
+      return this.userName.tolowercase();
+    }
+  }
 });
 
 module.exports = mongoose.model("user", User);
