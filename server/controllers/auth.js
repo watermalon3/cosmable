@@ -68,7 +68,7 @@ router.post("/login", async (req, res) => {
           expiresIn: "24h",
         });
 
-        res.res.redirect(`/profile/${userSlug}`),
+        res.redirect(`/profile/${userSlug}`),
         foundUser,
         token
       } else {
