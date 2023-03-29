@@ -9,7 +9,10 @@ import {
   Typography,
   Accordion,
   AccordionSummary,
+  Drawer,
+  Paper,
 } from "@mui/material";
+import ImageUploader from "../Upload/ImageUploader";
 
 const Bio = () => {
   const [userData, setUserData] = useState(null);
@@ -17,6 +20,7 @@ const Bio = () => {
   const [bio, setBio] = useState("");
   const [links, setLinks] = useState("");
   const [editLinks, setEditLink] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   //   useEffect(() => {
   //     fetch("/Users")
   //       .then((response) => response.json())
@@ -34,7 +38,7 @@ const Bio = () => {
     console.log(data);
     setBio(data.bio ? data.bio : bio);
     setLinks(data.link ? data.link : links);
-    setEditBio(!bio);
+    setEditBio(false);
     reset();
   };
 
@@ -42,34 +46,35 @@ const Bio = () => {
     setEditBio(!editBio);
   }
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack spacing={2}>
-        <Typography variant="h3"></Typography>
+    <>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Stack spacing={2}>
+          <Typography variant="h3"></Typography>
 
-        {/* Profile Image Upload */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
+          {/* Profile Image Upload */}
           <div
             style={{
-              width: 200,
-              height: 200,
-              borderRadius: 100,
-              backgroundColor: "gray",
-              marginBottom: 16,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
             }}
-          ></div>
-          <Typography variant="h6" style={{ marginBottom: 16 }}>
-            Upload Profile Image
-          </Typography>
-        </div>
+          >
+            <div
+              style={{
+                width: 200,
+                height: 200,
+                borderRadius: 100,
+                backgroundColor: "gray",
+                marginBottom: 16,
+              }}
+            ></div>
+            <Typography variant="h6" style={{ marginBottom: 16 }}>
+              Upload Profile Image
+            </Typography>
+          </div>
 
-        {/* User Data */}
-        {/* {userData && (
+          {/* User Data */}
+          {/* {userData && (
                     <>
                     <TextField
                         label="Name"
@@ -108,65 +113,73 @@ const Bio = () => {
                     />
                     </>
                 )} */}
-        {/* Add Bio */}
-        <Accordion>
-          <AccordionSummary>
-            <Typography>Bio</Typography>
-          </AccordionSummary>
-          <Typography>{bio}</Typography>
-        </Accordion>
+          {/* Add Bio */}
+          <Accordion>
+            <AccordionSummary>
+              <Typography>Bio</Typography>
+            </AccordionSummary>
+            <Typography>{bio}</Typography>
+          </Accordion>
 
-        {editBio && (
-          <TextField
-            label="+ Add bio"
-            {...register("bio")}
-            errors={Boolean(errors.bio)}
-            helperText={errors.bio?.message}
+          {editBio && (
+            <TextField
+              label="+ Add bio"
+              {...register("bio")}
+              errors={Boolean(errors.bio)}
+              helperText={errors.bio?.message}
+            />
+          )}
+          <Accordion>
+            <AccordionSummary>
+              <Typography>Links</Typography>
+            </AccordionSummary>
+            <Typography>{links}</Typography>
+          </Accordion>
+          {/* Add Link */}
+          {editBio && (
+            <TextField
+              label="+ Add link"
+              {...register("link")}
+              error={Boolean(errors.link)}
+              helperText={errors.link?.message}
+            />
+          )}
+          <Typography>Portfolio</Typography>
+          <Button onClick={() => setIsOpen(true)}>Update Portfolio</Button>
+          {/* Build Your Portfolio */}
+          <Typography
+            label="+ Build your portfolio"
+            multiline
+            minRows={4}
+            {...register("portfolio")}
+            error={Boolean(errors.portfolio)}
+            helperText={errors.portfolio?.message}
+            required
           />
-        )}
-        <Accordion>
-          <AccordionSummary>
-            <Typography>Links</Typography>
-          </AccordionSummary>
-          <Typography>{links}</Typography>
-        </Accordion>
-        {/* Add Link */}
-        {editBio && (
-          <TextField
-            label="+ Add link"
-            {...register("link")}
-            error={Boolean(errors.link)}
-            helperText={errors.link?.message}
-          />
-        )}
-        <Typography>Portfolio</Typography>
-        <Button>Update Portfolio</Button>
-        {/* Build Your Portfolio */}
-        <Typography
-          label="+ Build your portfolio"
-          multiline
-          minRows={4}
-          {...register("portfolio")}
-          error={Boolean(errors.portfolio)}
-          helperText={errors.portfolio?.message}
-          required
-        />
-        {!editBio && (
-          <Button variant="contained" onClick={updateBio}>
-            Edit Profile
+          {!editBio && (
+            <Button variant="contained" onClick={updateBio}>
+              Edit Profile
+            </Button>
+          )}
+
+          <Button
+            color="primary"
+            variant="contained"
+            type="submit"
+            style={{ marginTop: 16 }}
+          >
+            Save Changes
           </Button>
-        )}
-
-        <Button
-          color="primary"
-          variant="contained"
-          type="submit"
-          style={{ marginTop: 16 }}
-        >
-          Save Changes
-        </Button>
-      </Stack>
-    </form>
+        </Stack>
+      </form>
+      {/* create drawer */}
+      <Drawer anchor="bottom" open={isOpen} onClose={() => setIsOpen(false)}>
+        <Paper sx={{ height: "50vh", borderRadius: "20px" }}>
+          <Typography>Some Words</Typography>
+          <ImageUploader />
+        </Paper>
+      </Drawer>
+    </>
   );
 };
 export default Bio;
