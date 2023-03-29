@@ -11,10 +11,9 @@ function App() {
 
   return (
     <>
-    <Login />
-    <Almost />
-    <Bio />
-      
+      {/* <Login /> */}
+      {/* <Almost /> */}
+      <Bio />
     </>
   );
 }
