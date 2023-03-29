@@ -1,5 +1,6 @@
+import React, { useState, useEffect } from "react";
 import AWS from "aws-sdk";
-import { useState } from "react";
+import { Button } from "@mui/material";
 AWS.config.update({
   accessKeyId: "AKIAWEVK55ISCRTPIXFB",
   secretAccessKey: "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",
@@ -7,10 +8,18 @@ AWS.config.update({
   signatureVersion: "v4",
 });
 
-const ImageUploader = () => {
+const ImageUploader = ({
+  editProfilePicture,
+  setEditProfilePicture,
+  setProfilePicture,
+}) => {
   const s3 = new AWS.S3();
   const [imageUrl, setImageUrl] = useState(null);
   const [file, setFile] = useState(null);
+
+  useEffect(() => {
+    setProfilePicture(imageUrl);
+  }, [imageUrl]);
 
   const handleFileSelect = (e) => {
     setFile(e.target.files[0]);
@@ -25,7 +34,14 @@ const ImageUploader = () => {
       Body: file,
     };
     const { Location } = await s3.upload(params).promise();
+    console.log("Location", Location);
     setImageUrl(Location);
+    // setProfilePicture(Location);
+    console.log(editProfilePicture);
+
+    // if (editProfilePicture === true) {
+    //   console.log(imageUrl);
+    // }
     console.log("uploading to s3", Location);
   };
   return (
@@ -33,14 +49,14 @@ const ImageUploader = () => {
       <input type="file" onChange={handleFileSelect} />
       {file && (
         <div style={{ marginTop: "10px" }}>
-          <button onClick={uploadToS3}>Upload</button>
+          <Button onClick={uploadToS3}>Upload</Button>
         </div>
       )}
-      {imageUrl && (
+      {/* {imageUrl && (
         <div style={{ marginTop: "10px" }}>
           <img src={imageUrl} alt="uploaded" />
         </div>
-      )}
+      )} */}
     </div>
   );
 };
