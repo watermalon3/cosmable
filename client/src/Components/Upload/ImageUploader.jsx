@@ -7,7 +7,7 @@ AWS.config.update({
   signatureVersion: "v4",
 });
 
-export default function ImageUploader() {
+const ImageUploader = () => {
   const s3 = new AWS.S3();
   const [imageUrl, setImageUrl] = useState(null);
   const [file, setFile] = useState(null);
@@ -43,4 +43,6 @@ export default function ImageUploader() {
       )}
     </div>
   );
-}
+};
+
+export default ImageUploader;
