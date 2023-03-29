@@ -12,6 +12,8 @@ import {
   Drawer,
   Paper,
   Avatar,
+  ImageList,
+  ImageListItem,
 } from "@mui/material";
 import ImageUploader from "../Upload/ImageUploader";
 import ImageUploaderPortfolio from "../UploadPorfolio/UploadPorfolio";
@@ -24,6 +26,7 @@ const Bio = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [editProfilePicture, setEditProfilePicture] = useState(false);
   const [profilePicture, setProfilePicture] = useState("");
+  const [portfolioPhotos, setPortfolioPhotos] = useState([]);
 
   const {
     register,
@@ -73,7 +76,6 @@ const Bio = () => {
                   setEditProfilePicture(true);
                 }}
               >
-                {" "}
                 Update Profile Picture
               </Button>
             )}
@@ -122,6 +124,13 @@ const Bio = () => {
             />
           )}
           <Typography>Portfolio</Typography>
+          <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
+            {portfolioPhotos.map((item) => (
+              <ImageListItem>
+                <img src={`${item}?w=164&h=164&fit=crop&auto=format`} />
+              </ImageListItem>
+            ))}
+          </ImageList>
           {editBio && (
             <Button variant="contained" onClick={() => setIsOpen(true)}>
               Update Portfolio
@@ -147,9 +156,14 @@ const Bio = () => {
         </Stack>
       </form>
       <Drawer anchor="bottom" open={isOpen} onClose={() => handleClose()}>
-        <Paper sx={{ height: "50vh", borderRadius: "20px" }}>
+        <Paper sx={{ height: "60vh", borderRadius: "20px" }}>
           {!editProfilePicture && <Typography>Portfolio</Typography>}
-          {!editProfilePicture && <ImageUploaderPortfolio />}
+          {!editProfilePicture && (
+            <ImageUploaderPortfolio
+              portfolioPhotos={portfolioPhotos}
+              setPortfolioPhotos={setPortfolioPhotos}
+            />
+          )}
           {editProfilePicture && <Typography>Profile Picture</Typography>}
           {editProfilePicture && (
             <ImageUploader

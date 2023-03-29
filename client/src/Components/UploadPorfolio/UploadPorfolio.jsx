@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AWS from "aws-sdk";
-import { Button } from "@mui/material";
+import { Button, Paper, Typography, Card, Stack } from "@mui/material";
+import { display } from "@mui/system";
 AWS.config.update({
   accessKeyId: "AKIAWEVK55ISCRTPIXFB",
   secretAccessKey: "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",
@@ -8,12 +9,17 @@ AWS.config.update({
   signatureVersion: "v4",
 });
 
-const ImageUploaderPortfolio = ({}) => {
+const ImageUploaderPortfolio = ({ portfolioPhotos, setPortfolioPhotos }) => {
   const s3 = new AWS.S3();
   const [imageUrl, setImageUrl] = useState(null);
   const [file, setFile] = useState(null);
 
-  useEffect(() => {}, [imageUrl]);
+  useEffect(() => {
+    setPortfolioPhotos([...portfolioPhotos, imageUrl]);
+  }, [imageUrl]);
+  useEffect(() => {
+    console.log(portfolioPhotos);
+  }, [setPortfolioPhotos]);
 
   const handleFileSelect = (e) => {
     setFile(e.target.files[0]);
@@ -34,18 +40,28 @@ const ImageUploaderPortfolio = ({}) => {
     console.log("uploading to s3", Location);
   };
   return (
-    <div style={{ marginTop: "150px" }}>
-      <input type="file" onChange={handleFileSelect} />
-      {file && (
-        <div style={{ marginTop: "10px" }}>
-          <Button onClick={uploadToS3}>Upload</Button>
-        </div>
-      )}
-      {imageUrl && (
-        <div style={{ marginTop: "10px" }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <Stack>
+        <input type="file" onChange={handleFileSelect} />
+        {file && (
+          <div style={{ marginTop: "10px" }}>
+            <Button onClick={uploadToS3}>Upload</Button>
+          </div>
+        )}
+        <Paper variant="outlined">
+          <img src={imageUrl} height="150" width="150" />
+        </Paper>
+      </Stack>
+      {/* {imageUrl && (
+		  <div style={{ marginTop: "10px" }}>
           <img src={imageUrl} alt="uploaded" />
-        </div>
-      )}
+		  </div>
+		)} */}
     </div>
   );
 };

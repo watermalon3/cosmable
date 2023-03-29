@@ -5,7 +5,6 @@ import "./App.css";
 
 import Bio from "./Components/Bio/Bio";
 import Login from "./Components/login/Login";
-import Almost from "./Components/Almost/Almost";
 function App() {
   const [count, setCount] = useState(0);
 
