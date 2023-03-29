@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const SALT = Number(process.env.SALT);
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
+const slugify = require("slugify");
 
 router.post("/register", async (req, res) => {
   console.log(req.body)
@@ -15,6 +16,8 @@ router.post("/register", async (req, res) => {
       });
       throw new Error("The user has provided undefined schema values");
     }
+    const userSlug = slugify(name, { lower: true });
+    const profileUrl = `http://cosmable.com/profile/${userSlug}`;
     const newUser = new User({
       userName,
       email,
@@ -24,7 +27,8 @@ router.post("/register", async (req, res) => {
       practiceName,
       zipCode,
       occupation,
-      profilePicture
+      profilePicture,
+      profileUrl
     });
     await newUser.save();
 
@@ -50,7 +54,7 @@ router.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     const foundUser = await User.findOne({ email });
-
+    const userSlug = slugify(foundUser.name, { lower: true });
     if (!foundUser) {
       res.status(404).json({
         message: "User Not Found",
@@ -64,11 +68,9 @@ router.post("/login", async (req, res) => {
           expiresIn: "24h",
         });
 
-        res.status(200).json({
-          message: "User Logged In",
-          foundUser,
-          token,
-        });
+        res.redirect(`/routes/profile/${userSlug}`),
+        foundUser,
+        token
       } else {
         res.status(403).json({
           message: "Invalid Password",
