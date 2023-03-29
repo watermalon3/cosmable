@@ -1,48 +1,75 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
-    Checkbox,
-    FormControlLabel,
-    Button,
-    Stack,
-    TextField,
-    Typography,
+  Checkbox,
+  FormControlLabel,
+  Button,
+  Stack,
+  TextField,
+  Typography,
+  Accordion,
+  AccordionSummary,
 } from "@mui/material";
 
 const Bio = () => {
-    const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState(null);
+  const [editBio, setEditBio] = useState(false);
+  const [bio, setBio] = useState("");
+  const [links, setLinks] = useState("");
+  const [editLinks, setEditLink] = useState(false);
+  //   useEffect(() => {
+  //     fetch("/Users")
+  //       .then((response) => response.json())
+  //       .then((data) => setUserData(data));
+  //   }, []);
 
-    useEffect(() => {
-        fetch("/Users")
-        .then((response) => response.json())
-        .then((data) => setUserData(data));
-    }, []);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
-    const {
-        register,
-        handleSubmit,
-        reset,
-        formState: { errors },
-    } = useForm();
-    
-    const onSubmit = (data) => {
-        console.log(data);
-        reset();
-    };
+  const onSubmit = (data) => {
+    console.log(data);
+    setBio(data.bio ? data.bio : bio);
+    setLinks(data.link ? data.link : links);
+    setEditBio(!bio);
+    reset();
+  };
 
-    return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <Stack spacing={2}>
-                <Typography variant="h3"></Typography>
+  function updateBio() {
+    setEditBio(!editBio);
+  }
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Stack spacing={2}>
+        <Typography variant="h3"></Typography>
 
-                {/* Profile Image Upload */}
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "center"}}>
-                    <div style={{ width: 200, height: 200, borderRadius: 100, backgroundColor: "gray", marginBottom: 16 }}></div>
-                    <Typography variant="h6" style={{ marginBottom: 16 }}>Upload Profile Image</Typography>
-                </div>
+        {/* Profile Image Upload */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              width: 200,
+              height: 200,
+              borderRadius: 100,
+              backgroundColor: "gray",
+              marginBottom: 16,
+            }}
+          ></div>
+          <Typography variant="h6" style={{ marginBottom: 16 }}>
+            Upload Profile Image
+          </Typography>
+        </div>
 
-                {/* User Data */}
-                {userData && (
+        {/* User Data */}
+        {/* {userData && (
                     <>
                     <TextField
                         label="Name"
@@ -80,41 +107,66 @@ const Bio = () => {
                         required
                     />
                     </>
-                )}
-                {/* Add Bio */}
-                <TextField
-                    label="+ Add bio"
-                    {...register("bio")}
-                    errors={Boolean(errors.bio)}
-                    helperText={errors.bio?.message}
-                    required
-                />
+                )} */}
+        {/* Add Bio */}
+        <Accordion>
+          <AccordionSummary>
+            <Typography>Bio</Typography>
+          </AccordionSummary>
+          <Typography>{bio}</Typography>
+        </Accordion>
 
-                {/* Add Link */}
-                <TextField
-                    label="+ Add link"
-                    {...register("link")}
-                    error={Boolean(errors.link)}
-                    helperText={errors.link?.message}
-                    required
-                />
+        {editBio && (
+          <TextField
+            label="+ Add bio"
+            {...register("bio")}
+            errors={Boolean(errors.bio)}
+            helperText={errors.bio?.message}
+          />
+        )}
+        <Accordion>
+          <AccordionSummary>
+            <Typography>Links</Typography>
+          </AccordionSummary>
+          <Typography>{links}</Typography>
+        </Accordion>
+        {/* Add Link */}
+        {editBio && (
+          <TextField
+            label="+ Add link"
+            {...register("link")}
+            error={Boolean(errors.link)}
+            helperText={errors.link?.message}
+          />
+        )}
+        <Typography>Portfolio</Typography>
+        <Button>Update Portfolio</Button>
+        {/* Build Your Portfolio */}
+        <Typography
+          label="+ Build your portfolio"
+          multiline
+          minRows={4}
+          {...register("portfolio")}
+          error={Boolean(errors.portfolio)}
+          helperText={errors.portfolio?.message}
+          required
+        />
+        {!editBio && (
+          <Button variant="contained" onClick={updateBio}>
+            Edit Profile
+          </Button>
+        )}
 
-                {/* Build Your Portfolio */}
-                <Typography 
-                    label="+ Build your portfolio"
-                    multiline
-                    minRows={4}
-                    {...register("portfolio")}
-                    error={Boolean(errors.portfolio)}
-                    helperText={errors.portfolio?.message}
-                    required
-                />
-
-                <Button color="primary" variant="contained" type="submit" style={{ marginTop: 16}}>
-                    Save Changes
-                </Button>
-            </Stack>
-        </form>
-    )
-}
+        <Button
+          color="primary"
+          variant="contained"
+          type="submit"
+          style={{ marginTop: 16 }}
+        >
+          Save Changes
+        </Button>
+      </Stack>
+    </form>
+  );
+};
 export default Bio;
