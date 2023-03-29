@@ -18,14 +18,17 @@ const Bio = () => {
   const [userData, setUserData] = useState(null);
   const [editBio, setEditBio] = useState(false);
   const [bio, setBio] = useState("");
-  const [links, setLinks] = useState("");
-  const [editLinks, setEditLink] = useState(false);
+  const [links, setLinks] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   //   useEffect(() => {
   //     fetch("/Users")
   //       .then((response) => response.json())
   //       .then((data) => setUserData(data));
   //   }, []);
+
+  useEffect(() => {
+    console.log("links", links);
+  }, [links]);
 
   const {
     register,
@@ -37,7 +40,11 @@ const Bio = () => {
   const onSubmit = (data) => {
     console.log(data);
     setBio(data.bio ? data.bio : bio);
-    setLinks(data.link ? data.link : links);
+    if (data.link) {
+      console.log("links", links);
+
+      setLinks([...links, data.link]);
+    }
     setEditBio(false);
     reset();
   };
@@ -123,6 +130,7 @@ const Bio = () => {
 
           {editBio && (
             <TextField
+              fullWidth
               label="+ Add bio"
               {...register("bio")}
               errors={Boolean(errors.bio)}
@@ -133,7 +141,14 @@ const Bio = () => {
             <AccordionSummary>
               <Typography>Links</Typography>
             </AccordionSummary>
-            <Typography>{links}</Typography>
+            <Stack>
+              {/* <Typography>{links}</Typography> */}
+              {links.map((link) => (
+                <Button href={link} target="_blank" component="a">
+                  {link}
+                </Button>
+              ))}
+            </Stack>
           </Accordion>
           {/* Add Link */}
           {editBio && (
@@ -172,7 +187,6 @@ const Bio = () => {
           </Button>
         </Stack>
       </form>
-      {/* create drawer */}
       <Drawer anchor="bottom" open={isOpen} onClose={() => setIsOpen(false)}>
         <Paper sx={{ height: "50vh", borderRadius: "20px" }}>
           <Typography>Some Words</Typography>
