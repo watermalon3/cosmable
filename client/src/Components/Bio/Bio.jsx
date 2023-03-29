@@ -11,6 +11,7 @@ import {
   AccordionSummary,
   Drawer,
   Paper,
+  Avatar,
 } from "@mui/material";
 import ImageUploader from "../Upload/ImageUploader";
 
@@ -20,15 +21,8 @@ const Bio = () => {
   const [bio, setBio] = useState("");
   const [links, setLinks] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  //   useEffect(() => {
-  //     fetch("/Users")
-  //       .then((response) => response.json())
-  //       .then((data) => setUserData(data));
-  //   }, []);
-
-  useEffect(() => {
-    console.log("links", links);
-  }, [links]);
+  const [editProfilePicture, setEditProfilePicture] = useState(false);
+  const [profilePicture, setProfilePicture] = useState("");
 
   const {
     register,
@@ -45,8 +39,14 @@ const Bio = () => {
 
       setLinks([...links, data.link]);
     }
+    console.log(profilePicture);
     setEditBio(false);
     reset();
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+    setEditProfilePicture(false);
   };
 
   function updateBio() {
@@ -56,9 +56,6 @@ const Bio = () => {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={2}>
-          <Typography variant="h3"></Typography>
-
-          {/* Profile Image Upload */}
           <div
             style={{
               display: "flex",
@@ -66,60 +63,24 @@ const Bio = () => {
               alignItems: "center",
             }}
           >
-            <div
-              style={{
-                width: 200,
-                height: 200,
-                borderRadius: 100,
-                backgroundColor: "gray",
-                marginBottom: 16,
-              }}
-            ></div>
-            <Typography variant="h6" style={{ marginBottom: 16 }}>
-              Upload Profile Image
-            </Typography>
+            <Avatar sx={{ width: 150, height: 150 }} src={profilePicture} />
+            {editBio && (
+              <Button
+                variant="contained"
+                onClick={() => {
+                  setIsOpen(true);
+                  setEditProfilePicture(true);
+                }}
+              >
+                {" "}
+                Update Profile Picture
+              </Button>
+            )}
+
+            <Typography variant="h6"> User Name, NP-C</Typography>
+            <Typography variant="h6">Location</Typography>
           </div>
 
-          {/* User Data */}
-          {/* {userData && (
-                    <>
-                    <TextField
-                        label="Name"
-                        {...register("name")}
-                        defaultValue={userData.name}
-                        error={Boolean(errors.name)}
-                        helperText={errors.name?.message}
-                    required
-                    />
-                    <TextField
-                        label="Title or designation, i.e. BSN"
-                        type="title"
-                        {...register("title")}
-                        defaultValue={userData.title}
-                        errors={Boolean(errors.title)}
-                        helperText={errors.title?.message}
-                        required
-                    />
-                    <TextField
-                        label="Your practice name"
-                        type="practiceName"
-                        {...register("practiceName")}
-                        defaultValue={userData.practiceName}
-                        error={Boolean(errors.practiceName)}
-                        helperText={errors.practiceName?.message}
-                        required
-                    />
-                    <TextField
-                        label="Your practice zipcode"
-                        type="zipcode"
-                        {...register("zipcode")}
-                        defaultValue={userData.zipcode}
-                        error={Boolean(errors.zipcode)}
-                        helperText={errors.zipcode?.message}
-                        required
-                    />
-                    </>
-                )} */}
           {/* Add Bio */}
           <Accordion>
             <AccordionSummary>
@@ -144,7 +105,7 @@ const Bio = () => {
             <Stack>
               {/* <Typography>{links}</Typography> */}
               {links.map((link) => (
-                <Button href={link} target="_blank" component="a">
+                <Button href={link} target="_blank" variant="contained">
                   {link}
                 </Button>
               ))}
@@ -160,37 +121,39 @@ const Bio = () => {
             />
           )}
           <Typography>Portfolio</Typography>
-          <Button onClick={() => setIsOpen(true)}>Update Portfolio</Button>
+          {editBio && (
+            <Button variant="contained" onClick={() => setIsOpen(true)}>
+              Update Portfolio
+            </Button>
+          )}
           {/* Build Your Portfolio */}
-          <Typography
-            label="+ Build your portfolio"
-            multiline
-            minRows={4}
-            {...register("portfolio")}
-            error={Boolean(errors.portfolio)}
-            helperText={errors.portfolio?.message}
-            required
-          />
           {!editBio && (
             <Button variant="contained" onClick={updateBio}>
               Edit Profile
             </Button>
           )}
 
-          <Button
-            color="primary"
-            variant="contained"
-            type="submit"
-            style={{ marginTop: 16 }}
-          >
-            Save Changes
-          </Button>
+          {editBio && (
+            <Button
+              color="primary"
+              variant="contained"
+              type="submit"
+              style={{ marginTop: 16 }}
+            >
+              Save Changes
+            </Button>
+          )}
         </Stack>
       </form>
-      <Drawer anchor="bottom" open={isOpen} onClose={() => setIsOpen(false)}>
+      <Drawer anchor="bottom" open={isOpen} onClose={() => handleClose()}>
         <Paper sx={{ height: "50vh", borderRadius: "20px" }}>
-          <Typography>Some Words</Typography>
-          <ImageUploader />
+          {!editProfilePicture && <Typography>Portfolio</Typography>}
+          {editProfilePicture && <Typography>Profile Picture</Typography>}
+          <ImageUploader
+            editProfilePicture={editProfilePicture}
+            setEditProfilePicture={setEditProfilePicture}
+            setProfilePicture={setProfilePicture}
+          />
         </Paper>
       </Drawer>
     </>
