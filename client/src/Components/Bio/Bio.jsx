@@ -14,6 +14,7 @@ import {
   Avatar,
 } from "@mui/material";
 import ImageUploader from "../Upload/ImageUploader";
+import ImageUploaderPortfolio from "../UploadPorfolio/UploadPorfolio";
 
 const Bio = () => {
   const [userData, setUserData] = useState(null);
@@ -94,8 +95,8 @@ const Bio = () => {
               fullWidth
               label="+ Add bio"
               {...register("bio")}
-              errors={Boolean(errors.bio)}
-              helperText={errors.bio?.message}
+              //   errors={Boolean(errors.bio)}
+              //   helperText={errors.bio?.message}
             />
           )}
           <Accordion>
@@ -116,8 +117,8 @@ const Bio = () => {
             <TextField
               label="+ Add link"
               {...register("link")}
-              error={Boolean(errors.link)}
-              helperText={errors.link?.message}
+              //   error={Boolean(errors.link)}
+              //   helperText={errors.link?.message}
             />
           )}
           <Typography>Portfolio</Typography>
@@ -148,12 +149,15 @@ const Bio = () => {
       <Drawer anchor="bottom" open={isOpen} onClose={() => handleClose()}>
         <Paper sx={{ height: "50vh", borderRadius: "20px" }}>
           {!editProfilePicture && <Typography>Portfolio</Typography>}
+          {!editProfilePicture && <ImageUploaderPortfolio />}
           {editProfilePicture && <Typography>Profile Picture</Typography>}
-          <ImageUploader
-            editProfilePicture={editProfilePicture}
-            setEditProfilePicture={setEditProfilePicture}
-            setProfilePicture={setProfilePicture}
-          />
+          {editProfilePicture && (
+            <ImageUploader
+              editProfilePicture={editProfilePicture}
+              setEditProfilePicture={setEditProfilePicture}
+              setProfilePicture={setProfilePicture}
+            />
+          )}
         </Paper>
       </Drawer>
     </>
