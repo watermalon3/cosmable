@@ -19,8 +19,19 @@ const Login = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack spacing={2}>
-        <Typography className="create-header" variant="h3">
+      <Stack spacing={2} sx={{ paddingTop: "70px" }}>
+        <Typography
+          className="create-header"
+          variant="h3"
+          sx={{
+            fontFamily: "Playfair Display",
+            fontWeight: 400,
+            fontSize: "30px",
+            lineHeight: "39.99px",
+            marginBottom: "20px",
+            textAlign: "left",
+          }}
+        >
           Create your account
         </Typography>
         <TextField
@@ -67,15 +78,30 @@ const Login = () => {
           error={Boolean(errors.confirmPassword)}
           helperText={errors.confirmPassword?.message}
         />
-        <Typography className="create-header" variant="h6">
-          By clicking, you agree to the Terms of Service & Privacy Policy for Cosmable.
+        <Typography
+          className="create-header"
+          variant="h6"
+          sx={{
+            textAlign: "left",
+            fontFamily: "Playfair Display",
+          }}
+        >
+          By clicking, you agree to the Terms of Service & Privacy Policy for
+          Cosmable.
         </Typography>
-        
+
         <Button
           className="btn"
           color="success"
           variant="contained"
           type="submit"
+          sx={{
+            height: "40px",
+            width: "120px",
+            backgroundColor: "#5A5252",
+            padding: "2px",
+            fontFamily: "Playfair Display",
+          }}
         >
           join for Free
         </Button>

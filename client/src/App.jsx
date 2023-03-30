@@ -1,19 +1,25 @@
 import "./App.css";
+import "./fonts/PlayfairDisplay-Regular.ttf"
 import ButtonAppBar from "./Components/Create/header/HeaderNav"
 import HomePage from "./Components/home/HomePage";
-import LoginPage from "./Components/loginHome/HomeLogin";
 import Bio from "./Components/Bio/Bio";
 import Almost from "./Components/Almost/Almost";
+import Login from "./Components/login/login";
+import HomeLogin from "./Components/loginHome/HomeLogin";
+
+
 
 function App() {
   
   return (
     <>
-      <ButtonAppBar/>
+    
+    <ButtonAppBar isHomePage={true}/>
+    <HomeLogin/>
       {/* <Almost/> */}
       {/* <HomePage/> */}
-      <LoginPage/>
-      <Bio />
+      {/* <Bio /> */}
+      {/* <Login/> */}
       
     </>
   );

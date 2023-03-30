@@ -28,15 +28,17 @@ export default function ButtonAppBar({ isHomePage }) {
           position: "fixed",
           top: 0,
           left: 0,
-          backgroundColor: isHomePage
-            ? "transparent"
-            : "#fff",
-          color: "#5A5252",
+          backgroundColor: isHomePage ? "transparent" : "#fff",
+          color: "black",
           borderBottom: "2px solid #5A5252",
         }}
       >
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography variant="h3" component="div" sx={{ marginLeft: "0" }}>
+          <Typography
+            variant="h3"
+            component="div"
+            sx={{ marginLeft: "0", fontFamily: "Playfair Display" }}
+          >
             Cosmable
           </Typography>
           <IconButton
@@ -47,7 +49,7 @@ export default function ButtonAppBar({ isHomePage }) {
             aria-controls="menu-appbar"
             aria-haspopup="true"
             onClick={handleClick}
-            sx={{ ml: 2, color: "#5A5252" }}
+            sx={{ ml: 2, color: "Black" }}
           >
             <MenuIcon />
           </IconButton>
@@ -68,33 +70,88 @@ export default function ButtonAppBar({ isHomePage }) {
           >
             {isHomePage
               ? [
-                  <MenuItem key="about" onClick={handleClose}>
+                  <MenuItem
+                    key="about"
+                    onClick={handleClose}
+                    sx={{
+                      fontFamily: "Playfair Display",
+                    }}
+                  >
                     About
                   </MenuItem>,
-                  <MenuItem key="contact" onClick={handleClose}>
+                  <MenuItem
+                    key="contact"
+                    onClick={handleClose}
+                    sx={{
+                      fontFamily: "Playfair Display",
+                    }}
+                  >
                     Contact
                   </MenuItem>,
-                ] : [
-                  <MenuItem key="update" onClick={handleClose}>
+                ]
+              : [
+                  <MenuItem
+                    key="update"
+                    onClick={handleClose}
+                    sx={{
+                      fontFamily: "Playfair Display",
+                    }}
+                  >
                     Update profile
                   </MenuItem>,
-                  <MenuItem key="notifications" onClick={handleClose}>
+                  <MenuItem
+                    key="notifications"
+                    onClick={handleClose}
+                    sx={{
+                      fontFamily: "Playfair Display",
+                    }}
+                  >
                     Notifications
                   </MenuItem>,
-                  <MenuItem key="invite" onClick={handleClose}>
+                  <MenuItem
+                    key="invite"
+                    onClick={handleClose}
+                    sx={{
+                      fontFamily: "Playfair Display",
+                    }}
+                  >
                     Invite friends
                   </MenuItem>,
-                  <MenuItem key="password" onClick={handleClose}>
+                  <MenuItem
+                    key="password"
+                    onClick={handleClose}
+                    sx={{
+                      fontFamily: "Playfair Display",
+                    }}
+                  >
                     Password
                   </MenuItem>,
-                  <MenuItem key="feedback" onClick={handleClose}>
+                  <MenuItem
+                    key="feedback"
+                    onClick={handleClose}
+                    sx={{
+                      fontFamily: "Playfair Display",
+                    }}
+                  >
                     Share Feedback
                   </MenuItem>,
                   <hr key="divider" />,
-                  <MenuItem key="help" onClick={handleClose}>
+                  <MenuItem
+                    key="help"
+                    onClick={handleClose}
+                    sx={{
+                      fontFamily: "Playfair Display",
+                    }}
+                  >
                     Help
                   </MenuItem>,
-                  <MenuItem key="about2" onClick={handleClose}>
+                  <MenuItem
+                    key="about2"
+                    onClick={handleClose}
+                    sx={{
+                      fontFamily: "Playfair Display",
+                    }}
+                  >
                     About
                   </MenuItem>,
                 ]}
