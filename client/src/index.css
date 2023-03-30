@@ -1,6 +1,5 @@
-
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  
   line-height: 1.5;
   font-weight: 400;
 
@@ -14,16 +13,29 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
-* {
-  margin: 0;
-  margin-left: 0;
+
+@font-face {
+  font-family: "Regular";
+  src: local("PlayfairDisplay-Regular"),
+    url("./fonts/PlayfairDisplay-Regular.ttf") format("truetype");
 }
-/* body {
+body {
   margin: 0;
+  padding: 0;
+  font-family: "Playfair Display", serif;
+}
+
+body {
+  background-image: url(/test.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-} */
+  height: 100vh;
+  width: 100vw;
+  padding-top: 180px;
+  filter: grayscale(50%);
+  -moz-filter: grayscale(30%);
 
-
+  
+}

@@ -1,0 +1,8 @@
+@font-face {
+  font-family: "Playfair Display";
+  src: url(../../fonts/PlayfairDisplay-Regular.ttf);
+}
+
+.emailField {
+  font-family: "Playfair Display";
+}
