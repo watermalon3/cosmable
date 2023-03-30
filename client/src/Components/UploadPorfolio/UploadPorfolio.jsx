@@ -17,9 +17,7 @@ const ImageUploaderPortfolio = ({ portfolioPhotos, setPortfolioPhotos }) => {
   useEffect(() => {
     setPortfolioPhotos([...portfolioPhotos, imageUrl]);
   }, [imageUrl]);
-  useEffect(() => {
-    console.log(portfolioPhotos);
-  }, [setPortfolioPhotos]);
+  useEffect(() => {}, [setPortfolioPhotos]);
 
   const handleFileSelect = (e) => {
     setFile(e.target.files[0]);
