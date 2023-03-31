@@ -3,8 +3,8 @@ import AWS from "aws-sdk";
 import { Button, Paper, Typography, Card, Stack } from "@mui/material";
 import { display } from "@mui/system";
 AWS.config.update({
-  accessKeyId: "AKIAWEVK55ISCRTPIXFB",
-  secretAccessKey: "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",
+  accessKeyId: import.meta.env.VITE_ACCESS_KEY,
+  secretAccessKey: import.meta.env.VITE_ACCESS_SECRET_KEY,
   region: "us-east-1",
   signatureVersion: "v4",
 });
@@ -27,7 +27,7 @@ const ImageUploaderPortfolio = ({ portfolioPhotos, setPortfolioPhotos }) => {
       return;
     }
     const params = {
-      Bucket: "cosmable",
+      Bucket: import.meta.env.VITE_AWS_BUCKET,
       Key: `${Date.now()}.${file.name}`,
       Body: file,
     };

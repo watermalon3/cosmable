@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import AWS from "aws-sdk";
 import { Button } from "@mui/material";
 AWS.config.update({
-  accessKeyId: "AKIAWEVK55ISCRTPIXFB",
-  secretAccessKey: "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",
+  accessKeyId: import.meta.env.VITE_ACCESS_KEY,
+  secretAccessKey: import.meta.env.VITE_ACCESS_SECRET_KEY,
   region: "us-east-1",
   signatureVersion: "v4",
 });
@@ -29,7 +29,7 @@ const ImageUploader = ({
       return;
     }
     const params = {
-      Bucket: "cosmable",
+      Bucket: import.meta.env.VITE_AWS_BUCKET,
       Key: `${Date.now()}.${file.name}`,
       Body: file,
     };
