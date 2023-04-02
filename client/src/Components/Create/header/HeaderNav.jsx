@@ -31,6 +31,7 @@ export default function ButtonAppBar({ isHomePage }) {
           backgroundColor: isHomePage ? "transparent" : "#fff",
           color: "black",
           borderBottom: "2px solid #5A5252",
+          boxShadow: "none"
         }}
       >
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
