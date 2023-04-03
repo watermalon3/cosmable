@@ -7,9 +7,10 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
+import Button from "@mui/material/Button";
 import "./nav.css";
 
-export default function ButtonAppBar({ isHomePage }) {
+export default function ButtonAppBar({ isHomePage, onLoginClick }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -41,6 +42,13 @@ export default function ButtonAppBar({ isHomePage }) {
           >
             Cosmable
           </Typography>
+          <Button
+              variant="outlined"
+              sx={{ color: "black", borderColor: "black", marginRight: "16px" }}
+              onClick={onLoginClick}
+            >
+              Login
+            </Button>
           <IconButton
             size="large"
             edge="end"
