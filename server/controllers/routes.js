@@ -47,7 +47,7 @@ router.post("/createprofile", async (req, res) => {
   }
 });
 
-router.put("updateProfile/:id", async (req, res) => {
+router.put("/updateProfile/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const body = req.body;
