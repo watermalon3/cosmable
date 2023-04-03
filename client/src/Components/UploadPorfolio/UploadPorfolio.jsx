@@ -31,17 +31,37 @@ const ImageUploaderPortfolio = ({
   const [pronoun, setPronoun] = useState("");
   const [concern, setConcern] = useState("");
   const [procedure, setProcedure] = useState("");
-  const [flag, setFlag] = useState(false);
+  const [save, setSave] = useState(false);
 
-  useEffect(() => {
-    setPortfolioPhotos([
-      ...portfolioPhotos,
-      {
-        photoLinks: imageUrl,
+  const portfolioSend = (body) => {
+    console.log(body);
+    let profileId = "642b251e5fce23fc3b4068de";
+    fetch(`http://localhost:4000/routes/updateProfile/${profileId}`, {
+      method: "PUT",
+      body: JSON.stringify(body),
+      headers: new Headers({
+        "Content-Type": "application/json",
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // TODO: set response to display images?
+        // call setIsOpen(false)?
+        console.log(data);
+      })
+      .catch((errors) => console.log(errors));
+  };
+
+  const handleSave = () => {
+    portfolioSend({
+      photos: {
+        images: imageUrl,
         tags: [ageRange, pronoun, concern, procedure],
       },
-    ]);
-  }, [flag]);
+    });
+    // TODO: only call this if there is a successful response - might need to move to portfolioSend()
+    setIsOpen(false);
+  };
 
   const handleFileSelect = (e) => {
     setFile(e.target.files[0]);
@@ -189,22 +209,8 @@ const ImageUploaderPortfolio = ({
             </Select>
           </FormControl>
         </Stack>
-        <Button
-          onClick={() => {
-            // setFlag(!flag);
-            setIsOpen(false);
-            // TODO make the call to the endpoint to save the
-          }}
-        >
-          Save
-        </Button>
+        {imageUrl && <Button onClick={() => handleSave()}>Save</Button>}
       </Stack>
-      {/* </FormControl> */}
-      {/* {imageUrl && (
-        <div style={{ marginTop: "10px" }}>
-        <img src={imageUrl} alt="uploaded" />
-        </div>
-      )} */}
     </div>
   );
 };
