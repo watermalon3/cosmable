@@ -9,7 +9,7 @@ import {
   Button,
 } from "@mui/material";
 
-const ProfileDetails = () => {
+const Almost = () => {
   const {
     register,
     handleSubmit,
@@ -57,7 +57,7 @@ const ProfileDetails = () => {
           {...register("name")}
           error={Boolean(errors.name)}
           helperText={errors.name?.message}
-          inputProps={{ style: { fontFamily: "'Playfair Display', serif" } }}
+          
           sx={{
             width: { xs: "100%", md: "66.7%" },
           }}
@@ -75,7 +75,7 @@ const ProfileDetails = () => {
           {...register("title")}
           error={Boolean(errors.title)}
           helperText={errors.title?.message}
-          inputProps={{ style: { fontFamily: "'Playfair Display', serif" } }}
+          
           sx={{
             width: { xs: "100%", md: "66.7%" },
           }}
@@ -93,7 +93,7 @@ const ProfileDetails = () => {
           {...register("practiceName")}
           error={Boolean(errors.practiceName)}
           helperText={errors.practiceName?.message}
-          inputProps={{ style: { fontFamily: "'Playfair Display', serif" } }}
+          
           sx={{
             width: { xs: "100%", md: "66.7%" },
           }}
@@ -112,7 +112,6 @@ const ProfileDetails = () => {
           {...register("zipcode")}
           error={Boolean(errors.zipcode)}
           helperText={errors.zipcode?.message}
-          inputProps={{ style: { fontFamily: "'Playfair Display', serif" } }}
           sx={{
             width: { xs: "100%", md: "66.7%" },
           }}
@@ -196,7 +195,7 @@ const ProfileDetails = () => {
     </form>
   );
 };
-export default ProfileDetails;
+export default Almost;
 
 
 

@@ -25,7 +25,7 @@ body {
   font-family: "Playfair Display", serif;
 }
 
-/* body {
+body {
   background-image: url(/test.jpg);
   background-size: cover;
   background-repeat: no-repeat;
@@ -38,4 +38,4 @@ body {
   -moz-filter: grayscale(30%);
 
   
-} */
+}

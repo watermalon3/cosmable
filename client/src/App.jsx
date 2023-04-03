@@ -3,20 +3,19 @@ import "./fonts/PlayfairDisplay-Regular.ttf";
 import ButtonAppBar from "./Components/Create/header/HeaderNav";
 import HomePage from "./Components/home/HomePage";
 import Bio from "./Components/Bio/Bio";
-import ProfileDetails from "./Components/ProfileDetails/ProfileDetails";
+import Almost from "./Components/Almost/Almost";
 import Login from "./Components/login/login";
 import HomeLogin from "./Components/loginHome/HomeLogin";
-import Routes from "./Components/Routes/Routes";
+
 function App() {
   return (
     <>
-      <ButtonAppBar />
+      <ButtonAppBar isHomePage={true} />
       <HomeLogin />
-      <Bio />
-      <Login />
-      <HomePage isHomePage={true} />    
-       <ProfileDetails />
-       <Routes />
+      {/* <Almost/> */}
+      {/* <HomePage/> */}
+      {/* <Bio /> */}
+      {/* <Login/> */}
     </>
   );
 }
