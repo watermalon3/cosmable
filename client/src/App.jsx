@@ -11,8 +11,6 @@ import Login from "./Components/login/login";
 import HomeLogin from "./Components/loginHome/HomeLogin";
 
 function App() {
- 
-
   return (
     <Router>
       <div className="App">

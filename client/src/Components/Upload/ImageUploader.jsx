@@ -17,6 +17,25 @@ const ImageUploader = ({
   const [imageUrl, setImageUrl] = useState(null);
   const [file, setFile] = useState(null);
 
+  const portfolioSend = (body) => {
+    console.log(body);
+    let profileId = "642b251e5fce23fc3b4068de";
+    fetch(`http://localhost:4000/routes/updateProfile/${profileId}`, {
+      method: "PUT",
+      body: JSON.stringify(body),
+      headers: new Headers({
+        "Content-Type": "application/json",
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // TODO: set response to display images?
+        // call setIsOpen(false)?
+        console.log(data);
+      })
+      .catch((errors) => console.log(errors));
+  };
+
   useEffect(() => {
     setProfilePicture(imageUrl);
   }, [imageUrl]);
@@ -52,11 +71,7 @@ const ImageUploader = ({
           <Button onClick={uploadToS3}>Upload</Button>
         </div>
       )}
-      {/* {imageUrl && (
-        <div style={{ marginTop: "10px" }}>
-          <img src={imageUrl} alt="uploaded" />
-        </div>
-      )} */}
+      <Button> Save</Button>
     </div>
   );
 };
