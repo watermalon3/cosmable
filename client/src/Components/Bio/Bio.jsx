@@ -14,6 +14,7 @@ import {
   Avatar,
   ImageList,
   ImageListItem,
+  Box,
 } from "@mui/material";
 import ImageUploader from "../Upload/ImageUploader";
 import ImageUploaderPortfolio from "../UploadPorfolio/UploadPorfolio";
@@ -37,12 +38,16 @@ const Bio = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    setBio(data.bio ? data.bio : bio);
-    if (data.link) {
-      console.log("links", links);
-
-      setLinks([...links, data.link]);
+    if (data.link && data.linkName) {
+      setLinks([
+        ...links,
+        {
+          link: data.link,
+          linkName: data.linkName,
+        },
+      ]);
     }
+    setBio(data.bio ? data.bio : bio);
     console.log(profilePicture);
     setEditBio(false);
     reset();
@@ -108,13 +113,21 @@ const Bio = () => {
             <Stack>
               {/* <Typography>{links}</Typography> */}
               {links.map((link) => (
-                <Button href={link} target="_blank" variant="contained">
-                  {link}
+                <Button href={link.link} target="_blank" variant="contained">
+                  {link.linkName}
                 </Button>
               ))}
             </Stack>
           </Accordion>
           {/* Add Link */}
+          {editBio && (
+            <TextField
+              label="+ name"
+              {...register("linkName")}
+              //   error={Boolean(errors.link)}
+              //   helperText={errors.link?.message}
+            />
+          )}
           {editBio && (
             <TextField
               label="+ Add link"
@@ -125,11 +138,16 @@ const Bio = () => {
           )}
           <Typography>Portfolio</Typography>
           <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
-            {portfolioPhotos.map((item) => (
-              <ImageListItem>
-                <img src={`${item}?w=164&h=164&fit=crop&auto=format`} />
-              </ImageListItem>
-            ))}
+            {portfolioPhotos.map((item) => {
+              console.log("item", item);
+              return (
+                <ImageListItem>
+                  <img
+                    src={`${item.photoLinks}?w=164&h=164&fit=crop&auto=format`}
+                  />
+                </ImageListItem>
+              );
+            })}
           </ImageList>
           {editBio && (
             <Button variant="contained" onClick={() => setIsOpen(true)}>
@@ -155,13 +173,20 @@ const Bio = () => {
           )}
         </Stack>
       </form>
-      <Drawer anchor="bottom" open={isOpen} onClose={() => handleClose()}>
-        <Paper sx={{ height: "60vh", borderRadius: "20px" }}>
+      <Drawer
+        anchor="bottom"
+        // position="bottom"
+        open={isOpen}
+        onClose={() => handleClose()}
+        PaperProps={{ sx: { height: "fit-content" } }}
+      >
+        <Box>
           {!editProfilePicture && <Typography>Portfolio</Typography>}
           {!editProfilePicture && (
             <ImageUploaderPortfolio
               portfolioPhotos={portfolioPhotos}
               setPortfolioPhotos={setPortfolioPhotos}
+              setIsOpen={setIsOpen}
             />
           )}
           {editProfilePicture && <Typography>Profile Picture</Typography>}
@@ -172,7 +197,7 @@ const Bio = () => {
               setProfilePicture={setProfilePicture}
             />
           )}
-        </Paper>
+        </Box>
       </Drawer>
     </>
   );
