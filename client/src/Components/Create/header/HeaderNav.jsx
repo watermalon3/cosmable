@@ -9,6 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import Button from "@mui/material/Button";
 import "./nav.css";
+import { Link } from "react-router-dom";
 
 export default function ButtonAppBar({ isHomePage, onLoginClick }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -42,13 +43,16 @@ export default function ButtonAppBar({ isHomePage, onLoginClick }) {
           >
             Cosmable
           </Typography>
+          <Box>
+          <Link to="/home-login">
           <Button
-              variant="outlined"
-              sx={{ color: "black", borderColor: "black", marginRight: "16px" }}
+              variant="outlined" edge="end"
+              sx={{ color: "black", borderColor: "transparent", fontFamily: "Playfair Display", marginRight: "16px", fontWeight: "bold" }}
               onClick={onLoginClick}
             >
               Login
             </Button>
+            </Link>
           <IconButton
             size="large"
             edge="end"
@@ -61,6 +65,7 @@ export default function ButtonAppBar({ isHomePage, onLoginClick }) {
           >
             <MenuIcon />
           </IconButton>
+          </Box>
           <Menu
             id="menu-appbar"
             anchorEl={anchorEl}
