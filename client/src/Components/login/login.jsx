@@ -34,24 +34,52 @@ const Login = () => {
         >
           Create your account
         </Typography>
+        
         <TextField
-          label="Username"
-          {...register("userName")}
-          error={Boolean(errors.userName)}
-          helperText={errors.userName?.message}
-          required
-        />
+        label={
+          <Typography
+            variant="h6"
+            sx={{ fontFamily: "'Playfair Display', serif" }}
+          >
+            Username
+          </Typography>
+        }
+        {...register("userName")}
+        error={Boolean(errors.name)}
+        helperText={errors.name?.message}
+        inputProps={{ style: { fontFamily: "'Playfair Display', serif" } }}
+        sx={{
+          width: { xs: "100%", md: "66.7%" },
+        }}
+      />
+      <TextField
+      label={
+        <Typography
+          variant="h6"
+          sx={{ fontFamily: "'Playfair Display', serif" }}
+        >
+          Email
+        </Typography>
+      }
+      {...register("email")}
+      error={Boolean(errors.name)}
+      helperText={errors.name?.message}
+      inputProps={{ style: { fontFamily: "'Playfair Display', serif" } }}
+      sx={{
+        width: { xs: "100%", md: "66.7%" },
+      }}
+    />
         <TextField
-          label="Email"
-          type="email"
-          {...register("email")}
-          error={Boolean(errors.email)}
-          helperText={errors.email?.message}
-          required
-        />
-        <TextField
-          label="Password"
+          label={
+            <Typography
+            variant="h6"
+            sx={{ fontFamily: "'Playfair Display', serif" }}
+            >
+            Password
+            </Typography>
+          }
           type="password"
+         
           {...register("password", {
             validate: (value) => value === watch("confirmPassword"),
             minLength: 8,
@@ -64,12 +92,20 @@ const Login = () => {
                   "Password must be at least 8 characters long") ||
                 errors.password?.message
           }
-          required
+          inputProps={{ style: { fontFamily: "'Playfair Display', serif" } }}
+          
         />
         <TextField
-          label="Confirm Password"
-          type="password"
-          required
+          label={
+            <Typography
+            variant="h6"
+            sx={{ fontFamily: "'Playfair Display', serif" }} 
+            >
+            Confirm Password
+            </Typography>
+          }
+          type="password"  
+          
           {...register("confirmPassword", {
             validate: (value) =>
               value === watch("password") || "The passwords do not match",
@@ -77,6 +113,7 @@ const Login = () => {
           })}
           error={Boolean(errors.confirmPassword)}
           helperText={errors.confirmPassword?.message}
+          inputProps={{ style: { fontFamily: "'Playfair Display', serif" } }}
         />
         <Typography
           className="create-header"
@@ -101,9 +138,10 @@ const Login = () => {
             backgroundColor: "#5A5252",
             padding: "2px",
             fontFamily: "Playfair Display",
+            textTransform: "none"
           }}
         >
-          join for Free
+          Join for Free
         </Button>
       </Stack>
     </form>
