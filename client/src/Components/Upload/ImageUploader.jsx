@@ -71,6 +71,7 @@ const ImageUploader = ({
           <Button onClick={uploadToS3}>Upload</Button>
         </div>
       )}
+      <Button> Save</Button>
     </div>
   );
 };
