@@ -54,7 +54,7 @@ router.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     const foundUser = await User.findOne({ email });
-    const userSlug = slugify(foundUser.name, { lower: true });
+    const userSlug = slugify(foundUser.userName, { lower: true });
     if (!foundUser) {
       res.status(404).json({
         message: "User Not Found",

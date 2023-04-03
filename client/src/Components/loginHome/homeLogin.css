@@ -6,3 +6,13 @@
 .emailField {
   font-family: "Playfair Display";
 }
+
+.background-text {
+  display: none;
+}
+
+@media screen and (min-width: 1024px) {
+  .background-text {
+    display: block;
+  }
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { makeStyles } from '@mui/styles';
 import {
   Typography,
   Stack,
@@ -9,7 +10,25 @@ import {
   Button,
 } from "@mui/material";
 
+const useStyles = makeStyles(() => ({
+  buttonContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  homeBackground: {
+    background: 'url("/HomePic.png")',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  },
+  whiteBackground: {
+    backgroundColor: '#fff',
+  },
+}));
+
 const Almost = () => {
+  const classes = useStyles();
+
   const {
     register,
     handleSubmit,
@@ -23,6 +42,7 @@ const Almost = () => {
   };
 
   return (
+    <div className={classes.whiteBackground}>
     <form onSubmit={handleSubmit(onSubmit)}>
       <Stack
         spacing={2}
@@ -193,6 +213,7 @@ const Almost = () => {
         </Button>
       </Stack>
     </form>
+    </div>
   );
 };
 export default Almost;
