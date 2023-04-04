@@ -47,14 +47,28 @@ const Login = () => {
                 Create your account
               </Typography>
               <TextField
-                label="Username"
+                label={
+                  <Typography
+                  variant="h6"
+                  sx={{ fontFamily: "'Playfair Display', serif" }}
+                  >
+                  Username
+                  </Typography>
+                }
                 {...register("userName")}
                 error={Boolean(errors.userName)}
                 helperText={errors.userName?.message}
                 required
               />
               <TextField
-                label="Email"
+                label={
+                  <Typography
+                  variant="h6"
+                  sx={{ fontFamily: "'Playfair Display', serif" }}
+                  >
+                  Email
+                  </Typography>
+                }
                 type="email"
                 {...register("email")}
                 error={Boolean(errors.email)}
@@ -62,7 +76,14 @@ const Login = () => {
                 required
               />
               <TextField
-                label="Password"
+                label={
+                  <Typography
+                  variant="h6"
+                  sx={{ fontFamily: "'Playfair Display', serif" }}
+                  >
+                  Password
+                  </Typography>
+                }
                 type="password"
                 {...register("password", {
                   validate: (value) => value === watch("confirmPassword"),
@@ -79,7 +100,14 @@ const Login = () => {
                 required
               />
               <TextField
-                label="Confirm Password"
+                label={
+                  <Typography
+                  variant="h6"
+                  sx={{ fontFamily: "'Playfair Display', serif" }}
+                  >
+                  Confirm Password
+                  </Typography>
+                }
                 type="password"
                 required
                 {...register("confirmPassword", {
@@ -113,6 +141,7 @@ const Login = () => {
                   backgroundColor: "#5A5252",
                   padding: "2px",
                   fontFamily: "Playfair Display",
+                  textTransform: "none"
                 }}
               >
                 Join for Free

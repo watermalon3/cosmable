@@ -24,6 +24,12 @@ const useStyles = makeStyles(() => ({
   whiteBackground: {
     backgroundColor: '#fff',
   },
+  astericks: {
+    fontSize: '0.8em',
+    verticalAlign: 'super',
+    color: '#5A5252',
+    marginLeft: 2,
+  },
 }));
 
 const Almost = () => {
@@ -71,7 +77,7 @@ const Almost = () => {
               variant="h6"
               sx={{ fontFamily: "'Playfair Display', serif" }}
             >
-              Name
+              Name<span className={classes.asterisk}>*</span>
             </Typography>
           }
           {...register("name")}
@@ -88,7 +94,7 @@ const Almost = () => {
               variant="h6"
               sx={{ fontFamily: "'Playfair Display', serif" }}
             >
-              Title or designation, i.e. BSN
+              Title or designation, i.e. BSN<span className={classes.asterisk}>*</span>
             </Typography>
           }
           type="title"
@@ -106,7 +112,7 @@ const Almost = () => {
               variant="h6"
               sx={{ fontFamily: "'Playfair Display', serif" }}
             >
-              Your practice name
+              Your practice name<span className={classes.asterisk}>*</span>
             </Typography>
           }
           type="practiceName"
@@ -125,7 +131,7 @@ const Almost = () => {
               variant="h6"
               sx={{ fontFamily: "'Playfair Display', serif" }}
             >
-              Your practice zipcode
+              Your practice zipcode<span className={classes.asterisk}>*</span>
             </Typography>
           }
           type="zipcode"
@@ -190,7 +196,7 @@ const Almost = () => {
                   variant="h6"
                   sx={{ fontFamily: "'Playfair Display', serif" }}
                 >
-                  Other
+                  Other 
                 </Typography>
               }
               
@@ -207,6 +213,7 @@ const Almost = () => {
             color: "#fff",
             height: "60px",
             width: "130px",
+            textTranform: "none"
           }}
         >
           Get Started
