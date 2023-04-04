@@ -1,7 +1,7 @@
 const Profile = require("../models/Profile");
 const router = require("express").Router();
 const User = require("../models/Users");
-
+const Portfolio = required("../models/Portfolio");
 router.put("/updateUser/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -107,4 +107,70 @@ router.get("/profile/:id", async (req, res) => {
   }
 });
 
+router.get("/Portfolio/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const foundPortfolio = await Portfolio.find({
+      userId: id,
+    });
+    if (!foundPortfolio) {
+      throw new Error(`Portfolio not found`);
+    } else {
+      res.status(200).json({
+        message: `portfolio found`,
+        foundPortfolio,
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: error,
+    });
+  }
+});
+
+router.post("/createPortfolio", async (req, res) => {
+  try {
+    const newPortfolio = new Portfolio(req.body);
+    newPortfolio.save();
+    res.status(201).json({ newPortfolio: newPortfolio });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.delete("/deleteimage/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const findPortfolio = await Portfolio.findByIdAndDelete(id);
+    if (!findPortfolio) {
+      throw new Error(`This image does not exist`);
+    } else {
+      res.status(200).json({
+        message: `image has been deleted`,
+      });
+    }
+  } catch (error) {
+    res.status(200).json({
+      message: error.message,
+    });
+  }
+});
+
+router.put("/updateimage/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const body = req.body;
+    const updatedImage = await Portfolio.updateOne({ _id: id }, { $set: body });
+
+    res.status(200).json({
+      message: `Image successfully updated`,
+      updatedImage: updatedImage,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
 module.exports = router;
