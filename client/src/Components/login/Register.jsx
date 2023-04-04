@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import "./login.css";
 import ProfileDetails from "../ProfileDetails/ProfileDetails";
 import ButtonAppBar from "../Create/header/HeaderNav";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const {
@@ -16,20 +17,37 @@ const Register = () => {
 
   const [showProfileDetails, setShowProfileDetails] = useState(false);
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
     let body = data;
-    fetch(url, {
-      method: "POST",
-      body: JSON.stringify(body),
-      headers: new Headers({
-        "Content-Type": "application/json",
-      }),
-    });
-    reset();
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: new Headers({
+          "Content-Type": "application/json",
+        }),
+      });
+
+      if (response.ok) {
+        reset();
+        navigate("/create-account");
+      } else {
+        const errorData = await response.json();
+        console.error("Registration failed:", errorData);
+      }
+    } catch (error) {
+      console.error("An error occurred during registration:", error);
+    }
   };
 
   let url = "http://127.0.0.1:4000/user/register";
+
+  const navigate = useNavigate();
+
+  const handleJoinClick = () => {
+    navigate("/create-account");
+  };
 
   return (
     <>
