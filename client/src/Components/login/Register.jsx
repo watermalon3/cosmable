@@ -33,7 +33,7 @@ const Register = () => {
 
   return (
     <>
-      <ButtonAppBar isHomePage={false} className="AppBar-transparent" />
+      <ButtonAppBar isHomePage={true} className="AppBar-transparent" />
       <div>
         {showProfileDetails ? (
           <ProfileDetails />

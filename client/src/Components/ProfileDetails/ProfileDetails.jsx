@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
   },
   homeBackground: {
-    background: 'url("/HomePic.png")',
+    // background: 'url("/HomePic.png")',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
@@ -48,7 +48,7 @@ const Almost = () => {
   };
 
   return (
-    <div className={classes.whiteBackground}>
+    <div>
     <form onSubmit={handleSubmit(onSubmit)}>
       <Stack
         spacing={2}
