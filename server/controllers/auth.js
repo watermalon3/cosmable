@@ -8,26 +8,27 @@ const slugify = require("slugify");
 
 router.post("/register", async (req, res) => {
   console.log(req.body)
+  console.log("register route hit")
   try {
-    const { userName, email, password, name, title, practiceName, zipCode, occupation, profilePicture } = req.body;
-    if ((!userName, !email, !password, !name, !title, !practiceName, !zipCode, !occupation, !profilePicture )) {
+    const { userName, email, password/* , name, title, practiceName, zipCode, occupation, profilePicture */ } = req.body;
+    if ((!userName, !email, !password/* , !name, !title, !practiceName, !zipCode, !occupation, !profilePicture */ )) {
       res.status(406).json({
         message: "Invalid",
       });
       throw new Error("The user has provided undefined schema values");
     }
-    const userSlug = slugify(name, { lower: true });
+    const userSlug = slugify(userName, { lower: true });
     const profileUrl = `http://cosmable.com/profile/${userSlug}`;
     const newUser = new User({
       userName,
       email,
       password: bcrypt.hashSync(password, SALT),
-      name,
+      /* name,
       title,
       practiceName,
       zipCode,
       occupation,
-      profilePicture,
+      profilePicture, */
       profileUrl
     });
     await newUser.save();

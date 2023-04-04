@@ -9,19 +9,19 @@ function HomeLogin() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  let body = { email, password }
+  let url = "http://127.0.0.1:4000/user/login"
   const handleLoginClick = () => {
-    if (email && password) {
-      if (email === "example@gmail.com" && password === "password123") {
-        setError("");
-        window.alert("Login successful!");
-      } else {
-        setError("Invalid email or password. Please try again.");
-      }
-    } else {
-      setError("Please enter your email and password.");
-    }
-  };
-
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: new Headers({
+        "Content-Type": "application/json"
+      }),
+    })
+      .then((res) => res.json())
+      .catch((err) => console.log(err))
+  }
   return (
     <div>
       <ButtonAppBar isHomePage={true} className="AppBar-transparent" />
@@ -94,6 +94,6 @@ function HomeLogin() {
       </div>
     </div>
   );
-}
+};
 
 export default HomeLogin;

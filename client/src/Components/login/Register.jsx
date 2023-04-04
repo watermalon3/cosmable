@@ -5,7 +5,7 @@ import "./login.css";
 import ProfileDetails from "../ProfileDetails/ProfileDetails";
 import ButtonAppBar from "../Create/header/HeaderNav";
 
-const Login = () => {
+const Register = () => {
   const {
     register,
     handleSubmit,
@@ -18,11 +18,18 @@ const Login = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    if (register) {
-      setShowProfileDetails(true);
-    }
+    let body = data;
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: new Headers({
+        "Content-Type": "application/json",
+      }),
+    });
     reset();
   };
+
+  let url = "http://127.0.0.1:4000/user/register";
 
   return (
     <>
@@ -49,10 +56,10 @@ const Login = () => {
               <TextField
                 label={
                   <Typography
-                  variant="h6"
-                  sx={{ fontFamily: "'Playfair Display', serif" }}
+                    variant="h6"
+                    sx={{ fontFamily: "'Playfair Display', serif" }}
                   >
-                  Username
+                    Username
                   </Typography>
                 }
                 {...register("userName")}
@@ -63,10 +70,10 @@ const Login = () => {
               <TextField
                 label={
                   <Typography
-                  variant="h6"
-                  sx={{ fontFamily: "'Playfair Display', serif" }}
+                    variant="h6"
+                    sx={{ fontFamily: "'Playfair Display', serif" }}
                   >
-                  Email
+                    Email
                   </Typography>
                 }
                 type="email"
@@ -78,10 +85,10 @@ const Login = () => {
               <TextField
                 label={
                   <Typography
-                  variant="h6"
-                  sx={{ fontFamily: "'Playfair Display', serif" }}
+                    variant="h6"
+                    sx={{ fontFamily: "'Playfair Display', serif" }}
                   >
-                  Password
+                    Password
                   </Typography>
                 }
                 type="password"
@@ -102,10 +109,10 @@ const Login = () => {
               <TextField
                 label={
                   <Typography
-                  variant="h6"
-                  sx={{ fontFamily: "'Playfair Display', serif" }}
+                    variant="h6"
+                    sx={{ fontFamily: "'Playfair Display', serif" }}
                   >
-                  Confirm Password
+                    Confirm Password
                   </Typography>
                 }
                 type="password"
@@ -141,7 +148,7 @@ const Login = () => {
                   backgroundColor: "#5A5252",
                   padding: "2px",
                   fontFamily: "Playfair Display",
-                  textTransform: "none"
+                  textTransform: "none",
                 }}
               >
                 Join for Free
@@ -154,4 +161,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
