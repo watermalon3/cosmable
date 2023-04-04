@@ -1,7 +1,7 @@
 const Profile = require("../models/Profile");
 const router = require("express").Router();
 const User = require("../models/Users");
-const Portfolio = required("../models/Portfolio");
+const Portfolio = require("../models/Portfolio");
 router.put("/updateUser/:id", async (req, res) => {
   try {
     const { id } = req.params;
