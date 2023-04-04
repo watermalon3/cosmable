@@ -5,22 +5,26 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import ButtonAppBar from "./Components/Create/header/HeaderNav";
 import HomePage from "./Components/home/HomePage";
-import Bio from "./Components/Bio/Bio";
+import EditBio from "./Components/EditBio/EditBio";
 import ProfileDetails from "./Components/ProfileDetails/ProfileDetails";
 import Login from "./Components/login/login";
 import HomeLogin from "./Components/loginHome/HomeLogin";
+import Bio from "./Components/Bio/Bio";
 
 function App() {
   return (
+    // <Bio />
+    // <EditBio />
     <Router>
       <div className="App">
-        <ButtonAppBar isHomePage={true} />
+        {/* <ButtonAppBar isHomePage={true} /> */}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/create-account" element={<ProfileDetails />} />
           <Route path="/home-login" element={<HomeLogin />} />
           <Route path="/dashboard" element={<Bio />} />
+          <Route path="/dashboard/edit" element={<EditBio />} />
         </Routes>
       </div>
     </Router>
