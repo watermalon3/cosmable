@@ -1,14 +1,4 @@
 const mongoose = require("mongoose");
-const Portfolio = new mongoose.Schema({
-  images: {
-    type: String,
-    required: true,
-  },
-  tags: {
-    type: Array,
-    required: false,
-  },
-});
 
 const Profile = new mongoose.Schema({
   userId: {
@@ -21,11 +11,6 @@ const Profile = new mongoose.Schema({
   },
   links: {
     type: Array,
-    required: false,
-  },
-  photos: {
-    type: Array,
-    portfolio: Portfolio,
     required: false,
   },
 });
