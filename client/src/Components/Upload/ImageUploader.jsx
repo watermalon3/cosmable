@@ -14,7 +14,7 @@ const ImageUploader = ({ setProfilePicture }) => {
 
   const portfolioSend = (body) => {
     console.log(body);
-    let profileId = "642b251e5fce23fc3b4068de";
+    let profileId = "642c4208b731d3e2f98f1fee";
     fetch(`http://localhost:4000/routes/updateUser/${profileId}`, {
       method: "PUT",
       body: JSON.stringify(body),
