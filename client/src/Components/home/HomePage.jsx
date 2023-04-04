@@ -13,6 +13,20 @@ const useStyles = makeStyles(() => ({
     flexDirection: "row",
     justifyContent: "center",
   },
+  image: {
+    justifyContent: "center",
+    width: "100%",
+    height: "auto",
+    maxWidth: "250px"
+  },
+  imageContainer: {
+    display: "flex",
+    justifyContent: "center",
+    margin: "0 auto",
+    paddingTop: "50px",
+    flexWrap: "wrap",
+    gap: "10px",
+  },
 }));
 
 function HomePage() {
@@ -27,18 +41,19 @@ function HomePage() {
   return (
     <>
       <ButtonAppBar isHomePage={true} className="AppBar-transparent" />
-      <div className={classes.homeBackground}>
+      <div>
         <Grid container direction="column" alignItems="center">
           <Grid item>
             <Typography
               variant="h3"
               sx={{
-                textAlign: "left",
+                textAlign: "center",
                 fontFamily: "Playfair Display",
                 maxWidth: "700px",
-                color: "white",
+                color: "black",
                 paddingBottom: "50px",
-                paddingTop: "100px",
+                
+                paddingTop: { xs: "50px", md: "100px" },
                 marginTop: "50px",
               }}
             >
@@ -49,9 +64,9 @@ function HomePage() {
             <Typography
               variant="h6"
               sx={{
-                textAlign: "left",
+                textAlign: "center",
                 fontFamily: "Playfair Display",
-                color: "white",
+                color: "black",
                 marginBottom: "10px",
               }}
             >
@@ -59,7 +74,7 @@ function HomePage() {
               with you in one simple link
             </Typography>
           </Grid>
-          <Grid item>
+          <Grid item sx={{ width: "100%" }}>
             <Grid container direction="column" alignItems="center">
               <Grid item>
                 <TextField
@@ -100,6 +115,37 @@ function HomePage() {
                 >
                   Join for Free
                 </Button>
+              </Grid>
+              <hr/>
+              <Grid
+                container
+                className={classes.imageContainer}
+                justifyContent="center"
+                direction="column"
+                padding={20}
+                spacing={0}
+                
+              >
+                <Grid item sx={{
+                  width: "250.56px",
+                  height: "222.17px",
+                  left: "55.11px",
+                  top: "792.56px",
+                  filter: "drop-shadow(0px 8px 8px rgba(0, 0, 0, 0.25))",
+                  transform: "matrix(1, -0.03, -0.14, 0.99, 0, 0);}}>",
+                }}>
+                  <img src="/1.png" alt="Image 1" className={classes.image} />
+                </Grid>
+                <Grid item sx={{
+                  width: "250.56px",
+                  height: "222.17px",
+                  right: "55.11px",
+                  top: "792.56px",
+                  filter: "drop-shadow(0px 8px 8px rgba(0, 0, 0, 0.25))",
+                  transform: "matrix(1, -0.03, -0.14, 0.99, 0, 0);}}>",
+                }}>
+                  <img src="/2.png" alt="Image 2" className={classes.image} />
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
