@@ -22,23 +22,23 @@ const User = new mongoose.Schema({
   },
   name: {
     type: String,
-    required: true,
+    required: false,
   },
   title: {
     type: String,
-    required: true,
+    required: false,
   },
   practiceName: {
     type: String,
     required: false,
   },
-  zipCode: {
-    type: Number,
-    required: true,
+  city: {
+    type: String,
+    required: false,
   },
   occupation: {
     type: String,
-    required: true,
+    required: false,
   },
   profilePicture: {
     type: String,
