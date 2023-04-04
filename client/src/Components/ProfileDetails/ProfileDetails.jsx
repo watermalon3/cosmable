@@ -1,7 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { makeStyles } from '@mui/styles';
-import {
+import ButtonAppBar from "../Create/header/HeaderNav";
+import { 
   Typography,
   Stack,
   TextField,
@@ -49,6 +50,7 @@ const Almost = () => {
 
   return (
     <div>
+      <ButtonAppBar isHomePage={true} className="AppBar-transparent" />
     <form onSubmit={handleSubmit(onSubmit)}>
       <Stack
         spacing={2}

@@ -23,6 +23,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     justifyContent: "center",
     margin: "0 auto",
+    padding: "0",
     paddingTop: "50px",
     flexWrap: "wrap",
     gap: "10px",
