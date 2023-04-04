@@ -107,7 +107,7 @@ router.get("/profile/:id", async (req, res) => {
   }
 });
 
-router.get("/Portfolio/:id", async (req, res) => {
+router.get("/portfolio/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -129,7 +129,7 @@ router.get("/Portfolio/:id", async (req, res) => {
   }
 });
 
-router.post("/createPortfolio", async (req, res) => {
+router.post("/createportfolio", async (req, res) => {
   try {
     const newPortfolio = new Portfolio(req.body);
     newPortfolio.save();
