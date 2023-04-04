@@ -7,7 +7,7 @@ import ButtonAppBar from "./Components/Create/header/HeaderNav";
 import HomePage from "./Components/home/HomePage";
 import Bio from "./Components/Bio/Bio";
 import ProfileDetails from "./Components/ProfileDetails/ProfileDetails";
-import Login from "./Components/login/login";
+import Login from "./Components/login/Register";
 import HomeLogin from "./Components/loginHome/HomeLogin";
 
 function App() {

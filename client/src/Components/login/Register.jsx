@@ -5,7 +5,7 @@ import "./login.css";
 import ProfileDetails from "../ProfileDetails/ProfileDetails";
 import ButtonAppBar from "../Create/header/HeaderNav";
 
-const Login = () => {
+const Register = () => {
   const {
     register,
     handleSubmit,
@@ -17,12 +17,19 @@ const Login = () => {
   const [showProfileDetails, setShowProfileDetails] = useState(false);
 
   const onSubmit = (data) => {
-    console.log(data);
-    if (register) {
-      setShowProfileDetails(true);
-    }
+    console.log(data)
+    let body = data
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: new Headers({
+        "Content-Type": "application/json",
+      }),
+    })
     reset();
   };
+
+  let url = "http://127.0.0.1:4000/user/register"
 
   return (
     <>
@@ -126,5 +133,5 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
 
