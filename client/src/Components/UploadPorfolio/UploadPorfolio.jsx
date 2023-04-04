@@ -35,9 +35,9 @@ const ImageUploaderPortfolio = ({
 
   const portfolioSend = (body) => {
     console.log(body);
-    let profileId = "642b251e5fce23fc3b4068de";
-    fetch(`http://localhost:4000/routes/updateProfile/${profileId}`, {
-      method: "PUT",
+    let profileId = "642c4208b731d3e2f98f1fee";
+    fetch(`http://localhost:4000/routes/createportfolio`, {
+      method: "POST",
       body: JSON.stringify(body),
       headers: new Headers({
         "Content-Type": "application/json",
@@ -47,6 +47,7 @@ const ImageUploaderPortfolio = ({
       .then((data) => {
         // TODO: set response to display images?
         // call setIsOpen(false)?
+        setIsOpen(false);
         console.log(data);
       })
       .catch((errors) => console.log(errors));
@@ -54,13 +55,14 @@ const ImageUploaderPortfolio = ({
 
   const handleSave = () => {
     portfolioSend({
-      photos: {
-        images: imageUrl,
-        tags: [ageRange, pronoun, concern, procedure],
-      },
+      userId: "642c4208b731d3e2f98f1fee",
+      imageLinks: imageUrl,
+      ageRange: ageRange,
+      pronoun: pronoun,
+      concern: concern,
+      procedure: procedure,
     });
     // TODO: only call this if there is a successful response - might need to move to portfolioSend()
-    setIsOpen(false);
   };
 
   const handleFileSelect = (e) => {

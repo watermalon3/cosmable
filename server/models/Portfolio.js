@@ -1,5 +1,10 @@
 const mongoose = require("mongoose");
+
 const Portfolio = new mongoose.Schema({
+  userId: {
+    type: String,
+    require: true,
+  },
   imageLinks: {
     type: String,
     required: false,
@@ -22,4 +27,4 @@ const Portfolio = new mongoose.Schema({
   },
 });
 
-module.export = mongoose.model("Portfolio", Portfolio);
+module.exports = mongoose.model("portfolio", Portfolio);
