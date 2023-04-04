@@ -26,7 +26,7 @@ const Login = () => {
 
   return (
     <>
-      <ButtonAppBar isHomePage={true} className="AppBar-transparent" />
+      <ButtonAppBar isHomePage={false} className="AppBar-transparent" />
       <div>
         {showProfileDetails ? (
           <ProfileDetails />
@@ -42,7 +42,6 @@ const Login = () => {
                   fontSize: "30px",
                   lineHeight: "39.99px",
                   marginBottom: "20px",
-                  textAlign: "left",
                 }}
               >
                 Create your account
@@ -99,8 +98,8 @@ const Login = () => {
                   fontFamily: "Playfair Display",
                 }}
               >
-                By clicking, you agree to the Terms of Service & Privacy Policy for
-                Cosmable.
+                By clicking, you agree to the Terms of Service & Privacy Policy
+                for Cosmable.
               </Typography>
 
               <Button
@@ -127,4 +126,3 @@ const Login = () => {
 };
 
 export default Login;
-

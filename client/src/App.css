@@ -1,18 +1,14 @@
 #root {
   max-width: 1280px;
-  margin: 0 auto;
   padding: 2rem;
-  text-align: center;
 }
 
 @font-face {
-  font-family: "Regular";  
+  font-family: "Regular";
   src: local("PlayfairDisplay-Regular"),
     url("./fonts/PlayfairDisplay-Regular.ttf") format("truetype");
 }
 
 body {
   font-family: "Playfair-Display";
-  
 }
-
