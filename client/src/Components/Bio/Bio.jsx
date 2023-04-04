@@ -5,10 +5,24 @@ import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import EditIcon from "@mui/icons-material/Edit";
-
+import ButtonAppBar from "../Create/header/HeaderNav";
 const Bio = () => {
   return (
-    <Stack spacing={2} sx={{ textAlign: "center", paddingTop: "70px" }}>
+    <div>
+    <ButtonAppBar isHomePage={false} className="AppBar-transparent" />
+    <Stack 
+    
+    spacing={2} 
+    sx={{ 
+      textAlign: "center", 
+      paddingTop: "70px",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      color: "#5A5252", 
+    }}
+    >
       <IconButton
         component={Link}
         to="/dashboard/edit"
@@ -24,6 +38,7 @@ const Bio = () => {
           fontWeight: 400,
           fontSize: "30px",
           lineHeight: "39.99px",
+          color: "#5A5252",
         }}
       >
         UserName
@@ -39,7 +54,7 @@ const Bio = () => {
       >
         Location
       </Typography>
-      <Accordion>
+      <Accordion sx={{ width: "75%", margin: "auto" }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography
             variant="h6"
@@ -48,6 +63,8 @@ const Bio = () => {
               fontWeight: 400,
               fontSize: "20px",
               lineHeight: "24px",
+
+              color: "#5A5252",
             }}
           >
             Bio
@@ -60,13 +77,14 @@ const Bio = () => {
               fontFamily: "Playfair Display",
               fontSize: "18px",
               lineHeight: "22px",
+              color: "#5A5252",
             }}
           >
             bio text
           </Typography>
         </AccordionDetails>
       </Accordion>
-      <Accordion>
+      <Accordion sx={{ width: "75%", margin: "auto" }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography
             variant="h6"
@@ -75,6 +93,8 @@ const Bio = () => {
               fontWeight: 400,
               fontSize: "20px",
               lineHeight: "24px",
+              color: "#5A5252",
+
             }}
           >
             Links
@@ -87,6 +107,7 @@ const Bio = () => {
               fontFamily: "Playfair Display",
               fontSize: "18px",
               lineHeight: "22px",
+              color: "#5A5252",
             }}
           >
             Links
@@ -94,6 +115,7 @@ const Bio = () => {
         </AccordionDetails>
       </Accordion>
     </Stack>
+    </div>
   );
 };
 
