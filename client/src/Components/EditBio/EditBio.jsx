@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import ButtonAppBar from "../Create/header/HeaderNav";
 import {
   Checkbox,
   FormControlLabel,
@@ -137,11 +138,25 @@ const EditBio = () => {
   };
 
   return (
+    <Paper 
+    elevation={3} 
+    sx={{ 
+      padding: 2,
+      zIndex: 1,
+      margin: "auto",
+      maxWidth: "630px",
+      marginTop: "90px",
+    }}
+    style={{
+      overflow: "hidden"
+    }}
+    >
     <>
       {isLoading ? (
         <Typography variant="h1"> Loading</Typography>
       ) : (
         <>
+        // <ButtonAppBar isHomePage={false} />
           <form onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing={2}>
               <div
@@ -256,6 +271,7 @@ const EditBio = () => {
         </>
       )}
     </>
+    </Paper>
   );
 };
 export default EditBio;
