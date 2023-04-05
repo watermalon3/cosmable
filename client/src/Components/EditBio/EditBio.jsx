@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import {
   Checkbox,
   FormControlLabel,
@@ -44,6 +45,7 @@ const getPortfolio = async (userId) => {
   return portfolio;
 };
 const updateProfile = async (userId, body) => {
+  console.log("body", body);
   const sendBody = {
     method: "PUT",
     body: JSON.stringify(body),
@@ -91,6 +93,7 @@ const EditBio = () => {
       if (values[2].foundProfile.links[0]) {
         setValue("linkName1", values[2].foundProfile.links[0].linkName);
         setValue("link1", values[2].foundProfile.links[0].link);
+        console.log(values[2].foundProfile.links[0].linkName);
       }
       if (values[2].foundProfile.links[1]) {
         setValue("linkName2", values[2].foundProfile.links[1].linkName);
@@ -103,30 +106,30 @@ const EditBio = () => {
     });
   }, []);
   useEffect(() => {
+    updateProfile("642c4208b731d3e2f98f1fee", update);
     // console.log("user", user);
     // console.log("portfolio", portfolio);
     // console.log("profile", profile);
-  }, [isLoading]);
-  const onSubmit = (data) => {
+  }, [update]);
+  const onSubmit = async (data) => {
     console.log("data", data);
     setUpdate({
       bio: data.bio,
       links: [
         {
-          linkName1: data.linkName1,
+          linkName: data.linkName1,
           link: data.link1,
         },
         {
-          linkName1: data.linkName2,
+          linkName: data.linkName2,
           link: data.link2,
         },
         {
-          linkName1: data.linkName3,
+          linkName: data.linkName3,
           link: data.link3,
         },
       ],
     });
-    updateProfile("642c4208b731d3e2f98f1fee", update);
   };
 
   const handleClose = () => {
