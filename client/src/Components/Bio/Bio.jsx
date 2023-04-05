@@ -8,6 +8,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import ButtonAppBar from "../Create/header/HeaderNav";
 const Bio = () => {
   return (
+    
     <div>
     <ButtonAppBar isHomePage={false} className="AppBar-transparent" />
     <Stack 
