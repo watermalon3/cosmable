@@ -108,14 +108,13 @@ router.get("/profile/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    const foundProfile = await Profile.find({
+    const foundProfile = await Profile.findOne({
       userId: id,
     });
     if (!foundProfile) {
       throw new Error(`Profile not found`);
     } else {
       res.status(200).json({
-        message: `profile found`,
         foundProfile,
       });
     }
