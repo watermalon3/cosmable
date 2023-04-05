@@ -27,6 +27,7 @@ export default function ButtonAppBar({ isHomePage, onLoginClick }) {
       <AppBar
         position="static"
         sx={{
+          zIndex: 999,
           position: "fixed",
           top: 0,
           left: 0,
