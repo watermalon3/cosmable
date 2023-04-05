@@ -44,7 +44,6 @@ const getPortfolio = async (userId) => {
   return portfolio;
 };
 const updateProfile = async (userId, body) => {
-  console.log(body);
   const sendBody = {
     method: "PUT",
     body: JSON.stringify(body),
