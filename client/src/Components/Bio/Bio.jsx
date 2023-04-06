@@ -18,31 +18,9 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import EditIcon from "@mui/icons-material/Edit";
 import ButtonAppBar from "../Create/header/HeaderNav";
 
-const getUser = async (userId) => {
-  const url = `http://localhost:4000/routes/user/${userId}`;
-  const response = await fetch(url);
+// Hola chicos 
 
-  const user = response.json();
-  if (!response.ok) {
-    throw new Error("user could not be found");
-  }
-  // TODO check for error
-  return user;
-};
-const getProfile = async (userId) => {
-  const url = `http://localhost:4000/routes/profile/${userId}`;
-  const response = await fetch(url);
-  const profile = response.json();
-  // TODO check for error
-  return profile;
-};
-const getPortfolio = async (userId) => {
-  const url = `http://localhost:4000/routes/portfolio/${userId}`;
-  const response = await fetch(url);
-  const portfolio = response.json();
-  // TODO check for error
-  return portfolio;
-};
+
 const Bio = () => {
   const [profile, setProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
