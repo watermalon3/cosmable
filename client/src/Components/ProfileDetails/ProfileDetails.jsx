@@ -10,6 +10,7 @@ import {
   Checkbox,
   FormControlLabel,
   Button,
+  Paper,
 } from "@mui/material";
 
 const useStyles = makeStyles(() => ({
@@ -76,175 +77,195 @@ const Almost = ({ userId }) => {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <ButtonAppBar isHomePage={true} className="AppBar-transparent" />
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack
-          spacing={2}
+    <>
+      <ButtonAppBar isHomePage={false} />
+      <div className="profile-details" style={{ overflow: "hidden" }}>
+        <Paper
+          elevation={3}
           sx={{
-            paddingTop: "70px",
-            alignItems: "flex-start",
-            fontFamily: "Playfair Display",
+            zIndex: 1,
+            padding: "20px",
+            margin: "auto",
+            maxWidth: "630px",
+            marginTop: "90px",
+            paddingBottom: "225px",
           }}
+          style={{ overflow: "hidden" }}
         >
-          <Typography
-            variant="h3"
-            sx={{
-              fontFamily: "Playfair Display",
-              fontWeight: 400,
-              fontSize: "30px",
-              lineHeight: "39.99px",
-              marginBottom: "20px",
-              textAlign: "left",
-            }}
-          >
-            Almost there
-          </Typography>
-          <TextField
-            label={
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Stack
+              spacing={2}
+              sx={{
+                paddingTop: "70px",
+                // alignItems: "flex-start",
+                fontFamily: "Playfair Display",
+              }}
+            >
               <Typography
-                variant="h6"
-                sx={{ fontFamily: "'Playfair Display', serif" }}
+                variant="h3"
+                sx={{
+                  fontFamily: "Playfair Display",
+                  fontWeight: 400,
+                  fontSize: "30px",
+                  lineHeight: "39.99px",
+                  marginBottom: "20px",
+                  textAlign: "center",
+                }}
               >
-                Name<span className={classes.asterisk}>*</span>
+                Almost there
               </Typography>
-            }
-            {...register("name")}
-            error={Boolean(errors.name)}
-            helperText={errors.name?.message}
-            sx={{
-              width: { xs: "100%", md: "66.7%" },
-            }}
-          />
-          <TextField
-            label={
-              <Typography
-                variant="h6"
-                sx={{ fontFamily: "'Playfair Display', serif" }}
-              >
-                Title or designation, i.e. BSN
-                <span className={classes.asterisk}>*</span>
-              </Typography>
-            }
-            type="title"
-            {...register("title")}
-            error={Boolean(errors.title)}
-            helperText={errors.title?.message}
-            sx={{
-              width: { xs: "100%", md: "66.7%" },
-            }}
-          />
-          <TextField
-            label={
-              <Typography
-                variant="h6"
-                sx={{ fontFamily: "'Playfair Display', serif" }}
-              >
-                Your practice name<span className={classes.asterisk}>*</span>
-              </Typography>
-            }
-            type="practiceName"
-            {...register("practiceName")}
-            error={Boolean(errors.practiceName)}
-            helperText={errors.practiceName?.message}
-            sx={{
-              width: { xs: "100%", md: "66.7%" },
-            }}
-            stlye={{ fontFamily: "Playfair Display " }}
-          />
-          <TextField
-            label={
-              <Typography
-                variant="h6"
-                sx={{ fontFamily: "'Playfair Display', serif" }}
-              >
-                Your practice zipcode<span className={classes.asterisk}>*</span>
-              </Typography>
-            }
-            type="zipcode"
-            {...register("zipcode")}
-            error={Boolean(errors.zipcode)}
-            helperText={errors.zipcode?.message}
-            sx={{
-              width: { xs: "100%", md: "66.7%" },
-            }}
-          />
-          <Typography
-            variant="h6"
-            sx={{ textAlign: "left", fontFamily: "Playfair Display" }}
-          >
-            You are an...
-          </Typography>
-          <Stack direction="column">
-            <Stack direction="row">
-              <FormControlLabel
-                control={<Checkbox {...register("aesthetician")} />}
+              <TextField
                 label={
                   <Typography
                     variant="h6"
                     sx={{ fontFamily: "'Playfair Display', serif" }}
                   >
-                    Aesthetician
+                    Name<span className={classes.asterisk}>*</span>
                   </Typography>
                 }
+                {...register("name")}
+                error={Boolean(errors.name)}
+                helperText={errors.name?.message}
+                sx={{
+                  width: { xs: "100%", md: "100%" },
+                }}
               />
-              <FormControlLabel
-                control={<Checkbox {...register("injector")} />}
+              <TextField
                 label={
                   <Typography
                     variant="h6"
                     sx={{ fontFamily: "'Playfair Display', serif" }}
                   >
-                    Injector
+                    Title or designation, i.e. BSN
+                    <span className={classes.asterisk}>*</span>
                   </Typography>
                 }
+                type="title"
+                {...register("title")}
+                error={Boolean(errors.title)}
+                helperText={errors.title?.message}
+                sx={{
+                  width: { xs: "100%", md: "100%" },
+                }}
               />
+              <TextField
+                label={
+                  <Typography
+                    variant="h6"
+                    sx={{ fontFamily: "'Playfair Display', serif" }}
+                  >
+                    Your practice name
+                    <span className={classes.asterisk}>*</span>
+                  </Typography>
+                }
+                type="practiceName"
+                {...register("practiceName")}
+                error={Boolean(errors.practiceName)}
+                helperText={errors.practiceName?.message}
+                sx={{
+                  width: { xs: "100%", md: "100%" },
+                }}
+                stlye={{ fontFamily: "Playfair Display " }}
+              />
+              <TextField
+                label={
+                  <Typography
+                    variant="h6"
+                    sx={{ fontFamily: "'Playfair Display', serif" }}
+                  >
+                    Your practice zipcode
+                    <span className={classes.asterisk}>*</span>
+                  </Typography>
+                }
+                type="zipcode"
+                {...register("zipcode")}
+                error={Boolean(errors.zipcode)}
+                helperText={errors.zipcode?.message}
+                sx={{
+                  width: { xs: "100%", md: "100%" },
+                }}
+              />
+              <Typography
+                variant="h6"
+                sx={{ textAlign: "left", fontFamily: "Playfair Display" }}
+              >
+                You are an...
+              </Typography>
+              <Stack direction="column">
+                <Stack direction="row">
+                  <FormControlLabel
+                    control={<Checkbox {...register("aesthetician")} />}
+                    label={
+                      <Typography
+                        variant="h6"
+                        sx={{ fontFamily: "'Playfair Display', serif" }}
+                      >
+                        Aesthetician
+                      </Typography>
+                    }
+                  />
+                  <FormControlLabel
+                    control={<Checkbox {...register("injector")} />}
+                    label={
+                      <Typography
+                        variant="h6"
+                        sx={{ fontFamily: "'Playfair Display', serif" }}
+                      >
+                        Injector
+                      </Typography>
+                    }
+                  />
+                </Stack>
+                <Stack direction="column">
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        {...register("aestheticianPracticeOwnerManager")}
+                      />
+                    }
+                    label={
+                      <Typography
+                        variant="h6"
+                        sx={{ fontFamily: "'Playfair Display', serif" }}
+                      >
+                        Practice Owner/Manager
+                      </Typography>
+                    }
+                  />
+                  <FormControlLabel
+                    control={<Checkbox {...register("other")} />}
+                    label={
+                      <Typography
+                        variant="h6"
+                        sx={{ fontFamily: "'Playfair Display', serif" }}
+                      >
+                        Other
+                      </Typography>
+                    }
+                  />
+                </Stack>
+              </Stack>
+              <Button
+                color="success"
+                varient="contained"
+                type="submit"
+                sx={{
+                  fontFamily: "Playfair Display",
+                  backgroundColor: "#5A5252",
+                  color: "#fff",
+                  height: "40px",
+                  padding: "2px",
+                  width: "120px",
+                  textTranform: "none",
+                }}
+              >
+                Get Started
+              </Button>
             </Stack>
-            <Stack direction="column">
-              <FormControlLabel
-                control={
-                  <Checkbox {...register("aestheticianPracticeOwnerManager")} />
-                }
-                label={
-                  <Typography
-                    variant="h6"
-                    sx={{ fontFamily: "'Playfair Display', serif" }}
-                  >
-                    Practice Owner/Manager
-                  </Typography>
-                }
-              />
-              <FormControlLabel
-                control={<Checkbox {...register("other")} />}
-                label={
-                  <Typography
-                    variant="h6"
-                    sx={{ fontFamily: "'Playfair Display', serif" }}
-                  >
-                    Other
-                  </Typography>
-                }
-              />
-            </Stack>
-          </Stack>
-          <Button
-            color="success"
-            varient="contained"
-            type="submit"
-            sx={{
-              fontFamily: "Playfair Display",
-              backgroundColor: "#5A5252",
-              color: "#fff",
-              height: "60px",
-              width: "130px",
-              textTranform: "none",
-            }}
-          >
-            Get Started
-          </Button>
-        </Stack>
-      </form>
-    </div>
+          </form>
+        </Paper>
+      </div>
+    </>
   );
 };
 export default Almost;

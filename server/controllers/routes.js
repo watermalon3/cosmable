@@ -2,6 +2,25 @@ const Profile = require("../models/Profile");
 const router = require("express").Router();
 const User = require("../models/Users");
 const Portfolio = require("../models/Portfolio");
+const { response } = require("express");
+
+router.get("/user/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    if (!user) {
+      throw new Error(`user not found`);
+    } else {
+      res.status(200).json({
+        user,
+      });
+    }
+  } catch (error) {
+    res.status(200).json({
+      message: error.message,
+    });
+  }
+});
 router.put("/updateUser/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -89,14 +108,13 @@ router.get("/profile/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    const foundProfile = await Profile.find({
+    const foundProfile = await Profile.findOne({
       userId: id,
     });
     if (!foundProfile) {
       throw new Error(`Profile not found`);
     } else {
       res.status(200).json({
-        message: `profile found`,
         foundProfile,
       });
     }
@@ -118,7 +136,6 @@ router.get("/portfolio/:id", async (req, res) => {
       throw new Error(`Portfolio not found`);
     } else {
       res.status(200).json({
-        message: `portfolio found`,
         foundPortfolio,
       });
     }
