@@ -78,7 +78,7 @@ const Almost = ({ userId }) => {
 
   return (
     <>
-      <ButtonAppBar isHomePage={false} style={{backgroundColor: "#fff"}}/>
+      <ButtonAppBar isHomePage={false} />
       <div className="profile-details" style={{ overflow: "hidden" }}>
         <Paper
           elevation={3}
