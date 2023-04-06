@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { makeStyles } from "@mui/styles";
 import ButtonAppBar from "../Create/header/HeaderNav";
+import { useNavigate } from "react-router-dom";
 import {
   Typography,
   Stack,
@@ -34,7 +35,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Almost = () => {
+const Almost = ({ userId }) => {
+  console.log(userId, " -------");
   const classes = useStyles();
 
   const {
@@ -44,14 +46,39 @@ const Almost = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
-    reset();
+    let body = data;
+    try {
+      const response = await fetch(url, {
+        method: "PUT",
+        body: JSON.stringify(body),
+        headers: new Headers({
+          "Content-Type": "application/json",
+        }),
+      });
+      // const user = response.json();
+      if (response.ok) {
+        // console.log(user);
+        // console.log(response);
+
+        navigate("/dashboard/edit");
+        reset();
+      } else {
+        const errorData = await response.json();
+        console.error("Something went wrong:", errorData);
+      }
+    } catch (error) {
+      console.error("An error occurred during registration:", error);
+    }
   };
+  let url = `http://127.0.0.1:4000/routes/updateUser/${userId}`;
+
+  const navigate = useNavigate();
 
   return (
     <>
-      <ButtonAppBar isHomePage={false} />
+      <ButtonAppBar isHomePage={false} style={{backgroundColor: "#fff"}}/>
       <div className="profile-details" style={{ overflow: "hidden" }}>
         <Paper
           elevation={3}

@@ -156,7 +156,7 @@ const EditBio = () => {
         <Typography variant="h1"> Loading</Typography>
       ) : (
         <>
-        // <ButtonAppBar isHomePage={false} />
+        <ButtonAppBar isHomePage={false} />
           <form onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing={2}>
               <div

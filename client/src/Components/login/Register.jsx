@@ -6,7 +6,7 @@ import ProfileDetails from "../ProfileDetails/ProfileDetails";
 import ButtonAppBar from "../Create/header/HeaderNav";
 import { useNavigate } from "react-router-dom";
 
-const Register = () => {
+const Register = ({ setUserId }) => {
   const {
     register,
     handleSubmit,
@@ -28,10 +28,14 @@ const Register = () => {
           "Content-Type": "application/json",
         }),
       });
-
+      
+      const user = await response.json();
       if (response.ok) {
+        // console.log(user);
+        // console.log(response);
+        navigate("/profile-details");
+        await setUserId(user.newUser._id)
         reset();
-        navigate("/create-account");
       } else {
         const errorData = await response.json();
         console.error("Registration failed:", errorData);
@@ -46,7 +50,7 @@ const Register = () => {
   const navigate = useNavigate();
 
   const handleJoinClick = () => {
-    navigate("/create-account");
+    navigate("/profile-details");
   };
 
   return (
