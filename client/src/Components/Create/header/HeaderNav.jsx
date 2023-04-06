@@ -31,10 +31,11 @@ export default function ButtonAppBar({ isHomePage, onLoginClick }) {
           position: "fixed",
           top: 0,
           left: 0,
-          backgroundColor: isHomePage ? "transparent" : "#fff",
+          backgroundColor: "#fff",
           color: "black",
           borderBottom: "2px solid #5A5252",
         }}
+       
       >
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           <Typography

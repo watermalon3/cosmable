@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { makeStyles } from "@mui/styles";
 import ButtonAppBar from "../Create/header/HeaderNav";
-import { Grid, Typography, TextField, Button } from "@mui/material";
+import { Grid, Typography, TextField, Button, Paper } from "@mui/material";
 import "./home.css";
 // import CreateAccount from "../login/login";
 
@@ -14,6 +14,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
   },
   image: {
+    // display: "flex",
     justifyContent: "center",
     width: "100%",
     height: "auto",
@@ -22,12 +23,15 @@ const useStyles = makeStyles(() => ({
   imageContainer: {
     display: "flex",
     justifyContent: "center",
+    alignItems: "center",
     margin: "0 auto",
     padding: "0",
     paddingTop: "50px",
     flexWrap: "wrap",
     gap: "10px",
+    maxWidth: "600px",
   },
+  
 }));
 
 function HomePage() {
@@ -41,21 +45,53 @@ function HomePage() {
 
   return (
     <>
-      <ButtonAppBar isHomePage={true} className="AppBar-transparent" />
+      <ButtonAppBar 
+      isHomePage={true} 
+       
+      sx={{ positon: "fixed", zIndex: 2 }}
+      />
+      <Paper
+      elevation={3}
+      sx={{
+        textAlign: "center",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        alignSelf: "flex-end",
+        marginTop: "150px",
+        marginBottom: "400px",
+        padding: "20px",
+        height: "auto",
+        maxHeight: "125vh",
+        maxWidth: "600px",
+        "@media (min-width: 600px)": {
+          padding: "40px",
+        },
+        margin: "100px auto 0",
+        overflow: "hidden",
+        postion: "sticky",
+        zIndex: 1,
+        
+      }}
+      >
       <div>
         <Grid container direction="column" alignItems="center">
           <Grid item>
             <Typography
               variant="h3"
               sx={{
+                // display: "flex",
                 textAlign: "center",
                 fontFamily: "Playfair Display",
                 maxWidth: "700px",
                 color: "black",
                 paddingBottom: "50px",
                 
-                paddingTop: { xs: "50px", md: "100px" },
+                paddingTop: { xs: "5px", md: "25px" },
                 marginTop: "50px",
+                fontSize: { xs: "28px", md: "30px", lg: "40px" },
+    lineHeight: { xs: "32px", md: "40px", lg: "48px" },
               }}
             >
               One bio link for everything aesthetics.
@@ -108,10 +144,14 @@ function HomePage() {
                     width: { xs: "100%", md: "66.7%" },
                     height: { xs: "100%", md: "66.7%" },
                     minHeight: "50px",
-                    minWidth: "219px",
-                    fontFamily: "Playfair Display",
-                    borderRadius: 0,
+                    minWidth: "150px",
+                    // fontFamily: "Playfair Display",
+                    // borderRadius: 0,
                     border: "2px solid #5A5252",
+                    fontFamily: "Playfair Display",
+                // fontSize: "18px",
+                // lineHeight: "22px",
+                // color: "#5A5252",
                   }}
                 >
                   Join for Free
@@ -123,8 +163,13 @@ function HomePage() {
                 className={classes.imageContainer}
                 justifyContent="center"
                 direction="column"
-                padding={20}
-                spacing={0}
+                // padding={20}
+                // spacing={0}
+                sx={{
+                  width: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
                 
               >
                 <Grid item sx={{
@@ -152,6 +197,7 @@ function HomePage() {
           </Grid>
         </Grid>
       </div>
+      </Paper>
     </>
   );
 }
