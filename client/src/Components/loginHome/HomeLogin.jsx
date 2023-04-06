@@ -87,7 +87,7 @@ function HomeLogin() {
           </Grid>
           <Grid item>
             <Typography variant="body1" align="center" sx={{ fontFamily: "Playfair Display"}}>
-              Don't have an account yet? <a href="/login">Register</a>
+              Don't have an account yet? <a href="/register">Register</a>
             </Typography>
           </Grid>
         </Grid>

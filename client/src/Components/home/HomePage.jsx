@@ -40,7 +40,7 @@ function HomePage() {
   const navigate = useNavigate();
 
   const handleJoinClick = () => {
-    navigate("/login");
+    navigate("/register");
   };
 
   return (
