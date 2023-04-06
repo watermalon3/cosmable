@@ -178,15 +178,19 @@ const Bio = () => {
               </AccordionSummary>
               <AccordionDetails>
                 <Stack>
-                  {profile.foundProfile.links.map((item) => (
-                    <Button
-                      target="_blank"
-                      href={item.link}
-                      variant="contained"
-                    >
-                      {item.linkName}
-                    </Button>
-                  ))}
+                  {profile.foundProfile.links.map((item) => {
+                    if (item.linkName) {
+                      return (
+                        <Button
+                          target="_blank"
+                          href={item.link}
+                          variant="contained"
+                        >
+                          {item.linkName}
+                        </Button>
+                      );
+                    }
+                  })}
                 </Stack>
               </AccordionDetails>
             </Accordion>
