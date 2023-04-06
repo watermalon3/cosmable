@@ -28,7 +28,8 @@ const Bio = () => {
           transform: "translateZ(10px)",
           marginTop: "150px",
           padding: "20px",
-          height: "70vh",
+          height: "75vh",
+          // height: "auto",
           maxWidth: "600px",
           "@media (min-width: 600px)": {
             padding: "40px",

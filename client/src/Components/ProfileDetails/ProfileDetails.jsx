@@ -51,7 +51,7 @@ const Almost = () => {
 
   return (
     <>
-      <ButtonAppBar isHomePage={false} />
+      <ButtonAppBar isHomePage={false} style={{backgroundColor: "#fff"}}/>
       <div className="profile-details" style={{ overflow: "hidden" }}>
         <Paper
           elevation={3}
