@@ -68,10 +68,13 @@ router.post("/login", async (req, res) => {
         const token = jwt.sign({ _id: foundUser._id }, JWT_SECRET_KEY, {
           expiresIn: "24h",
         });
+        res.status(202).json({
+          
+          foundUser,
+          token
+        })
 
-        res.redirect(`/routes/profile/${userSlug}`),
-        foundUser,
-        token
+        // res.redirect(`/routes/profile/${userSlug}`),
       } else {
         res.status(403).json({
           message: "Invalid Password",
