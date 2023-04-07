@@ -28,6 +28,7 @@ const getUser = async (userId) => {
   if (!response.ok) {
     throw new Error("user could not be found");
   }
+  console.log("here 1");
   // TODO check for error
   return user;
 };
@@ -36,6 +37,10 @@ const getProfile = async (userId) => {
   const response = await fetch(url);
   const profile = response.json();
   // TODO check for error
+  if (!response.ok) {
+    throw new Error("Profile could not be found");
+  }
+  console.log("here 2");
   return profile;
 };
 const getPortfolio = async (userId) => {
@@ -43,6 +48,10 @@ const getPortfolio = async (userId) => {
   const response = await fetch(url);
   const portfolio = response.json();
   // TODO check for error
+  if (!response.ok) {
+    throw new Error("Portfolio could not be found");
+  }
+  console.log("here 3");
   return portfolio;
 };
 const updateProfile = async (userId, body) => {
@@ -107,7 +116,10 @@ const EditBio = () => {
     });
   }, []);
   useEffect(() => {
-    updateProfile("642c4208b731d3e2f98f1fee", update);
+    console.log("update", update);
+    if (update) {
+      updateProfile("642c4208b731d3e2f98f1fee", update);
+    }
     // console.log("user", user);
     // console.log("portfolio", portfolio);
     // console.log("profile", profile);
@@ -138,139 +150,141 @@ const EditBio = () => {
   };
 
   return (
-    <Paper 
-    elevation={3} 
-    sx={{ 
-      padding: 2,
-      zIndex: 1,
-      margin: "auto",
-      maxWidth: "630px",
-      marginTop: "90px",
-    }}
-    style={{
-      overflow: "hidden"
-    }}
+    <Paper
+      elevation={3}
+      sx={{
+        padding: 2,
+        zIndex: 1,
+        margin: "auto",
+        maxWidth: "630px",
+        marginTop: "90px",
+      }}
+      style={{
+        overflow: "hidden",
+      }}
     >
-    <>
-      {isLoading ? (
-        <Typography variant="h1"> Loading</Typography>
-      ) : (
-        <>
-        <ButtonAppBar isHomePage={false} />
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Stack spacing={2}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
-                <Avatar
-                  sx={{ width: 150, height: 150 }}
-                  src={user.user.profilePicture || profilePicture}
-                />
-                <ImageUploader setProfilePicture={setProfilePicture} />
+      <>
+        {isLoading ? (
+          <Typography variant="h1"> Loading</Typography>
+        ) : (
+          <>
+            <ButtonAppBar isHomePage={false} />
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Stack spacing={2}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <Avatar
+                    sx={{ width: 150, height: 150 }}
+                    src={user.user.profilePicture || profilePicture}
+                  />
+                  <ImageUploader setProfilePicture={setProfilePicture} />
 
-                <Typography variant="h6">{user.user.userName}, NP-C</Typography>
-                <Typography variant="h6">Location</Typography>
-              </div>
-              <TextField
-                fullWidth
-                label="+ Add bio"
-                {...register("bio")}
-                //   errors={Boolean(errors.bio)}
-                //   helperText={errors.bio?.message}
-              />
-              {/* Add Link */}
-              <TextField
-                label="+ name"
-                id="linkName1"
-                {...register("linkName1")}
-                //   error={Boolean(errors.link)}
-                //   helperText={errors.link?.message}
-              />
-              <TextField
-                label="+ Add link"
-                {...register("link1")}
-                //   error={Boolean(errors.link)}
-                //   helperText={errors.link?.message}
-              />
-              <TextField
-                label="+ name"
-                {...register("linkName2")}
-                //   error={Boolean(errors.link)}
-                //   helperText={errors.link?.message}
-              />
-              <TextField
-                label="+ Add link"
-                {...register("link2")}
-                //   error={Boolean(errors.link)}
-                //   helperText={errors.link?.message}
-              />
-              <TextField
-                label="+ name"
-                {...register("linkName3")}
-                //   error={Boolean(errors.link)}
-                //   helperText={errors.link?.message}
-              />
-              <TextField
-                label="+ Add link"
-                id="link3"
-                {...register("link3")}
-                //   error={Boolean(errors.link)}
-                //   helperText={errors.link?.message}
-              />
-              <Typography>Portfolio</Typography>
-              <ImageList
-                sx={{ width: 500, height: 450 }}
-                cols={3}
-                rowHeight={164}
-              >
-                {portfolio.foundPortfolio.map((item) => {
-                  console.log("item", item);
-                  return (
-                    <ImageListItem>
-                      <img
-                        src={`${item.imageLinks}?w=164&h=164&fit=crop&auto=format`}
-                      />
-                    </ImageListItem>
-                  );
-                })}
-              </ImageList>
-              <Button variant="contained" onClick={() => setIsOpen(true)}>
-                Update Portfolio
-              </Button>
-              {/* Build Your Portfolio */}
-              <Button
-                color="primary"
-                variant="contained"
-                type="submit"
-                style={{ marginTop: 16 }}
-              >
-                Save Changes
-              </Button>
-            </Stack>
-          </form>
-          <Drawer
-            anchor="bottom"
-            // position="bottom"
-            open={isOpen}
-            onClose={() => handleClose()}
-            PaperProps={{ sx: { height: "fit-content" } }}
-          >
-            <Box>
-              <Typography>Portfolio</Typography>
-              <ImageUploaderPortfolio
-                portfolioPhotos={portfolioPhotos}
-                setPortfolioPhotos={setPortfolioPhotos}
-                setIsOpen={setIsOpen}
-              />
-            </Box>
-          </Drawer>
-        </>
-      )}
-    </>
+                  <Typography variant="h6">
+                    {user.user.userName}, NP-C
+                  </Typography>
+                  <Typography variant="h6">Location</Typography>
+                </div>
+                <TextField
+                  fullWidth
+                  label="+ Add bio"
+                  {...register("bio")}
+                  //   errors={Boolean(errors.bio)}
+                  //   helperText={errors.bio?.message}
+                />
+                {/* Add Link */}
+                <TextField
+                  label="+ name"
+                  id="linkName1"
+                  {...register("linkName1")}
+                  //   error={Boolean(errors.link)}
+                  //   helperText={errors.link?.message}
+                />
+                <TextField
+                  label="+ Add link"
+                  {...register("link1")}
+                  //   error={Boolean(errors.link)}
+                  //   helperText={errors.link?.message}
+                />
+                <TextField
+                  label="+ name"
+                  {...register("linkName2")}
+                  //   error={Boolean(errors.link)}
+                  //   helperText={errors.link?.message}
+                />
+                <TextField
+                  label="+ Add link"
+                  {...register("link2")}
+                  //   error={Boolean(errors.link)}
+                  //   helperText={errors.link?.message}
+                />
+                <TextField
+                  label="+ name"
+                  {...register("linkName3")}
+                  //   error={Boolean(errors.link)}
+                  //   helperText={errors.link?.message}
+                />
+                <TextField
+                  label="+ Add link"
+                  id="link3"
+                  {...register("link3")}
+                  //   error={Boolean(errors.link)}
+                  //   helperText={errors.link?.message}
+                />
+                <Typography>Portfolio</Typography>
+                <ImageList
+                  sx={{ width: 500, height: 450 }}
+                  cols={3}
+                  rowHeight={164}
+                >
+                  {portfolio.foundPortfolio.map((item) => {
+                    console.log("item", item);
+                    return (
+                      <ImageListItem>
+                        <img
+                          src={`${item.imageLinks}?w=164&h=164&fit=crop&auto=format`}
+                        />
+                      </ImageListItem>
+                    );
+                  })}
+                </ImageList>
+                <Button variant="contained" onClick={() => setIsOpen(true)}>
+                  Update Portfolio
+                </Button>
+                {/* Build Your Portfolio */}
+                <Button
+                  color="primary"
+                  variant="contained"
+                  type="submit"
+                  style={{ marginTop: 16 }}
+                >
+                  Save Changes
+                </Button>
+              </Stack>
+            </form>
+            <Drawer
+              anchor="bottom"
+              // position="bottom"
+              open={isOpen}
+              onClose={() => handleClose()}
+              PaperProps={{ sx: { height: "fit-content" } }}
+            >
+              <Box>
+                <Typography>Portfolio</Typography>
+                <ImageUploaderPortfolio
+                  portfolioPhotos={portfolioPhotos}
+                  setPortfolioPhotos={setPortfolioPhotos}
+                  setIsOpen={setIsOpen}
+                />
+              </Box>
+            </Drawer>
+          </>
+        )}
+      </>
     </Paper>
   );
 };
