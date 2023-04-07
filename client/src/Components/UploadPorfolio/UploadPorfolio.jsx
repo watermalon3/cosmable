@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AWS from "aws-sdk";
+import InstagramUpload from "../Upload/InstagramUpload";
 import {
   Button,
   Paper,
@@ -106,6 +107,7 @@ const ImageUploaderPortfolio = ({
     >
       <Stack spacing={2}>
         <input type="file" onChange={handleFileSelect} />
+        <InstagramUpload/>
         {file && (
           <div style={{ marginTop: "10px" }}>
             <Button onClick={uploadToS3}>Upload</Button>
