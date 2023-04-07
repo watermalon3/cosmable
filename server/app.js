@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require(`cors`);
 const mongoose = require("mongoose");
 const app = express();
+// const https = require("https-localhost")()
 
 const PORT = process.env.PORT || 4000;
 const HOST = process.env.HOST;
@@ -25,5 +26,7 @@ mongoose
   .catch((err) => console.log(err));
 
 app.listen(PORT, HOST, () => {
+  // https.listen(4000)
   console.log(`[server] running on ${HOST}:${PORT}`);
 });
+
