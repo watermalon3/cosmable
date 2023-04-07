@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { Grid, Typography, TextField, Button } from "@mui/material";
 import "./homeLogin.css";
 import ButtonAppBar from "../Create/header/HeaderNav";
+import { useNavigate } from "react-router-dom";
 
-
-function HomeLogin() {
+function HomeLogin({ setUserId }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+
+  const navigate = useNavigate();
   let body = { email, password }
   let url = "http://127.0.0.1:4000/user/login"
   const handleLoginClick = () => {
@@ -19,8 +21,23 @@ function HomeLogin() {
         "Content-Type": "application/json"
       }),
     })
-      .then((res) => res.json())
-      .catch((err) => console.log(err))
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Invalid email or password");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data)
+        setUserId(data.foundUser._id)
+        // setEmail(data.user.email);
+        // setError("");
+        navigate("/dashboard");
+      })
+      .catch((err) => {
+        console.log(err);
+        setError(err.message);
+      })
   }
   return (
     <div>
