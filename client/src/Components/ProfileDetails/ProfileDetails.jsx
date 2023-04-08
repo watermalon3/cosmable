@@ -78,17 +78,20 @@ const Almost = ({ userId }) => {
 
   return (
     <>
-      <ButtonAppBar isHomePage={false} style={{backgroundColor: "#fff"}}/>
-      <div className="profile-details" style={{ overflow: "hidden" }}>
+      <ButtonAppBar isHomePage={false} style={{ backgroundColor: "#fff" }} />
+      <div className="profile-details" >
         <Paper
           elevation={3}
           sx={{
+            overflow: "hidden",
+            borderRadius: "30px",
+            boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.3)",
             zIndex: 1,
             padding: "20px",
             margin: "auto",
             maxWidth: "630px",
-            marginTop: "90px",
-            paddingBottom: "225px",
+            marginTop: "70px",
+            // paddingBottom: "4px",
           }}
           style={{ overflow: "hidden" }}
         >
@@ -256,7 +259,7 @@ const Almost = ({ userId }) => {
                   height: "40px",
                   padding: "2px",
                   width: "120px",
-                  textTranform: "none",
+                  textTransform: "none",
                 }}
               >
                 Get Started
