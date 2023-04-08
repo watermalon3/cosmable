@@ -10,8 +10,16 @@ import Menu from "@mui/material/Menu";
 import Button from "@mui/material/Button";
 import "./nav.css";
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 export default function ButtonAppBar({ isHomePage, onLoginClick }) {
+
+  const navigate = useNavigate();
+
+  const handleClicked = () => {
+    navigate("/")
+  }
+
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -38,6 +46,8 @@ export default function ButtonAppBar({ isHomePage, onLoginClick }) {
        
       >
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+          <nav>
+          <Button onClick={handleClicked} sx={{ color: "black"}}>
           <Typography
             variant="h3"
             component="div"
@@ -45,6 +55,8 @@ export default function ButtonAppBar({ isHomePage, onLoginClick }) {
           >
             Cosmable
           </Typography>
+          </Button>
+          </nav>
           <Box>
           <Link to="/home-login">
           <Button
