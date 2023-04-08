@@ -48,11 +48,17 @@ function HomePage() {
       <ButtonAppBar 
       isHomePage={true} 
        
-      sx={{ positon: "fixed", zIndex: 2 }}
+      sx={{
+         positon: "fixed", 
+         zIndex: 2,
+         minHeight: { xs: "64px", md: "auto" }  
+        }}
       />
       <Paper
       elevation={3}
       sx={{
+        borderRadius: "15px",
+              boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.3)",
         textAlign: "center",
         display: "flex",
         flexDirection: "column",
@@ -115,20 +121,31 @@ function HomePage() {
             <Grid container direction="column" alignItems="center">
               <Grid item>
                 <TextField
+                label={
+                  <Typography
+                  variant="h6"
                   sx={{
                     width: { xs: "100%", md: "66.7%" },
                     height: { xs: "100%", md: "66.7%" },
                     borderRadius: 0,
-                  }}
+                    fontFamily: "Playfair Display",
+                  }}>
+                  Username
+                  </Typography>
+                }
                   style={{ backgroundColor: "white" }}
-                  label="Username"
+                  
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   variant="outlined"
                   margin="dense"
                   InputProps={{
                     startAdornment: (
-                      <Typography variant="body1">cosmable.co/</Typography>
+                      <Typography 
+                      variant="body1"
+                      sx={{
+                        fontFamily: "'Playfair Display', serif"
+                      }}>cosmable.co/</Typography>
                     ),
                   }}
                 />
@@ -142,13 +159,15 @@ function HomePage() {
                   style={{ backgroundColor: "#5A5252" }}
                   sx={{
                     width: { xs: "100%", md: "66.7%" },
-                    height: { xs: "100%", md: "66.7%" },
-                    minHeight: "50px",
-                    minWidth: "150px",
+                    // height: { xs: "100%", md: "66.7%" },
+                    height: "40px",
+                    // minHeight: "50px",
+                    minWidth: "125px",
                     // fontFamily: "Playfair Display",
                     // borderRadius: 0,
                     border: "2px solid #5A5252",
                     fontFamily: "Playfair Display",
+                    textTransform: "none",
                 // fontSize: "18px",
                 // lineHeight: "22px",
                 // color: "#5A5252",

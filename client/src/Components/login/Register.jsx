@@ -56,19 +56,21 @@ const Register = ({ setUserId }) => {
   return (
     <>
       <ButtonAppBar  />
-      <div className="register-container" style={{ overflow: "hidden" }}>
+      <div className="register-container" style={{ marginBottom: "-225px" }}>
         {showProfileDetails ? (
           <ProfileDetails />
         ) : (
           <Paper
           elevation={3}
             sx={{
+              borderRadius: "15px",
+              boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.3)",
               zIndex: 1,
               padding: "20px",
               margin: "auto",
               maxWidth: "630px",
               marginTop: "100px",
-              paddingBottom: "225px",
+              paddingBottom: "50px",
             }}
             style={{ overflow: "hidden" }} 
           >
@@ -93,7 +95,7 @@ const Register = ({ setUserId }) => {
                       variant="h6"
                       sx={{ fontFamily: "'Playfair Display', serif" }}
                     >
-                      Username
+                      Username<span style={{color: "525252"}}>*</span>
                     </Typography>
                   }
                   {...register("userName")}
@@ -106,7 +108,7 @@ const Register = ({ setUserId }) => {
                       variant="h6"
                       sx={{ fontFamily: "'Playfair Display', serif" }}
                     >
-                      Email
+                      Email <span style={{color: "525252"}}>*</span>
                     </Typography>
                   }
                   type="email"
@@ -120,7 +122,7 @@ const Register = ({ setUserId }) => {
                       variant="h6"
                       sx={{ fontFamily: "'Playfair Display', serif" }}
                     >
-                      Password
+                      Password<span style={{color: "525252"}}>*</span>
                     </Typography>
                   }
                   type="password"
@@ -143,7 +145,7 @@ const Register = ({ setUserId }) => {
                       variant="h6"
                       sx={{ fontFamily: "'Playfair Display', serif" }}
                     >
-                      Confirm Password
+                      Confirm Password<span style={{color: "525252"}}>*</span>
                     </Typography>
                   }
                   type="password"

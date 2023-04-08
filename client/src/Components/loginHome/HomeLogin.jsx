@@ -65,6 +65,9 @@ function HomeLogin({ setUserId }) {
             boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.5)",
             minWidth: "300px",
             maxWidth: "400px",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "-250px"
           }}>
           <Grid item>
             <Typography variant="h6" sx={{ fontFamily: "Playfair Display"}}>Welcome back</Typography >
