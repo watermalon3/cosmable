@@ -27,12 +27,12 @@ const useStyles = makeStyles(() => ({
   whiteBackground: {
     backgroundColor: "#fff",
   },
-  astericks: {
-    fontSize: "0.8em",
-    verticalAlign: "super",
-    color: "#5A5252",
-    marginLeft: 2,
-  },
+  // astericks: {
+  //   fontSize: "0.8em",
+  //   verticalAlign: "super",
+  //   color: "#5A5252",
+  //   marginLeft: 2,
+  // },
 }));
 
 const Almost = ({ userId }) => {
@@ -84,14 +84,15 @@ const Almost = ({ userId }) => {
           elevation={3}
           sx={{
             overflow: "hidden",
-            borderRadius: "30px",
+            borderRadius: "15px",
             boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.3)",
             zIndex: 1,
             padding: "20px",
             margin: "auto",
             maxWidth: "630px",
-            marginTop: "70px",
-            // paddingBottom: "4px",
+            marginTop: "100px",
+            paddingBottom: "50px",
+            
           }}
           style={{ overflow: "hidden" }}
         >
@@ -99,7 +100,7 @@ const Almost = ({ userId }) => {
             <Stack
               spacing={2}
               sx={{
-                paddingTop: "70px",
+                paddingTop: "50px",
                 // alignItems: "flex-start",
                 fontFamily: "Playfair Display",
               }}
