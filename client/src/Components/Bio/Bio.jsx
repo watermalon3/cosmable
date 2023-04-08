@@ -17,6 +17,10 @@ import { Link } from "react-router-dom";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import EditIcon from "@mui/icons-material/Edit";
 import ButtonAppBar from "../Create/header/HeaderNav";
+
+
+
+
 const getUser = async (userId) => {
   const url = `http://localhost:4000/routes/user/${userId}`;
   const response = await fetch(url);
@@ -42,6 +46,10 @@ const getPortfolio = async (userId) => {
   return portfolio;
 };
 const Bio = () => {
+ 
+
+
+
   const [profile, setProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
