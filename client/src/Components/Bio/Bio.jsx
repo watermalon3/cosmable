@@ -10,6 +10,7 @@ import {
   MenuItem,
   InputLabel,
   Select,
+  ListItem,
 } from "@mui/material";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import { IconButton } from "@mui/material";
@@ -58,6 +59,7 @@ const Bio = () => {
   const [pronoun, setPronoun] = useState("");
   const [concern, setConcern] = useState("");
   const [procedure, setProcedure] = useState("");
+  const [displayedPortfolios, setDisplayedPortfolios] = useState([]);
   const handleChangeAgeRange = (event) => {
     setAgeRange(event.target.value);
   };
@@ -83,6 +85,94 @@ const Bio = () => {
       setIsLoading(false);
     });
   }, []);
+
+  const renderPortfolios = () => {
+    const filteredPortfolio = portfolio?.foundPortfolio.filter((photo) => {
+      return (
+        (ageRange === false || photo.ageRange === ageRange) &&
+        (pronoun === false || photo.pronoun)
+      );
+    });
+    console.log(filteredPortfolio);
+    // filteredPortfolio.map((item) => {
+    // console.log(item);
+    // return;
+    // console.log(
+    //   "item",
+    //   ageRange === item.ageRange ||
+    //     pronoun === item.pronoun ||
+    //     concern === item.concern ||
+    //     procedure === item.procedure
+    // );
+    // return true;
+    // return (
+    // ageRange === item.ageRange ||
+    // pronoun === item.pronoun ||
+    // concern === item.concern ||
+    // procedure === item.procedure
+    // );
+    // return (
+    //   <ImageListItem>
+    //     {/* <img src={`${item.imageLinks}?w=164&h=164&fit=crop&auto=format`} /> */}
+    //   </ImageListItem>
+    // );
+    // });
+  };
+
+  useEffect(() => {
+    const filteredPortfolios = renderPortfolios();
+    setDisplayedPortfolios(filteredPortfolios);
+  }, [ageRange, pronoun, concern, procedure]);
+
+  // const renderPortfolios = () => {
+  //   return portfolio?.foundPortfolio.filter((item) => {
+  //     return;
+  //     // console.log(
+  //     //   "item",
+  //     //   ageRange === item.ageRange ||
+  //     //     pronoun === item.pronoun ||
+  //     //     concern === item.concern ||
+  //     //     procedure === item.procedure
+  //     // );
+  //     // return true;
+  //     // return (
+  //     // ageRange === item.ageRange ||
+  //     // pronoun === item.pronoun ||
+  //     // concern === item.concern ||
+  //     // procedure === item.procedure
+  //     // );
+  //     // return (
+  //     //   <ImageListItem>
+  //     //     <img src={`${item.imageLinks}?w=164&h=164&fit=crop&auto=format`} />
+  //     //   </ImageListItem>
+  //     // );
+  //   });
+  // };
+
+  const filterPortfolios = (arr, filters) => {
+    console.log("filters", filters);
+    return arr.filter((obj) => {
+      for (let key in filters) {
+        if (obj[key] !== filters[key]) {
+          return false;
+        }
+      }
+      return true;
+    });
+  };
+
+  useEffect(() => {
+    const filterOptions = [ageRange, pronoun, concern, procedure];
+    let activeFilters = {};
+    // loop through filterOptions and put in active filters if its not equal to an empty string
+    // activeFilters filterOptions.forEch((filter) => {
+    // if ageRange isn't "" then update activeFilters like this activeFilters[key]: value
+    // })
+    const filteredPortfolios = filterPortfolios(portfolio, activeFilters);
+    // const filteredPortfolios = renderPortfolios();
+    setDisplayedPortfolios(filteredPortfolios);
+  }, [ageRange, pronoun, concern, procedure]);
+
   return (
     <>
       {isLoading ? (
@@ -123,7 +213,7 @@ const Bio = () => {
                 color: "#5A5252",
               }}
             >
-              UserName
+              {user.user.name}, {user.user.title}
             </Typography>
             <Typography
               variant="h6"
@@ -134,7 +224,7 @@ const Bio = () => {
                 color: "#9B9B9B",
               }}
             >
-              Location
+              {user.user.city}
             </Typography>
             <Accordion sx={{ width: "75%", margin: "auto" }}>
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -182,7 +272,7 @@ const Bio = () => {
               </AccordionSummary>
               <AccordionDetails>
                 <Stack>
-                {profile.foundProfile.links.map((item) => {
+                  {profile.foundProfile.links.map((item) => {
                     if (item.linkName) {
                       return (
                         <Button
@@ -299,16 +389,30 @@ const Bio = () => {
               cols={3}
               rowHeight={164}
             >
-              {portfolio.foundPortfolio.map((item) => {
+              {/* {displayedPortfolios} */}
+              {/* {portfolio.foundPortfolio.map((item) => {
                 console.log("item", item);
-                return (
-                  <ImageListItem>
-                    <img
-                      src={`${item.imageLinks}?w=164&h=164&fit=crop&auto=format`}
-                    />
-                  </ImageListItem>
-                );
-              })}
+                if (!ageRange && !concern && !pronoun && !procedure) {
+                  return (
+                    <ImageListItem>
+                      <img
+                        src={`${item.imageLinks}?w=164&h=164&fit=crop&auto=format`}
+                      />
+                    </ImageListItem>
+                  );
+                } else {
+                  if (ageRange === item.ageRange) {
+                    return (
+                      <ImageListItem>
+                        <img
+                          src={`${item.imageLinks}?w=164&h=164&fit=crop&auto=format`}
+                        />
+                      </ImageListItem>
+                    );
+                  }
+                }
+              })} */}
+              {/* have a function renderPortfolios() */}
             </ImageList>
           </Stack>
         </div>
