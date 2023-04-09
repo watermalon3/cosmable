@@ -68,7 +68,7 @@ const updateProfile = async (userId, body) => {
   const updateProfile = response.json();
   return updateProfile;
 };
-const EditBio = () => {
+const EditBio = ({ userId }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [bio, setBio] = useState("");
@@ -88,9 +88,9 @@ const EditBio = () => {
   } = useForm();
   useEffect(() => {
     Promise.all([
-      getPortfolio("642c4208b731d3e2f98f1fee"),
-      getUser("642c4208b731d3e2f98f1fee"),
-      getProfile("642c4208b731d3e2f98f1fee"),
+      getPortfolio(userId),
+      getUser(userId),
+      getProfile(userId),
     ]).then((values) => {
       // console.log("return values 0", values[0], "return values 1", values[1]);
       setPortfolio(values[0]);
@@ -182,12 +182,15 @@ const EditBio = () => {
                     sx={{ width: 150, height: 150 }}
                     src={user.user.profilePicture || profilePicture}
                   />
-                  <ImageUploader setProfilePicture={setProfilePicture} />
+                  <ImageUploader
+                    setProfilePicture={setProfilePicture}
+                    userId={userId}
+                  />
 
                   <Typography variant="h6">
-                    {user.user.userName}, NP-C
+                    {user.user.name}, {user.user.title}
                   </Typography>
-                  <Typography variant="h6">Location</Typography>
+                  <Typography variant="h6">{user.user.city}</Typography>
                 </div>
                 <TextField
                   fullWidth
@@ -279,6 +282,7 @@ const EditBio = () => {
                   portfolioPhotos={portfolioPhotos}
                   setPortfolioPhotos={setPortfolioPhotos}
                   setIsOpen={setIsOpen}
+                  userId={userId}
                 />
               </Box>
             </Drawer>
