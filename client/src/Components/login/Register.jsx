@@ -17,8 +17,23 @@ const Register = ({ setUserId }) => {
 
   const [showProfileDetails, setShowProfileDetails] = useState(false);
 
+  const createProfile = async(userId) => {
+    let body = { userId: userId }
+    try {
+      const profile = await fetch(profileUrl, {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: new Headers({
+          "Content-Type": "application/json"
+        }),
+      });
+
+    } catch (error) {
+      console.error("An error occurred creating the profile:", error);
+    }
+  }
+
   const onSubmit = async (data) => {
-    console.log(data);
     let body = data;
     try {
       const response = await fetch(url, {
@@ -31,10 +46,9 @@ const Register = ({ setUserId }) => {
       
       const user = await response.json();
       if (response.ok) {
-        // console.log(user);
-        // console.log(response);
         navigate("/profile-details");
         await setUserId(user.newUser._id)
+        createProfile(user.newUser._id)
         reset();
       } else {
         const errorData = await response.json();
@@ -46,12 +60,9 @@ const Register = ({ setUserId }) => {
   };
 
   let url = "http://127.0.0.1:4000/user/register";
-
+  let profileUrl = "http://127.0.0.1:4000/routes/createprofile"
   const navigate = useNavigate();
 
-  const handleJoinClick = () => {
-    navigate("/profile-details");
-  };
 
   return (
     <>
