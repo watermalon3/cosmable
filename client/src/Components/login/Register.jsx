@@ -55,7 +55,7 @@ const Register = ({ setUserId }) => {
 
   return (
     <>
-      <ButtonAppBar  />
+      <ButtonAppBar isHomePage={true} />
       <div className="register-container" style={{ overflow: "hidden" }}>
         {showProfileDetails ? (
           <ProfileDetails />
