@@ -60,17 +60,38 @@ const Bio = () => {
   const [concern, setConcern] = useState("");
   const [procedure, setProcedure] = useState("");
   const [displayedPortfolios, setDisplayedPortfolios] = useState([]);
+  const [filterOptions, setFilterOptions] = useState({});
   const handleChangeAgeRange = (event) => {
     setAgeRange(event.target.value);
+    if (!event.target.value) {
+      delete filterOptions.ageRange;
+    } else {
+      setFilterOptions({ ...filterOptions, ageRange: event.target.value });
+    }
   };
   const handleChangePronoun = (event) => {
     setPronoun(event.target.value);
+    if (!event.target.value) {
+      delete filterOptions.pronoun;
+    } else {
+      setFilterOptions({ ...filterOptions, pronoun: event.target.value });
+    }
   };
   const handleChangeConcern = (event) => {
     setConcern(event.target.value);
+    if (!event.target.value) {
+      delete filterOptions.concern;
+    } else {
+      setFilterOptions({ ...filterOptions, concern: event.target.value });
+    }
   };
   const handleChangeProcedure = (event) => {
     setProcedure(event.target.value);
+    if (!event.target.value) {
+      delete filterOptions.procedure;
+    } else {
+      setFilterOptions({ ...filterOptions, procedure: event.target.value });
+    }
   };
   useEffect(() => {
     Promise.all([
@@ -86,92 +107,27 @@ const Bio = () => {
     });
   }, []);
 
-  const renderPortfolios = () => {
-    const filteredPortfolio = portfolio?.foundPortfolio.filter((photo) => {
-      return (
-        (ageRange === false || photo.ageRange === ageRange) &&
-        (pronoun === false || photo.pronoun)
-      );
-    });
-    console.log(filteredPortfolio);
-    // filteredPortfolio.map((item) => {
-    // console.log(item);
-    // return;
-    // console.log(
-    //   "item",
-    //   ageRange === item.ageRange ||
-    //     pronoun === item.pronoun ||
-    //     concern === item.concern ||
-    //     procedure === item.procedure
-    // );
-    // return true;
-    // return (
-    // ageRange === item.ageRange ||
-    // pronoun === item.pronoun ||
-    // concern === item.concern ||
-    // procedure === item.procedure
-    // );
-    // return (
-    //   <ImageListItem>
-    //     {/* <img src={`${item.imageLinks}?w=164&h=164&fit=crop&auto=format`} /> */}
-    //   </ImageListItem>
-    // );
-    // });
-  };
-
-  useEffect(() => {
-    const filteredPortfolios = renderPortfolios();
-    setDisplayedPortfolios(filteredPortfolios);
-  }, [ageRange, pronoun, concern, procedure]);
-
-  // const renderPortfolios = () => {
-  //   return portfolio?.foundPortfolio.filter((item) => {
-  //     return;
-  //     // console.log(
-  //     //   "item",
-  //     //   ageRange === item.ageRange ||
-  //     //     pronoun === item.pronoun ||
-  //     //     concern === item.concern ||
-  //     //     procedure === item.procedure
-  //     // );
-  //     // return true;
-  //     // return (
-  //     // ageRange === item.ageRange ||
-  //     // pronoun === item.pronoun ||
-  //     // concern === item.concern ||
-  //     // procedure === item.procedure
-  //     // );
-  //     // return (
-  //     //   <ImageListItem>
-  //     //     <img src={`${item.imageLinks}?w=164&h=164&fit=crop&auto=format`} />
-  //     //   </ImageListItem>
-  //     // );
-  //   });
-  // };
-
-  const filterPortfolios = (arr, filters) => {
-    console.log("filters", filters);
-    return arr.filter((obj) => {
-      for (let key in filters) {
-        if (obj[key] !== filters[key]) {
-          return false;
+  const filterPortfolios = () => {
+    return portfolio.foundPortfolio
+      .filter((obj) => {
+        console.log(obj);
+        for (let key in filterOptions) {
+          if (obj[key] !== filterOptions[key]) {
+            console.log("inside of if statement");
+            console.log(obj[key], filterOptions[key]);
+            return false;
+          }
         }
-      }
-      return true;
-    });
+        return true;
+      })
+      .map((image) => {
+        return (
+          <ImageListItem>
+            <img src={`${image.imageLinks}?w=164&h=164&fit=crop&auto=format`} />
+          </ImageListItem>
+        );
+      });
   };
-
-  useEffect(() => {
-    const filterOptions = [ageRange, pronoun, concern, procedure];
-    let activeFilters = {};
-    // loop through filterOptions and put in active filters if its not equal to an empty string
-    // activeFilters filterOptions.forEch((filter) => {
-    // if ageRange isn't "" then update activeFilters like this activeFilters[key]: value
-    // })
-    const filteredPortfolios = filterPortfolios(portfolio, activeFilters);
-    // const filteredPortfolios = renderPortfolios();
-    setDisplayedPortfolios(filteredPortfolios);
-  }, [ageRange, pronoun, concern, procedure]);
 
   return (
     <>
@@ -345,8 +301,9 @@ const Bio = () => {
                     Skin Pigment & Texture
                   </MenuItem>
                   <MenuItem value={"Face Contouring"}>Face Contouring</MenuItem>
-                  <MenuItem value={"Lips Contouring, Body Hair Management"}>
-                    Lips Contouring, Body Hair Management
+                  <MenuItem value={"Lips Contouring"}>Lips Contouring</MenuItem>
+                  <MenuItem value={"Body Hair Management"}>
+                    Body Hair Management
                   </MenuItem>
                   <MenuItem value={"Special Occasion Prep"}>
                     Special Occasion Prep
@@ -389,30 +346,7 @@ const Bio = () => {
               cols={3}
               rowHeight={164}
             >
-              {/* {displayedPortfolios} */}
-              {/* {portfolio.foundPortfolio.map((item) => {
-                console.log("item", item);
-                if (!ageRange && !concern && !pronoun && !procedure) {
-                  return (
-                    <ImageListItem>
-                      <img
-                        src={`${item.imageLinks}?w=164&h=164&fit=crop&auto=format`}
-                      />
-                    </ImageListItem>
-                  );
-                } else {
-                  if (ageRange === item.ageRange) {
-                    return (
-                      <ImageListItem>
-                        <img
-                          src={`${item.imageLinks}?w=164&h=164&fit=crop&auto=format`}
-                        />
-                      </ImageListItem>
-                    );
-                  }
-                }
-              })} */}
-              {/* have a function renderPortfolios() */}
+              {filterPortfolios()}
             </ImageList>
           </Stack>
         </div>
