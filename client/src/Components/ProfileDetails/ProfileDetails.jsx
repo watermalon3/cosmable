@@ -79,7 +79,7 @@ const Almost = ({ userId }) => {
   return (
     <>
       <ButtonAppBar isHomePage={false} style={{ backgroundColor: "#fff" }} />
-      <div className="profile-details" >
+      <div className="profile-details">
         <Paper
           elevation={3}
           sx={{
@@ -92,7 +92,6 @@ const Almost = ({ userId }) => {
             maxWidth: "630px",
             marginTop: "100px",
             paddingBottom: "50px",
-            
           }}
           style={{ overflow: "hidden" }}
         >
@@ -177,14 +176,14 @@ const Almost = ({ userId }) => {
                     variant="h6"
                     sx={{ fontFamily: "'Playfair Display', serif" }}
                   >
-                    Your practice zipcode
+                    Your practice city, state
                     <span className={classes.asterisk}>*</span>
                   </Typography>
                 }
-                type="zipcode"
-                {...register("zipcode")}
-                error={Boolean(errors.zipcode)}
-                helperText={errors.zipcode?.message}
+                type="city"
+                {...register("city")}
+                error={Boolean(errors.city)}
+                helperText={errors.city?.message}
                 sx={{
                   width: { xs: "100%", md: "100%" },
                 }}

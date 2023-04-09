@@ -23,6 +23,7 @@ const ImageUploaderPortfolio = ({
   portfolioPhotos,
   setPortfolioPhotos,
   setIsOpen,
+  userId,
 }) => {
   const s3 = new AWS.S3();
   const [imageUrl, setImageUrl] = useState(null);
@@ -55,7 +56,7 @@ const ImageUploaderPortfolio = ({
 
   const handleSave = () => {
     portfolioSend({
-      userId: "642c4208b731d3e2f98f1fee",
+      userId: "userId",
       imageLinks: imageUrl,
       ageRange: ageRange,
       pronoun: pronoun,
@@ -172,8 +173,9 @@ const ImageUploaderPortfolio = ({
                 Skin Pigment & Texture
               </MenuItem>
               <MenuItem value={"Face Contouring"}>Face Contouring</MenuItem>
-              <MenuItem value={"Lips Contouring, Body Hair Management"}>
-                Lips Contouring, Body Hair Management
+              <MenuItem value={"Lips Contouring"}>Lips Contouring</MenuItem>
+              <MenuItem value={"Body Hair Management"}>
+                Body Hair Management
               </MenuItem>
               <MenuItem value={"Special Occasion Prep"}>
                 Special Occasion Prep
@@ -196,7 +198,6 @@ const ImageUploaderPortfolio = ({
                 Laser Skin Treatment
               </MenuItem>
               <MenuItem value={"Laser Hair Removal"}>
-                {" "}
                 Laser Hair Removal
               </MenuItem>
               <MenuItem value={"Light Treatment"}>Light Treatment</MenuItem>

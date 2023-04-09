@@ -8,13 +8,13 @@ AWS.config.update({
   signatureVersion: "v4",
 });
 
-const ImageUploader = ({ setProfilePicture }) => {
+const ImageUploader = ({ setProfilePicture, userId }) => {
   const s3 = new AWS.S3();
   const [file, setFile] = useState(null);
 
   const portfolioSend = (body) => {
     console.log(body);
-    let profileId = "642c4208b731d3e2f98f1fee";
+    let profileId = userId;
     fetch(`http://localhost:4000/routes/updateUser/${profileId}`, {
       method: "PUT",
       body: JSON.stringify(body),

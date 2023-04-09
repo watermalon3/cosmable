@@ -19,9 +19,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import EditIcon from "@mui/icons-material/Edit";
 import ButtonAppBar from "../Create/header/HeaderNav";
 
-
-
-
 const getUser = async (userId) => {
   const url = `http://localhost:4000/routes/user/${userId}`;
   const response = await fetch(url);
@@ -46,11 +43,7 @@ const getPortfolio = async (userId) => {
   // TODO check for error
   return portfolio;
 };
-const Bio = () => {
- 
-
-
-
+const Bio = ({ userId }) => {
   const [profile, setProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
@@ -95,9 +88,9 @@ const Bio = () => {
   };
   useEffect(() => {
     Promise.all([
-      getPortfolio("642c4208b731d3e2f98f1fee"),
-      getUser("642c4208b731d3e2f98f1fee"),
-      getProfile("642c4208b731d3e2f98f1fee"),
+      getPortfolio(userId),
+      getUser(userId),
+      getProfile(userId),
     ]).then((values) => {
       // console.log("return values 0", values[0], "return values 1", values[1]);
       setPortfolio(values[0]);
