@@ -4,9 +4,12 @@ import { useForm } from "react-hook-form";
 import "./login.css";
 import ProfileDetails from "../ProfileDetails/ProfileDetails";
 import ButtonAppBar from "../Create/header/HeaderNav";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../AuthContext";
 
-const Register = () => {
+const Register = ({ setUserId }) => {
+  const { setIsLoggedIn } = useAuth();
+
   const {
     register,
     handleSubmit,
@@ -50,7 +53,12 @@ const Register = () => {
 
       const user = await response.json();
       if (response.ok) {
+        // console.log(user);
+        // console.log(response);
+        // await setUserId(user.newUser._id)
+        // navigate("/profile-details");
         navigate("/profile-details");
+        setIsLoggedIn(true);
         localStorage.setItem("userId", user.newUser._id);
         createProfile(user.newUser._id);
         reset();
@@ -69,7 +77,7 @@ const Register = () => {
 
   return (
     <>
-      <ButtonAppBar />
+      <ButtonAppBar isHomePage={true} />
       <div className="register-container" style={{ marginBottom: "-225px" }}>
         {showProfileDetails ? (
           <ProfileDetails />

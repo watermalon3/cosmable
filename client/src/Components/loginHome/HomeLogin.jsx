@@ -1,8 +1,12 @@
-import React, { useState } from "react";
-import { Grid, Typography, TextField, Button } from "@mui/material";
-import "./homeLogin.css";
-import ButtonAppBar from "../Create/header/HeaderNav";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import ButtonAppBar from "../Create/header/HeaderNav";
+import React, { useState } from "react";
+import "./homeLogin.css";
+import { useAuth } from "../../AuthContext"
+
+
+
 
 function HomeLogin({ setUserId }) {
   const [email, setEmail] = useState("");
@@ -10,8 +14,11 @@ function HomeLogin({ setUserId }) {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
-  let body = { email, password };
-  let url = "http://127.0.0.1:4000/user/login";
+  const body = { email, password };
+  const url = "http://127.0.0.1:4000/user/login";
+
+  const { setIsLoggedIn } = useAuth();
+
   const handleLoginClick = () => {
     fetch(url, {
       method: "POST",
@@ -29,6 +36,7 @@ function HomeLogin({ setUserId }) {
       .then((data) => {
         console.log(data);
         localStorage.setItem("userId", data.foundUser._id);
+        setIsLoggedIn(true);
         // setEmail(data.user.email);
         // setError("");
         navigate("/dashboard");
