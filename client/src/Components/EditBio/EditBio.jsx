@@ -79,6 +79,8 @@ const EditBio = ({ userId }) => {
   const [portfolio, setPortfolio] = useState(null);
   const [profile, setProfile] = useState(null);
   const [update, setUpdate] = useState(null);
+  const id = localStorage.getItem("userId");
+
   const {
     register,
     handleSubmit,
@@ -87,38 +89,36 @@ const EditBio = ({ userId }) => {
     formState: { errors },
   } = useForm();
   useEffect(() => {
-    Promise.all([
-      getPortfolio(userId),
-      getUser(userId),
-      getProfile(userId),
-    ]).then((values) => {
-      // console.log("return values 0", values[0], "return values 1", values[1]);
-      setPortfolio(values[0]);
-      setUser(values[1]);
-      setProfile(values[2]);
-      setIsLoading(false);
-      if (values[2].foundProfile.bio) {
-        setValue("bio", values[2].foundProfile.bio);
+    Promise.all([getPortfolio(id), getUser(id), getProfile(id)]).then(
+      (values) => {
+        // console.log("return values 0", values[0], "return values 1", values[1]);
+        setPortfolio(values[0]);
+        setUser(values[1]);
+        setProfile(values[2]);
+        setIsLoading(false);
+        if (values[2].foundProfile.bio) {
+          setValue("bio", values[2].foundProfile.bio);
+        }
+        if (values[2].foundProfile.links[0]) {
+          setValue("linkName1", values[2].foundProfile.links[0].linkName);
+          setValue("link1", values[2].foundProfile.links[0].link);
+          console.log(values[2].foundProfile.links[0].linkName);
+        }
+        if (values[2].foundProfile.links[1]) {
+          setValue("linkName2", values[2].foundProfile.links[1].linkName);
+          setValue("link2", values[2].foundProfile.links[1].link);
+        }
+        if (values[2].foundProfile.links[2]) {
+          setValue("linkName3", values[2].foundProfile.links[2].linkName);
+          setValue("link3", values[2].foundProfile.links[2].link);
+        }
       }
-      if (values[2].foundProfile.links[0]) {
-        setValue("linkName1", values[2].foundProfile.links[0].linkName);
-        setValue("link1", values[2].foundProfile.links[0].link);
-        console.log(values[2].foundProfile.links[0].linkName);
-      }
-      if (values[2].foundProfile.links[1]) {
-        setValue("linkName2", values[2].foundProfile.links[1].linkName);
-        setValue("link2", values[2].foundProfile.links[1].link);
-      }
-      if (values[2].foundProfile.links[2]) {
-        setValue("linkName3", values[2].foundProfile.links[2].linkName);
-        setValue("link3", values[2].foundProfile.links[2].link);
-      }
-    });
+    );
   }, []);
   useEffect(() => {
     console.log("update", update);
     if (update) {
-      updateProfile("642c4208b731d3e2f98f1fee", update);
+      updateProfile(id, update);
     }
     // console.log("user", user);
     // console.log("portfolio", portfolio);
