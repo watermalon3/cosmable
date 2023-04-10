@@ -1,0 +1,18 @@
+@media (max-width: 600px) {
+    /* reduce font sizes */
+    body {
+      font-size: 14px;
+    }
+  
+    /* adjust padding and margins */
+    .container {
+      padding: 10px;
+      margin: 0;
+    }
+  
+    /* adjust image sizes */
+    .image {
+      width: 100%;
+      height: auto;
+    }
+  }
