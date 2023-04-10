@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import {
   Stack,
   Typography,
@@ -12,7 +11,6 @@ import {
   InputLabel,
   Select,
   ListItem,
-  Paper,
 } from "@mui/material";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import { IconButton } from "@mui/material";
@@ -45,7 +43,7 @@ const getPortfolio = async (userId) => {
   // TODO check for error
   return portfolio;
 };
-const Bio = () => {
+const Bio = ({ userId }) => {
   const [profile, setProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
@@ -131,231 +129,219 @@ const Bio = () => {
       ) : (
         <div>
           <ButtonAppBar isHomePage={false} className="AppBar-transparent" />
-          <Paper
+          <Stack
+            spacing={2}
             sx={{
-              overflow: "hidden",
-              borderRadius: "15px",
-              boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.3)",
-              zIndex: 1,
-              padding: "20px",
-              margin: "auto",
-              maxWidth: "630px",
-              marginTop: "100px",
-              paddingBottom: "50px",
-              "@media (max-width: 600px)": {
-                maxWidth: "100%", // set the maximum width to 100% on small screens
-                margin: "0px", // remove margin on small screens
-                marginTop: "70px", // adjust the top margin on small screens
-                paddingTop: "30px", // adjust the top padding on small screens
-                paddingBottom: "100px", // adjust the bottom padding on small screens
-              },
+              textAlign: "center",
+              paddingTop: "70px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              color: "#5A5252",
             }}
           >
-            <Stack
-              spacing={2}
+            <IconButton
+              component={Link}
+              to="/dashboard/edit"
+              sx={{ alignSelf: "end" }}
+            >
+              <EditIcon />
+            </IconButton>
+            <Avatar
+              src={user.user.profilePicture}
+              sx={{ width: 150, height: 150, margin: "auto" }}
+            />
+            <Typography
+              variant="h3"
               sx={{
-                textAlign: "center",
-                paddingTop: "70px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
+                fontFamily: "Playfair Display",
+                fontWeight: 400,
+                fontSize: "30px",
+                lineHeight: "39.99px",
                 color: "#5A5252",
               }}
             >
-              <Typography>
-                {user.user.name}, {user.user.title}
-              </Typography>
-              <Typography
-                variant="h6"
-                sx={{
-                  fontFamily: "Playfair Display",
-                  fontSize: "18px",
-                  lineHeight: "22px",
-                  color: "#9B9B9B",
-                }}
-              >
-                {user.user.city}
-              </Typography>
-              <Accordion sx={{ width: "75%", margin: "auto" }}>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography
-                    variant="h6"
-                    sx={{
-                      fontFamily: "Playfair Display",
-                      fontWeight: 400,
-                      fontSize: "20px",
-                      lineHeight: "24px",
-                      color: "#5A5252",
-                    }}
-                  >
-                    bio
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography
-                    variant="h6"
-                    sx={{
-                      fontFamily: "Playfair Display",
-                      fontSize: "18px",
-                      lineHeight: "22px",
-                      color: "#5A5252",
-                    }}
-                  >
-                    {profile.foundProfile.bio}
-                  </Typography>
-                </AccordionDetails>
-              </Accordion>
-              <Accordion sx={{ width: "75%", margin: "auto" }}>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography
-                    variant="h6"
-                    sx={{
-                      fontFamily: "Playfair Display",
-                      fontWeight: 400,
-                      fontSize: "20px",
-                      lineHeight: "24px",
-                      color: "#5A5252",
-                    }}
-                  >
-                    Links
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Stack>
-                    {profile.foundProfile.links.map((item) => {
-                      if (item.linkName) {
-                        return (
-                          <Button
-                            target="_blank"
-                            href={item.link}
-                            variant="contained"
-                          >
-                            {item.linkName}
-                          </Button>
-                        );
-                      }
-                    })}
-                  </Stack>
-                </AccordionDetails>
-              </Accordion>
-              <Stack direction={"row"} spacing={3}>
-                <FormControl>
-                  <InputLabel>Age Range</InputLabel>
-                  <Select
-                    value={ageRange}
-                    label="Age Range"
-                    onChange={handleChangeAgeRange}
-                    size="medium"
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={"21 - 25"}>21-25</MenuItem>
-                    <MenuItem value={"26 - 35"}>26-35</MenuItem>
-                    <MenuItem value={"36 - 45"}>35-45</MenuItem>
-                    <MenuItem value={"46 - 55"}>46-55</MenuItem>
-                    <MenuItem value={"56+"}>56+</MenuItem>
-                  </Select>
-                </FormControl>
-                <FormControl>
-                  <InputLabel>Pronoun</InputLabel>
-                  <Select
-                    value={pronoun}
-                    label="Pronoun"
-                    onChange={handleChangePronoun}
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={"she / her"}>she/her</MenuItem>
-                    <MenuItem value={"he / him"}>he/him</MenuItem>
-                    <MenuItem value={"they / them"}>they/them</MenuItem>
-                  </Select>
-                </FormControl>
-                <FormControl>
-                  <InputLabel>Concern</InputLabel>
-                  <Select
-                    value={concern}
-                    label="Concern"
-                    onChange={handleChangeConcern}
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={"General Anti-aging"}>
-                      General Anti-aging
-                    </MenuItem>
-                    <MenuItem value={"Wrinkle Correction"}>
-                      Wrinkle Correction
-                    </MenuItem>
-                    <MenuItem value={"Skin Laxity"}>Skin Laxity</MenuItem>
-                    <MenuItem value={"Body Sculpting"}>
-                      {" "}
-                      Body Sculpting
-                    </MenuItem>
-                    <MenuItem value={"Acne"}>Acne</MenuItem>
-                    <MenuItem value={"Skin Pigment & Texture"}>
-                      Skin Pigment & Texture
-                    </MenuItem>
-                    <MenuItem value={"Face Contouring"}>
-                      Face Contouring
-                    </MenuItem>
-                    <MenuItem value={"Lips Contouring"}>
-                      Lips Contouring
-                    </MenuItem>
-                    <MenuItem value={"Body Hair Management"}>
-                      Body Hair Management
-                    </MenuItem>
-                    <MenuItem value={"Special Occasion Prep"}>
-                      Special Occasion Prep
-                    </MenuItem>
-                  </Select>
-                </FormControl>
-                <FormControl>
-                  <InputLabel>Procedure</InputLabel>
-                  <Select
-                    value={procedure}
-                    label="Concern"
-                    onChange={handleChangeProcedure}
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={"Botulinum Toxin"}>
-                      Botulinum Toxin
-                    </MenuItem>
-                    <MenuItem value={"Dermal Filler"}>Dermal Filler</MenuItem>
-                    <MenuItem value={"Laser Skin Treatment"}>
-                      Laser Skin Treatment
-                    </MenuItem>
-                    <MenuItem value={"Laser Hair Removal"}>
-                      {" "}
-                      Laser Hair Removal
-                    </MenuItem>
-                    <MenuItem value={"Light Treatment"}>
-                      Light Treatment
-                    </MenuItem>
-                    <MenuItem value={"Chemical Peel"}>Chemical Peel</MenuItem>
-                    <MenuItem value={"Microneedling"}>Microneedling</MenuItem>
-                    <MenuItem value={"Device-based Facial"}>
-                      Device-based Facial
-                    </MenuItem>
-                    <MenuItem value={"Non surgical Fat Reduction"}>
-                      Non surgical Fat Reduction
-                    </MenuItem>
-                  </Select>
-                </FormControl>
-              </Stack>
-              <ImageList
-                sx={{ width: 500, height: 450 }}
-                cols={3}
-                rowHeight={164}
-              >
-                {filterPortfolios()}
-              </ImageList>
+              {user.user.name}, {user.user.title}
+            </Typography>
+            <Typography
+              variant="h6"
+              sx={{
+                fontFamily: "Playfair Display",
+                fontSize: "18px",
+                lineHeight: "22px",
+                color: "#9B9B9B",
+              }}
+            >
+              {user.user.city}
+            </Typography>
+            <Accordion sx={{ width: "75%", margin: "auto" }}>
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontFamily: "Playfair Display",
+                    fontWeight: 400,
+                    fontSize: "20px",
+                    lineHeight: "24px",
+                    color: "#5A5252",
+                  }}
+                >
+                  bio
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontFamily: "Playfair Display",
+                    fontSize: "18px",
+                    lineHeight: "22px",
+                    color: "#5A5252",
+                  }}
+                >
+                  {profile.foundProfile.bio}
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion sx={{ width: "75%", margin: "auto" }}>
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontFamily: "Playfair Display",
+                    fontWeight: 400,
+                    fontSize: "20px",
+                    lineHeight: "24px",
+                    color: "#5A5252",
+                  }}
+                >
+                  Links
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Stack>
+                  {profile.foundProfile.links.map((item) => {
+                    if (item.linkName) {
+                      return (
+                        <Button
+                          target="_blank"
+                          href={item.link}
+                          variant="contained"
+                        >
+                          {item.linkName}
+                        </Button>
+                      );
+                    }
+                  })}
+                </Stack>
+              </AccordionDetails>
+            </Accordion>
+            <Stack direction={"row"} spacing={3}>
+              <FormControl>
+                <InputLabel>Age Range</InputLabel>
+                <Select
+                  value={ageRange}
+                  label="Age Range"
+                  onChange={handleChangeAgeRange}
+                  size="medium"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={"21 - 25"}>21-25</MenuItem>
+                  <MenuItem value={"26 - 35"}>26-35</MenuItem>
+                  <MenuItem value={"36 - 45"}>35-45</MenuItem>
+                  <MenuItem value={"46 - 55"}>46-55</MenuItem>
+                  <MenuItem value={"56+"}>56+</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl>
+                <InputLabel>Pronoun</InputLabel>
+                <Select
+                  value={pronoun}
+                  label="Pronoun"
+                  onChange={handleChangePronoun}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={"she / her"}>she/her</MenuItem>
+                  <MenuItem value={"he / him"}>he/him</MenuItem>
+                  <MenuItem value={"they / them"}>they/them</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl>
+                <InputLabel>Concern</InputLabel>
+                <Select
+                  value={concern}
+                  label="Concern"
+                  onChange={handleChangeConcern}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={"General Anti-aging"}>
+                    General Anti-aging
+                  </MenuItem>
+                  <MenuItem value={"Wrinkle Correction"}>
+                    Wrinkle Correction
+                  </MenuItem>
+                  <MenuItem value={"Skin Laxity"}>Skin Laxity</MenuItem>
+                  <MenuItem value={"Body Sculpting"}> Body Sculpting</MenuItem>
+                  <MenuItem value={"Acne"}>Acne</MenuItem>
+                  <MenuItem value={"Skin Pigment & Texture"}>
+                    Skin Pigment & Texture
+                  </MenuItem>
+                  <MenuItem value={"Face Contouring"}>Face Contouring</MenuItem>
+                  <MenuItem value={"Lips Contouring"}>Lips Contouring</MenuItem>
+                  <MenuItem value={"Body Hair Management"}>
+                    Body Hair Management
+                  </MenuItem>
+                  <MenuItem value={"Special Occasion Prep"}>
+                    Special Occasion Prep
+                  </MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl>
+                <InputLabel>Procedure</InputLabel>
+                <Select
+                  value={procedure}
+                  label="Concern"
+                  onChange={handleChangeProcedure}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={"Botulinum Toxin"}>Botulinum Toxin</MenuItem>
+                  <MenuItem value={"Dermal Filler"}>Dermal Filler</MenuItem>
+                  <MenuItem value={"Laser Skin Treatment"}>
+                    Laser Skin Treatment
+                  </MenuItem>
+                  <MenuItem value={"Laser Hair Removal"}>
+                    {" "}
+                    Laser Hair Removal
+                  </MenuItem>
+                  <MenuItem value={"Light Treatment"}>Light Treatment</MenuItem>
+                  <MenuItem value={"Chemical Peel"}>Chemical Peel</MenuItem>
+                  <MenuItem value={"Microneedling"}>Microneedling</MenuItem>
+                  <MenuItem value={"Device-based Facial"}>
+                    Device-based Facial
+                  </MenuItem>
+                  <MenuItem value={"Non surgical Fat Reduction"}>
+                    Non surgical Fat Reduction
+                  </MenuItem>
+                </Select>
+              </FormControl>
             </Stack>
-          </Paper>
+            <ImageList
+              sx={{ width: 500, height: 450 }}
+              cols={3}
+              rowHeight={164}
+            >
+              {filterPortfolios()}
+            </ImageList>
+          </Stack>
         </div>
       )}
     </>
