@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 import { makeStyles } from "@mui/styles";
 import ButtonAppBar from "../Create/header/HeaderNav";
@@ -34,13 +34,18 @@ const useStyles = makeStyles(() => ({
 }));
 
 function HomePage() {
-  const [username, setUsername] = useState("");
+  const [userName, setUserName] = useState("");
   const classes = useStyles();
   const navigate = useNavigate();
 
-  const handleJoinClick = (event) => {
-    console.log("test", event.target.value);
-    navigate("/register");
+  const handleJoinClick = () => {
+    // <Navigate to="/register" state={{ userName }} />;
+    // `{ state: { myProp: 'Hello World' } }`
+    navigate("/register", {
+      state: {
+        id: userName,
+      },
+    });
   };
 
   return (
@@ -133,8 +138,8 @@ function HomePage() {
                       </Typography>
                     }
                     style={{ backgroundColor: "white" }}
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
                     variant="outlined"
                     margin="dense"
                     InputProps={{

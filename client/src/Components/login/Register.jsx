@@ -1,37 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Stack, Typography, TextField, Button, Paper } from "@mui/material";
 import { useForm } from "react-hook-form";
 import "./login.css";
 import ProfileDetails from "../ProfileDetails/ProfileDetails";
 import ButtonAppBar from "../Create/header/HeaderNav";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const Register = ({ setUserId }) => {
+const Register = () => {
   const {
     register,
     handleSubmit,
     watch,
     reset,
     formState: { errors },
+    setValue,
   } = useForm();
 
   const [showProfileDetails, setShowProfileDetails] = useState(false);
+  const location = useLocation();
+  useEffect(() => {
+    setValue("userName", location.state.id);
+  }, []);
 
-  const createProfile = async(userId) => {
-    let body = { userId: userId }
+  const createProfile = async (userId) => {
+    let body = { userId: userId };
     try {
       const profile = await fetch(profileUrl, {
         method: "POST",
         body: JSON.stringify(body),
         headers: new Headers({
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         }),
       });
-
     } catch (error) {
       console.error("An error occurred creating the profile:", error);
     }
-  }
+  };
 
   const onSubmit = async (data) => {
     let body = data;
@@ -43,12 +47,12 @@ const Register = ({ setUserId }) => {
           "Content-Type": "application/json",
         }),
       });
-      
+
       const user = await response.json();
       if (response.ok) {
         navigate("/profile-details");
-        await setUserId(user.newUser._id)
-        createProfile(user.newUser._id)
+        localStorage.setItem("userId", user.newUser._id);
+        createProfile(user.newUser._id);
         reset();
       } else {
         const errorData = await response.json();
@@ -60,19 +64,18 @@ const Register = ({ setUserId }) => {
   };
 
   let url = "http://127.0.0.1:4000/user/register";
-  let profileUrl = "http://127.0.0.1:4000/routes/createprofile"
+  let profileUrl = "http://127.0.0.1:4000/routes/createprofile";
   const navigate = useNavigate();
-
 
   return (
     <>
-      <ButtonAppBar  />
+      <ButtonAppBar />
       <div className="register-container" style={{ marginBottom: "-225px" }}>
         {showProfileDetails ? (
           <ProfileDetails />
         ) : (
           <Paper
-          elevation={3}
+            elevation={3}
             sx={{
               borderRadius: "15px",
               boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.3)",
@@ -83,7 +86,7 @@ const Register = ({ setUserId }) => {
               marginTop: "100px",
               paddingBottom: "50px",
             }}
-            style={{ overflow: "hidden" }} 
+            style={{ overflow: "hidden" }}
           >
             <form onSubmit={handleSubmit(onSubmit)}>
               <Stack spacing={2} sx={{ paddingTop: "50px" }}>
@@ -106,12 +109,24 @@ const Register = ({ setUserId }) => {
                       variant="h6"
                       sx={{ fontFamily: "'Playfair Display', serif" }}
                     >
-                      Username<span style={{color: "525252"}}>*</span>
+                      Username<span style={{ color: "525252" }}>*</span>
                     </Typography>
                   }
                   {...register("userName")}
                   error={Boolean(errors.userName)}
                   helperText={errors.userName?.message}
+                  InputProps={{
+                    startAdornment: (
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          fontFamily: "'Playfair Display', serif",
+                        }}
+                      >
+                        cosmable.co/
+                      </Typography>
+                    ),
+                  }}
                 />
                 <TextField
                   label={
@@ -119,7 +134,7 @@ const Register = ({ setUserId }) => {
                       variant="h6"
                       sx={{ fontFamily: "'Playfair Display', serif" }}
                     >
-                      Email <span style={{color: "525252"}}>*</span>
+                      Email <span style={{ color: "525252" }}>*</span>
                     </Typography>
                   }
                   type="email"
@@ -133,7 +148,7 @@ const Register = ({ setUserId }) => {
                       variant="h6"
                       sx={{ fontFamily: "'Playfair Display', serif" }}
                     >
-                      Password<span style={{color: "525252"}}>*</span>
+                      Password<span style={{ color: "525252" }}>*</span>
                     </Typography>
                   }
                   type="password"
@@ -156,7 +171,7 @@ const Register = ({ setUserId }) => {
                       variant="h6"
                       sx={{ fontFamily: "'Playfair Display', serif" }}
                     >
-                      Confirm Password<span style={{color: "525252"}}>*</span>
+                      Confirm Password<span style={{ color: "525252" }}>*</span>
                     </Typography>
                   }
                   type="password"

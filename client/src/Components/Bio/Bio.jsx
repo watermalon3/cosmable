@@ -54,6 +54,8 @@ const Bio = ({ userId }) => {
   const [procedure, setProcedure] = useState("");
   const [displayedPortfolios, setDisplayedPortfolios] = useState([]);
   const [filterOptions, setFilterOptions] = useState({});
+  // const [id, setId] = useState(userId);
+  const id = localStorage.getItem("userId");
   const handleChangeAgeRange = (event) => {
     setAgeRange(event.target.value);
     if (!event.target.value) {
@@ -87,17 +89,15 @@ const Bio = ({ userId }) => {
     }
   };
   useEffect(() => {
-    Promise.all([
-      getPortfolio(userId),
-      getUser(userId),
-      getProfile(userId),
-    ]).then((values) => {
-      // console.log("return values 0", values[0], "return values 1", values[1]);
-      setPortfolio(values[0]);
-      setUser(values[1]);
-      setProfile(values[2]);
-      setIsLoading(false);
-    });
+    Promise.all([getPortfolio(id), getUser(id), getProfile(id)]).then(
+      (values) => {
+        // console.log("return values 0", values[0], "return values 1", values[1]);
+        setPortfolio(values[0]);
+        setUser(values[1]);
+        setProfile(values[2]);
+        setIsLoading(false);
+      }
+    );
   }, []);
 
   const filterPortfolios = () => {

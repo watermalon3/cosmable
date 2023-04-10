@@ -24,7 +24,10 @@ const ImageUploaderPortfolio = ({
   setPortfolioPhotos,
   setIsOpen,
   userId,
+  setFlag,
+  flag,
 }) => {
+  const id = localStorage.getItem("userId");
   const s3 = new AWS.S3();
   const [imageUrl, setImageUrl] = useState(null);
   const [file, setFile] = useState(null);
@@ -36,7 +39,7 @@ const ImageUploaderPortfolio = ({
 
   const portfolioSend = (body) => {
     console.log(body);
-    let profileId = "642c4208b731d3e2f98f1fee";
+    let profileId = id;
     fetch(`http://localhost:4000/routes/createportfolio`, {
       method: "POST",
       body: JSON.stringify(body),
@@ -50,13 +53,14 @@ const ImageUploaderPortfolio = ({
         // call setIsOpen(false)?
         setIsOpen(false);
         console.log(data);
+        setFlag(!flag);
       })
       .catch((errors) => console.log(errors));
   };
 
   const handleSave = () => {
     portfolioSend({
-      userId: "userId",
+      userId: id,
       imageLinks: imageUrl,
       ageRange: ageRange,
       pronoun: pronoun,
