@@ -340,10 +340,12 @@ const EditBio = ({ userId }) => {
               // position="bottom"
               open={isOpen}
               onClose={() => handleClose()}
-              PaperProps={{ sx: { height: "fit-content" } }}
+              PaperProps={{ sx:  {color: "#333", height: "fit-content", maxWidth: "85vw", mx: "auto", boxShadow: "0px -4px 16px rgba(0, 0, 0, 0.1)",
+            }  }}
+              sx={{ "& .MuiDrawer-paper": { borderRadius: "10px 10px 0 0" } }}
             >
-              <Box>
-                <Typography>Portfolio</Typography>
+              <Box sx={{ px: 2, py: 4, fontFamily: "Playfair Display" }}>
+              
                 <ImageUploaderPortfolio
                   portfolioPhotos={portfolioPhotos}
                   setPortfolioPhotos={setPortfolioPhotos}
