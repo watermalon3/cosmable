@@ -28,7 +28,6 @@ function HomeLogin({ setUserId }) {
       })
       .then((data) => {
         console.log(data);
-        setUserId(data.foundUser._id);
         localStorage.setItem("userId", data.foundUser._id);
         // setEmail(data.user.email);
         // setError("");

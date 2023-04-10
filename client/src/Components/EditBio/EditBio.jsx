@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ButtonAppBar from "../Create/header/HeaderNav";
 import {
   Checkbox,
@@ -17,7 +17,9 @@ import {
   ImageList,
   ImageListItem,
   Box,
+  IconButton,
 } from "@mui/material";
+import ClearIcon from "@mui/icons-material/Clear";
 import ImageUploader from "../Upload/ImageUploader";
 import ImageUploaderPortfolio from "../UploadPorfolio/UploadPorfolio";
 
@@ -68,7 +70,10 @@ const updateProfile = async (userId, body) => {
   const updateProfile = response.json();
   return updateProfile;
 };
+
 const EditBio = ({ userId }) => {
+  const navigate = useNavigate();
+  const id = localStorage.getItem("userId");
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [bio, setBio] = useState("");
@@ -79,7 +84,6 @@ const EditBio = ({ userId }) => {
   const [portfolio, setPortfolio] = useState(null);
   const [profile, setProfile] = useState(null);
   const [update, setUpdate] = useState(null);
-  const id = localStorage.getItem("userId");
 
   const {
     register,
@@ -118,8 +122,15 @@ const EditBio = ({ userId }) => {
   useEffect(() => {
     console.log("update", update);
     if (update) {
-      updateProfile(id, update);
+      updateProfile(id, update).then((data) => {
+        console.log("data2", data.message);
+        if (data.message === "profile successfully updated") {
+          console.log("hit");
+          navigate("/dashboard");
+        }
+      });
     }
+
     // console.log("user", user);
     // console.log("portfolio", portfolio);
     // console.log("profile", profile);
@@ -144,7 +155,9 @@ const EditBio = ({ userId }) => {
       ],
     });
   };
-
+  const handleDelete = (id) => {
+    console.log(id);
+  };
   const handleClose = () => {
     setIsOpen(false);
   };
@@ -248,6 +261,9 @@ const EditBio = ({ userId }) => {
                     console.log("item", item);
                     return (
                       <ImageListItem>
+                        <IconButton onClick={() => handleDelete(item._id)}>
+                          <ClearIcon />
+                        </IconButton>
                         <img
                           src={`${item.imageLinks}?w=164&h=164&fit=crop&auto=format`}
                         />
