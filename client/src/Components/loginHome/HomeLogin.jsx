@@ -35,8 +35,10 @@ function HomeLogin({ setUserId }) {
       })
       .then((data) => {
         console.log(data);
-        setUserId(data.foundUser._id);
+        localStorage.setItem("userId", data.foundUser._id);
         setIsLoggedIn(true);
+        // setEmail(data.user.email);
+        // setError("");
         navigate("/dashboard");
       })
       .catch((err) => {
@@ -44,7 +46,6 @@ function HomeLogin({ setUserId }) {
         setError(err.message);
       });
   };
-
   return (
     <div>
       <ButtonAppBar isHomePage={true} className="AppBar-transparent" />
@@ -76,6 +77,9 @@ function HomeLogin({ setUserId }) {
             boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.5)",
             minWidth: "300px",
             maxWidth: "400px",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "-250px",
           }}
         >
           <Grid item>
@@ -114,7 +118,11 @@ function HomeLogin({ setUserId }) {
             </Button>
           </Grid>
           <Grid item>
-            <Typography variant="body1" align="center" sx={{ fontFamily: "Playfair Display" }}>
+            <Typography
+              variant="body1"
+              align="center"
+              sx={{ fontFamily: "Playfair Display" }}
+            >
               Don't have an account yet? <a href="/register">Register</a>
             </Typography>
           </Grid>

@@ -28,12 +28,12 @@ const useStyles = makeStyles(() => ({
   whiteBackground: {
     backgroundColor: "#fff",
   },
-  astericks: {
-    fontSize: "0.8em",
-    verticalAlign: "super",
-    color: "#5A5252",
-    marginLeft: 2,
-  },
+  // astericks: {
+  //   fontSize: "0.8em",
+  //   verticalAlign: "super",
+  //   color: "#5A5252",
+  //   marginLeft: 2,
+  // },
 }));
 
 const Almost = ({ userId }) => {
@@ -41,6 +41,7 @@ const Almost = ({ userId }) => {
 
   console.log(userId, " -------");
   const classes = useStyles();
+  const id = localStorage.getItem("userId");
 
   const {
     register,
@@ -73,23 +74,26 @@ const Almost = ({ userId }) => {
       console.error("An error occurred during registration:", error);
     }
   };
-  let url = `http://127.0.0.1:4000/routes/updateUser/${userId}`;
+  let url = `http://127.0.0.1:4000/routes/updateUser/${id}`;
 
   const navigate = useNavigate();
 
   return (
     <>
-      <ButtonAppBar isHomePage={false} style={{backgroundColor: "#fff"}}/>
-      <div className="profile-details" style={{ overflow: "hidden" }}>
+      <ButtonAppBar isHomePage={false} style={{ backgroundColor: "#fff" }} />
+      <div className="profile-details">
         <Paper
           elevation={3}
           sx={{
+            overflow: "hidden",
+            borderRadius: "15px",
+            boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.3)",
             zIndex: 1,
             padding: "20px",
             margin: "auto",
             maxWidth: "630px",
-            marginTop: "90px",
-            paddingBottom: "225px",
+            marginTop: "100px",
+            paddingBottom: "50px",
           }}
           style={{ overflow: "hidden" }}
         >
@@ -97,7 +101,7 @@ const Almost = ({ userId }) => {
             <Stack
               spacing={2}
               sx={{
-                paddingTop: "70px",
+                paddingTop: "50px",
                 // alignItems: "flex-start",
                 fontFamily: "Playfair Display",
               }}
@@ -174,14 +178,14 @@ const Almost = ({ userId }) => {
                     variant="h6"
                     sx={{ fontFamily: "'Playfair Display', serif" }}
                   >
-                    Your practice zipcode
+                    Your practice city, state
                     <span className={classes.asterisk}>*</span>
                   </Typography>
                 }
-                type="zipcode"
-                {...register("zipcode")}
-                error={Boolean(errors.zipcode)}
-                helperText={errors.zipcode?.message}
+                type="city"
+                {...register("city")}
+                error={Boolean(errors.city)}
+                helperText={errors.city?.message}
                 sx={{
                   width: { xs: "100%", md: "100%" },
                 }}
@@ -257,7 +261,7 @@ const Almost = ({ userId }) => {
                   height: "40px",
                   padding: "2px",
                   width: "120px",
-                  textTranform: "none",
+                  textTransform: "none",
                 }}
               >
                 Get Started

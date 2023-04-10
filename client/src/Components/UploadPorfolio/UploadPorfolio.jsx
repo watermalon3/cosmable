@@ -23,7 +23,11 @@ const ImageUploaderPortfolio = ({
   portfolioPhotos,
   setPortfolioPhotos,
   setIsOpen,
+  userId,
+  setFlag,
+  flag,
 }) => {
+  const id = localStorage.getItem("userId");
   const s3 = new AWS.S3();
   const [imageUrl, setImageUrl] = useState(null);
   const [file, setFile] = useState(null);
@@ -35,7 +39,7 @@ const ImageUploaderPortfolio = ({
 
   const portfolioSend = (body) => {
     console.log(body);
-    let profileId = "642c4208b731d3e2f98f1fee";
+    let profileId = id;
     fetch(`http://localhost:4000/routes/createportfolio`, {
       method: "POST",
       body: JSON.stringify(body),
@@ -49,13 +53,14 @@ const ImageUploaderPortfolio = ({
         // call setIsOpen(false)?
         setIsOpen(false);
         console.log(data);
+        setFlag(!flag);
       })
       .catch((errors) => console.log(errors));
   };
 
   const handleSave = () => {
     portfolioSend({
-      userId: "642c4208b731d3e2f98f1fee",
+      userId: id,
       imageLinks: imageUrl,
       ageRange: ageRange,
       pronoun: pronoun,
@@ -172,8 +177,9 @@ const ImageUploaderPortfolio = ({
                 Skin Pigment & Texture
               </MenuItem>
               <MenuItem value={"Face Contouring"}>Face Contouring</MenuItem>
-              <MenuItem value={"Lips Contouring, Body Hair Management"}>
-                Lips Contouring, Body Hair Management
+              <MenuItem value={"Lips Contouring"}>Lips Contouring</MenuItem>
+              <MenuItem value={"Body Hair Management"}>
+                Body Hair Management
               </MenuItem>
               <MenuItem value={"Special Occasion Prep"}>
                 Special Occasion Prep
@@ -196,7 +202,6 @@ const ImageUploaderPortfolio = ({
                 Laser Skin Treatment
               </MenuItem>
               <MenuItem value={"Laser Hair Removal"}>
-                {" "}
                 Laser Hair Removal
               </MenuItem>
               <MenuItem value={"Light Treatment"}>Light Treatment</MenuItem>

@@ -10,6 +10,7 @@ import {
   MenuItem,
   InputLabel,
   Select,
+  ListItem,
 } from "@mui/material";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import { IconButton } from "@mui/material";
@@ -17,9 +18,6 @@ import { Link } from "react-router-dom";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import EditIcon from "@mui/icons-material/Edit";
 import ButtonAppBar from "../Create/header/HeaderNav";
-
-
-
 
 const getUser = async (userId) => {
   const url = `http://localhost:4000/routes/user/${userId}`;
@@ -45,11 +43,7 @@ const getPortfolio = async (userId) => {
   // TODO check for error
   return portfolio;
 };
-const Bio = () => {
- 
-
-
-
+const Bio = ({ userId }) => {
   const [profile, setProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
@@ -58,31 +52,76 @@ const Bio = () => {
   const [pronoun, setPronoun] = useState("");
   const [concern, setConcern] = useState("");
   const [procedure, setProcedure] = useState("");
+  const [displayedPortfolios, setDisplayedPortfolios] = useState([]);
+  const [filterOptions, setFilterOptions] = useState({});
+  // const [id, setId] = useState(userId);
+  const id = localStorage.getItem("userId");
   const handleChangeAgeRange = (event) => {
     setAgeRange(event.target.value);
+    if (!event.target.value) {
+      delete filterOptions.ageRange;
+    } else {
+      setFilterOptions({ ...filterOptions, ageRange: event.target.value });
+    }
   };
   const handleChangePronoun = (event) => {
     setPronoun(event.target.value);
+    if (!event.target.value) {
+      delete filterOptions.pronoun;
+    } else {
+      setFilterOptions({ ...filterOptions, pronoun: event.target.value });
+    }
   };
   const handleChangeConcern = (event) => {
     setConcern(event.target.value);
+    if (!event.target.value) {
+      delete filterOptions.concern;
+    } else {
+      setFilterOptions({ ...filterOptions, concern: event.target.value });
+    }
   };
   const handleChangeProcedure = (event) => {
     setProcedure(event.target.value);
+    if (!event.target.value) {
+      delete filterOptions.procedure;
+    } else {
+      setFilterOptions({ ...filterOptions, procedure: event.target.value });
+    }
   };
   useEffect(() => {
-    Promise.all([
-      getPortfolio("642c4208b731d3e2f98f1fee"),
-      getUser("642c4208b731d3e2f98f1fee"),
-      getProfile("642c4208b731d3e2f98f1fee"),
-    ]).then((values) => {
-      // console.log("return values 0", values[0], "return values 1", values[1]);
-      setPortfolio(values[0]);
-      setUser(values[1]);
-      setProfile(values[2]);
-      setIsLoading(false);
-    });
+    Promise.all([getPortfolio(id), getUser(id), getProfile(id)]).then(
+      (values) => {
+        // console.log("return values 0", values[0], "return values 1", values[1]);
+        setPortfolio(values[0]);
+        setUser(values[1]);
+        setProfile(values[2]);
+        setIsLoading(false);
+      }
+    );
   }, []);
+
+  const filterPortfolios = () => {
+    return portfolio.foundPortfolio
+      .filter((obj) => {
+        console.log(obj);
+        for (let key in filterOptions) {
+          if (obj[key] !== filterOptions[key]) {
+            console.log("inside of if statement");
+            console.log(obj[key], filterOptions[key]);
+            return false;
+          }
+        }
+        return true;
+      })
+      .map((image) => {
+        return (
+          <ImageListItem>
+            <img src={`${image.imageLinks}?w=164&h=164&fit=crop&auto=format`} />
+          </ImageListItem>
+        );
+      });
+  };
+
   return (
     <>
       {isLoading ? (
@@ -123,7 +162,7 @@ const Bio = () => {
                 color: "#5A5252",
               }}
             >
-              UserName
+              {user.user.name}, {user.user.title}
             </Typography>
             <Typography
               variant="h6"
@@ -134,7 +173,7 @@ const Bio = () => {
                 color: "#9B9B9B",
               }}
             >
-              Location
+              {user.user.city}
             </Typography>
             <Accordion sx={{ width: "75%", margin: "auto" }}>
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -182,7 +221,7 @@ const Bio = () => {
               </AccordionSummary>
               <AccordionDetails>
                 <Stack>
-                {profile.foundProfile.links.map((item) => {
+                  {profile.foundProfile.links.map((item) => {
                     if (item.linkName) {
                       return (
                         <Button
@@ -255,8 +294,9 @@ const Bio = () => {
                     Skin Pigment & Texture
                   </MenuItem>
                   <MenuItem value={"Face Contouring"}>Face Contouring</MenuItem>
-                  <MenuItem value={"Lips Contouring, Body Hair Management"}>
-                    Lips Contouring, Body Hair Management
+                  <MenuItem value={"Lips Contouring"}>Lips Contouring</MenuItem>
+                  <MenuItem value={"Body Hair Management"}>
+                    Body Hair Management
                   </MenuItem>
                   <MenuItem value={"Special Occasion Prep"}>
                     Special Occasion Prep
@@ -299,16 +339,7 @@ const Bio = () => {
               cols={3}
               rowHeight={164}
             >
-              {portfolio.foundPortfolio.map((item) => {
-                console.log("item", item);
-                return (
-                  <ImageListItem>
-                    <img
-                      src={`${item.imageLinks}?w=164&h=164&fit=crop&auto=format`}
-                    />
-                  </ImageListItem>
-                );
-              })}
+              {filterPortfolios()}
             </ImageList>
           </Stack>
         </div>
