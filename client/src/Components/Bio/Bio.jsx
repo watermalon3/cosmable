@@ -10,6 +10,7 @@ import {
   MenuItem,
   InputLabel,
   Select,
+  Paper,
   ListItem,
 } from "@mui/material";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
@@ -129,18 +130,40 @@ const Bio = ({ userId }) => {
       ) : (
         <div>
           <ButtonAppBar isHomePage={false} className="AppBar-transparent" />
-          <Stack
-            spacing={2}
+          <Paper
+            
             sx={{
-              textAlign: "center",
-              paddingTop: "70px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              color: "#5A5252",
+              overflow: "hidden",
+              borderRadius: "15px",
+              boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.3)",
+              zIndex: 1,
+              padding: "20px",
+              margin: "auto",
+              maxWidth: "630px",
+              marginTop: "100px",
+              paddingBottom: "50px",
+              '@media (max-width: 600px)': {
+                maxWidth: '100%', // set the maximum width to 100% on small screens
+                margin: '0px', // remove margin on small screens
+                marginTop: '70px', // adjust the top margin on small screens
+                paddingTop: '30px', // adjust the top padding on small screens
+                paddingBottom: '100px' // adjust the bottom padding on small screens
+              }
+
             }}
           >
+          <Stack
+          spacing={2}
+          sx={{
+            textAlign: "center",
+            paddingTop: "70px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "#5A5252",
+          }}
+>
             <IconButton
               component={Link}
               to="/dashboard/edit"
@@ -228,6 +251,18 @@ const Bio = ({ userId }) => {
                           target="_blank"
                           href={item.link}
                           variant="contained"
+                          sx={{
+                            fontFamily: "Playfair Display",
+                            fontSize: "16px",
+                            lineHeight: "20px",
+                            color: "#5A5252",
+                            bgcolor: "#FFFFFF",
+                            "&:hover": {
+                              bgcolor: "#5A5252",
+                              color: "#FFFFFF",
+                            },
+                          }}
+
                         >
                           {item.linkName}
                         </Button>
@@ -237,14 +272,33 @@ const Bio = ({ userId }) => {
                 </Stack>
               </AccordionDetails>
             </Accordion>
-            <Stack direction={"row"} spacing={3}>
-              <FormControl>
-                <InputLabel>Age Range</InputLabel>
-                <Select
-                  value={ageRange}
-                  label="Age Range"
-                  onChange={handleChangeAgeRange}
-                  size="medium"
+            <Stack direction={{ xs: 'row', md: 'row' }} spacing={{ xs: 0, sm: 0 }} >
+                
+                <FormControl sx={{ width: { xs: '100', md: "250"}, marginRight: { md: "16px" }}}>
+                  <InputLabel>Age</InputLabel>
+                  <Select
+                    IconComponent={null}
+                    value={ageRange}
+                    label="Age Range"
+                    onChange={handleChangeAgeRange}
+                    size="small"
+                    sx={{
+                      color: "#5A5252",
+                      fontFamily: "Playfair Display",
+                      textTransform: "none",
+                      fontSize: "16px",
+                      lineHeight: "20px",
+                      fontWeight: 400,
+                      borderRadius: "5px",
+                      borderColor: "#5A5252",
+                      padding: "8px 16px",
+                      "&:hover": {
+                        backgroundColor: "#5A5252",
+                        color: "#FFFFFF",
+                      },
+                      width: "100px"
+                    }}
+
                 >
                   <MenuItem value="">
                     <em>None</em>
@@ -256,12 +310,32 @@ const Bio = ({ userId }) => {
                   <MenuItem value={"56+"}>56+</MenuItem>
                 </Select>
               </FormControl>
-              <FormControl>
+              <FormControl sx={{ width: { xs: '100', md: "250"}, marginRight: { md: "16px" }}}>
                 <InputLabel>Pronoun</InputLabel>
                 <Select
-                  value={pronoun}
-                  label="Pronoun"
-                  onChange={handleChangePronoun}
+                IconComponent={null}
+                value={pronoun}
+                label="Pronoun"
+                onChange={handleChangePronoun}
+                size="small"
+                sx={{
+                  
+                  color: "#5A5252",
+                  fontFamily: "Playfair Display",
+                  textTransform: "none",
+                  fontSize: "16px",
+                  lineHeight: "20px",
+                  fontWeight: 400,
+                  borderRadius: "5px",
+                  borderColor: "#5A5252",
+                  padding: "8px 16px",
+                  "&:hover": {
+                    backgroundColor: "#5A5252",
+                    color: "#FFFFFF",
+                  },
+                  width: "100px"
+                }}
+
                 >
                   <MenuItem value="">
                     <em>None</em>
@@ -271,12 +345,31 @@ const Bio = ({ userId }) => {
                   <MenuItem value={"they / them"}>they/them</MenuItem>
                 </Select>
               </FormControl>
-              <FormControl>
+              <FormControl  sx={{ width: { xs: '100', md: "250"}, marginRight: { md: "16px" }}}>
                 <InputLabel>Concern</InputLabel>
                 <Select
-                  value={concern}
-                  label="Concern"
-                  onChange={handleChangeConcern}
+                IconComponent={null}
+                value={concern}
+                label="Concern"
+                onChange={handleChangeConcern}
+                size="small"
+                sx={{
+                  color: "#5A5252",
+                  fontFamily: "Playfair Display",
+                  textTransform: "none",
+                  fontSize: "16px",
+                  lineHeight: "20px",
+                  fontWeight: 400,
+                  borderRadius: "5px",
+                  borderColor: "#5A5252",
+                  padding: "8px 16px",
+                  "&:hover": {
+                    backgroundColor: "#5A5252",
+                    color: "#FFFFFF",
+                  },
+                  width: "100px"
+                }}
+
                 >
                   <MenuItem value="">
                     <em>None</em>
@@ -303,12 +396,31 @@ const Bio = ({ userId }) => {
                   </MenuItem>
                 </Select>
               </FormControl>
-              <FormControl>
+              <FormControl  sx={{ width: { xs: '100', md: "250"}, marginRight: { md: "16px" }}}>
                 <InputLabel>Procedure</InputLabel>
                 <Select
-                  value={procedure}
-                  label="Concern"
-                  onChange={handleChangeProcedure}
+                IconComponent={null}
+                value={concern}
+                label="Concern"
+                onChange={handleChangeConcern}
+                size="small"
+                sx={{
+                  color: "#5A5252",
+                  fontFamily: "Playfair Display",
+                  textTransform: "none",
+                  fontSize: "16px",
+                  lineHeight: "20px",
+                  fontWeight: 400,
+                  borderRadius: "5px",
+                  borderColor: "#5A5252",
+                  padding: "8px 16px",
+                  "&:hover": {
+                    backgroundColor: "#5A5252",
+                    color: "#FFFFFF",
+                  },
+                  width: "100px"
+                }}
+
                 >
                   <MenuItem value="">
                     <em>None</em>
@@ -335,13 +447,23 @@ const Bio = ({ userId }) => {
               </FormControl>
             </Stack>
             <ImageList
-              sx={{ width: 500, height: 450 }}
-              cols={3}
-              rowHeight={164}
+            sx={{ 
+              width: 500, 
+              height: 450, 
+              '@media (max-width: 600px)': {
+                width: '100%', // set the width to 100% on small screens
+                height: 'auto', // adjust the height on small screens
+                padding: '0px' // remove padding on small screens
+              }
+            }}
+            cols={3}
+            rowHeight={164}
+
             >
               {filterPortfolios()}
             </ImageList>
           </Stack>
+          </Paper>
         </div>
       )}
     </>
