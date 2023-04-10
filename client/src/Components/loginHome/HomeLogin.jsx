@@ -3,10 +3,7 @@ import { useNavigate } from "react-router-dom";
 import ButtonAppBar from "../Create/header/HeaderNav";
 import React, { useState } from "react";
 import "./homeLogin.css";
-import { useAuth } from "../../AuthContext"
-
-
-
+import { useAuth } from "../../AuthContext";
 
 function HomeLogin({ setUserId }) {
   const [email, setEmail] = useState("");
@@ -37,8 +34,7 @@ function HomeLogin({ setUserId }) {
         console.log(data);
         localStorage.setItem("userId", data.foundUser._id);
         setIsLoggedIn(true);
-        // setEmail(data.user.email);
-        // setError("");
+
         navigate("/dashboard");
       })
       .catch((err) => {

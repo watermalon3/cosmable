@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import "./login.css";
 import ProfileDetails from "../ProfileDetails/ProfileDetails";
 import ButtonAppBar from "../Create/header/HeaderNav";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
 
 const Register = ({ setUserId }) => {
@@ -19,7 +19,7 @@ const Register = ({ setUserId }) => {
     setValue,
   } = useForm();
 
-  const [showProfileDetails, setShowProfileDetails] = useState(false);
+  const [showProfileDetails] = useState(false);
   const location = useLocation();
   useEffect(() => {
     setValue("userName", location.state.id);
@@ -53,10 +53,6 @@ const Register = ({ setUserId }) => {
 
       const user = await response.json();
       if (response.ok) {
-        // console.log(user);
-        // console.log(response);
-        // await setUserId(user.newUser._id)
-        // navigate("/profile-details");
         navigate("/profile-details");
         setIsLoggedIn(true);
         localStorage.setItem("userId", user.newUser._id);

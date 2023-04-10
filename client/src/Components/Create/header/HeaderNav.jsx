@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 import "./nav.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import  { useAuth }  from "../../../AuthContext";
+import { useAuth } from "../../../AuthContext";
 
 export default function ButtonAppBar({ isHomePage }) {
   const { isLoggedIn, setIsLoggedIn } = useAuth();
@@ -104,7 +104,6 @@ export default function ButtonAppBar({ isHomePage }) {
                       color: "white",
                     },
                   }}
-                  
                 >
                   Login
                 </Button>
