@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { makeStyles } from "@mui/styles";
 import ButtonAppBar from "../Create/header/HeaderNav";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../AuthContext"
+import { useAuth } from "../../AuthContext";
 import {
   Typography,
   Stack,
@@ -28,12 +28,6 @@ const useStyles = makeStyles(() => ({
   whiteBackground: {
     backgroundColor: "#fff",
   },
-  // astericks: {
-  //   fontSize: "0.8em",
-  //   verticalAlign: "super",
-  //   color: "#5A5252",
-  //   marginLeft: 2,
-  // },
 }));
 
 const Almost = ({ userId }) => {
@@ -61,7 +55,7 @@ const Almost = ({ userId }) => {
           "Content-Type": "application/json",
         }),
       });
-      
+
       if (response.ok) {
         setIsLoggedIn(true);
         navigate("/dashboard/edit");
@@ -102,7 +96,7 @@ const Almost = ({ userId }) => {
               spacing={2}
               sx={{
                 paddingTop: "50px",
-                // alignItems: "flex-start",
+
                 fontFamily: "Playfair Display",
               }}
             >
