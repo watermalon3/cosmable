@@ -71,6 +71,16 @@ const updateProfile = async (userId, body) => {
   return updateProfile;
 };
 
+const deleteImage = async (userId) => {
+  const sendBody = {
+    method: "DELETE",
+  };
+  const url = `http://localhost:4000/routes/deleteimage/${userId}`;
+  const response = await fetch(url, sendBody);
+  const deletePorfolio = response.json();
+  return deletePorfolio;
+};
+
 const EditBio = ({ userId }) => {
   const navigate = useNavigate();
   const id = localStorage.getItem("userId");
@@ -84,7 +94,7 @@ const EditBio = ({ userId }) => {
   const [portfolio, setPortfolio] = useState(null);
   const [profile, setProfile] = useState(null);
   const [update, setUpdate] = useState(null);
-
+  const [flag, setFlag] = useState(false);
   const {
     register,
     handleSubmit,
@@ -118,7 +128,7 @@ const EditBio = ({ userId }) => {
         }
       }
     );
-  }, []);
+  }, [flag]);
   useEffect(() => {
     console.log("update", update);
     if (update) {
@@ -157,6 +167,8 @@ const EditBio = ({ userId }) => {
   };
   const handleDelete = (id) => {
     console.log(id);
+    deleteImage(id);
+    setFlag(!flag);
   };
   const handleClose = () => {
     setIsOpen(false);
@@ -299,6 +311,8 @@ const EditBio = ({ userId }) => {
                   setPortfolioPhotos={setPortfolioPhotos}
                   setIsOpen={setIsOpen}
                   userId={userId}
+                  setFlag={setFlag}
+                  flag={flag}
                 />
               </Box>
             </Drawer>

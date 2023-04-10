@@ -6,7 +6,7 @@ import ProfileDetails from "../ProfileDetails/ProfileDetails";
 import ButtonAppBar from "../Create/header/HeaderNav";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const Register = ({ setUserId }) => {
+const Register = () => {
   const {
     register,
     handleSubmit,
@@ -51,7 +51,7 @@ const Register = ({ setUserId }) => {
       const user = await response.json();
       if (response.ok) {
         navigate("/profile-details");
-        await setUserId(user.newUser._id);
+        localStorage.setItem("userId", user.newUser._id);
         createProfile(user.newUser._id);
         reset();
       } else {

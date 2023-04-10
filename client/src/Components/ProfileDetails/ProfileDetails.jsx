@@ -38,6 +38,7 @@ const useStyles = makeStyles(() => ({
 const Almost = ({ userId }) => {
   console.log(userId, " -------");
   const classes = useStyles();
+  const id = localStorage.getItem("userId");
 
   const {
     register,
@@ -72,7 +73,7 @@ const Almost = ({ userId }) => {
       console.error("An error occurred during registration:", error);
     }
   };
-  let url = `http://127.0.0.1:4000/routes/updateUser/${userId}`;
+  let url = `http://127.0.0.1:4000/routes/updateUser/${id}`;
 
   const navigate = useNavigate();
 

@@ -24,6 +24,8 @@ const ImageUploaderPortfolio = ({
   setPortfolioPhotos,
   setIsOpen,
   userId,
+  setFlag,
+  flag,
 }) => {
   const id = localStorage.getItem("userId");
   const s3 = new AWS.S3();
@@ -51,6 +53,7 @@ const ImageUploaderPortfolio = ({
         // call setIsOpen(false)?
         setIsOpen(false);
         console.log(data);
+        setFlag(!flag);
       })
       .catch((errors) => console.log(errors));
   };

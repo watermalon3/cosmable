@@ -10,11 +10,12 @@ AWS.config.update({
 
 const ImageUploader = ({ setProfilePicture, userId }) => {
   const s3 = new AWS.S3();
+  const id = localStorage.getItem("userId");
   const [file, setFile] = useState(null);
 
   const portfolioSend = (body) => {
     console.log(body);
-    let profileId = userId;
+    let profileId = id;
     fetch(`http://localhost:4000/routes/updateUser/${profileId}`, {
       method: "PUT",
       body: JSON.stringify(body),
