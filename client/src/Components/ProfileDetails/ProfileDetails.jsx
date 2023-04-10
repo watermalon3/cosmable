@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { makeStyles } from "@mui/styles";
 import ButtonAppBar from "../Create/header/HeaderNav";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../AuthContext"
 import {
   Typography,
   Stack,
@@ -36,6 +37,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Almost = ({ userId }) => {
+  const { setIsLoggedIn } = useAuth();
+
   console.log(userId, " -------");
   const classes = useStyles();
 
@@ -57,11 +60,9 @@ const Almost = ({ userId }) => {
           "Content-Type": "application/json",
         }),
       });
-      // const user = response.json();
+      
       if (response.ok) {
-        // console.log(user);
-        // console.log(response);
-
+        setIsLoggedIn(true);
         navigate("/dashboard/edit");
         reset();
       } else {

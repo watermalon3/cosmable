@@ -1,24 +1,30 @@
-import React, { useState } from "react";
-import { Grid, Typography, TextField, Button } from "@mui/material";
-import "./homeLogin.css";
-import ButtonAppBar from "../Create/header/HeaderNav";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import ButtonAppBar from "../Create/header/HeaderNav";
+import React, { useState } from "react";
+import "./homeLogin.css";
+import { useAuth } from "../../AuthContext"
+import { useContext } from "react";
+
+
 
 function HomeLogin({ setUserId }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-
   const navigate = useNavigate();
-  let body = { email, password }
-  let url = "http://127.0.0.1:4000/user/login"
+  const body = { email, password };
+  const url = "http://127.0.0.1:4000/user/login";
+
+  const { setIsLoggedIn } = useAuth();
+
   const handleLoginClick = () => {
     fetch(url, {
       method: "POST",
       body: JSON.stringify(body),
       headers: new Headers({
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       }),
     })
       .then((res) => {
@@ -28,17 +34,17 @@ function HomeLogin({ setUserId }) {
         return res.json();
       })
       .then((data) => {
-        console.log(data)
-        setUserId(data.foundUser._id)
-        // setEmail(data.user.email);
-        // setError("");
+        console.log(data);
+        setUserId(data.foundUser._id);
+        setIsLoggedIn(true);
         navigate("/dashboard");
       })
       .catch((err) => {
         console.log(err);
         setError(err.message);
-      })
-  }
+      });
+  };
+
   return (
     <div>
       <ButtonAppBar isHomePage={true} className="AppBar-transparent" />
@@ -51,23 +57,31 @@ function HomeLogin({ setUserId }) {
           justifyContent: "center",
           minHeight: "100vh",
         }}
-        
       >
         {error && (
           <Typography variant="body1" color="error">
             {error}
           </Typography>
         )}
-        <Grid container direction="column" alignItems="center" spacing={2} className="background-text" style={{
+        <Grid
+          container
+          direction="column"
+          alignItems="center"
+          spacing={2}
+          className="background-text"
+          style={{
             background: "white",
             padding: "2rem",
             borderRadius: "8px",
             boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.5)",
             minWidth: "300px",
             maxWidth: "400px",
-          }}>
+          }}
+        >
           <Grid item>
-            <Typography variant="h6" sx={{ fontFamily: "Playfair Display"}}>Welcome back</Typography >
+            <Typography variant="h6" sx={{ fontFamily: "Playfair Display" }}>
+              Welcome back
+            </Typography>
           </Grid>
           <Grid item>
             <TextField
@@ -86,24 +100,21 @@ function HomeLogin({ setUserId }) {
               onChange={(e) => setPassword(e.target.value)}
               variant="outlined"
               fullWidth
-              
             />
           </Grid>
           <Grid item>
-          
             <Button
               variant="contained"
               color="primary"
               onClick={handleLoginClick}
               style={{ backgroundColor: "#5A5252" }}
-              sx={{ fontFamily: "Playfair Display"}}
+              sx={{ fontFamily: "Playfair Display" }}
             >
               Login
             </Button>
-            
           </Grid>
           <Grid item>
-            <Typography variant="body1" align="center" sx={{ fontFamily: "Playfair Display"}}>
+            <Typography variant="body1" align="center" sx={{ fontFamily: "Playfair Display" }}>
               Don't have an account yet? <a href="/register">Register</a>
             </Typography>
           </Grid>
@@ -111,6 +122,6 @@ function HomeLogin({ setUserId }) {
       </div>
     </div>
   );
-};
+}
 
 export default HomeLogin;

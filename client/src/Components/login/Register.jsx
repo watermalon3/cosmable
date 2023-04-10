@@ -5,8 +5,11 @@ import "./login.css";
 import ProfileDetails from "../ProfileDetails/ProfileDetails";
 import ButtonAppBar from "../Create/header/HeaderNav";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../AuthContext";
 
 const Register = ({ setUserId }) => {
+  const { setIsLoggedIn } = useAuth();
+
   const {
     register,
     handleSubmit,
@@ -33,8 +36,9 @@ const Register = ({ setUserId }) => {
       if (response.ok) {
         // console.log(user);
         // console.log(response);
-        navigate("/profile-details");
         await setUserId(user.newUser._id)
+        setIsLoggedIn(true);
+        navigate("/profile-details");
         reset();
       } else {
         const errorData = await response.json();

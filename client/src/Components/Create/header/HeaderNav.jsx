@@ -10,15 +10,23 @@ import Menu from "@mui/material/Menu";
 import Button from "@mui/material/Button";
 import "./nav.css";
 import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import  { useAuth }  from "../../../AuthContext";
 
-export default function ButtonAppBar({ isHomePage, onLoginClick }) {
+export default function ButtonAppBar({ isHomePage }) {
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem("token");
+    console.log("Logged out");
+  };
 
   const navigate = useNavigate();
 
   const handleClicked = () => {
-    navigate("/")
-  }
+    navigate("/");
+  };
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -43,42 +51,77 @@ export default function ButtonAppBar({ isHomePage, onLoginClick }) {
           color: "black",
           borderBottom: "2px solid #5A5252",
         }}
-       
       >
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           <nav>
-          <Button onClick={handleClicked} sx={{ color: "black"}}>
-          <Typography
-            variant="h3"
-            component="div"
-            sx={{ marginLeft: "0", fontFamily: "Playfair Display" }}
-          >
-            Cosmable
-          </Typography>
-          </Button>
+            <Button onClick={handleClicked} sx={{ color: "black" }}>
+              <Typography
+                variant="h3"
+                component="div"
+                sx={{ marginLeft: "0", fontFamily: "Playfair Display" }}
+              >
+                Cosmable
+              </Typography>
+            </Button>
           </nav>
           <Box>
-          <Link to="/home-login">
-          <Button
-              variant="outlined" edge="end"
-              sx={{ color: "black", borderColor: "transparent", fontFamily: "Playfair Display", marginRight: "16px", fontWeight: "bold" }}
-              onClick={onLoginClick}
+            {isLoggedIn ? (
+              <Link key="logout-link" to="/">
+                <Button
+                  key="logout-button"
+                  variant="outlined"
+                  edge="end"
+                  sx={{
+                    color: "black",
+                    borderColor: "transparent",
+                    fontFamily: "Playfair Display",
+                    marginRight: "16px",
+                    fontWeight: "bold",
+                    ":hover": {
+                      bgcolor: "#5A5252",
+                      color: "white",
+                    },
+                  }}
+                  onClick={handleLogout}
+                >
+                  Logout
+                </Button>
+              </Link>
+            ) : (
+              <Link key="login-link" to="/home-login">
+                <Button
+                  key="login-button"
+                  variant="outlined"
+                  edge="end"
+                  sx={{
+                    color: "black",
+                    borderColor: "transparent",
+                    fontFamily: "Playfair Display",
+                    marginRight: "16px",
+                    fontWeight: "bold",
+                    ":hover": {
+                      bgcolor: "#5A5252",
+                      color: "white",
+                    },
+                  }}
+                  
+                >
+                  Login
+                </Button>
+              </Link>
+            )}
+            <IconButton
+              size="large"
+              edge="end"
+              color="inherit"
+              aria-label="menu"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleClick}
+              sx={{ ml: 2, color: "Black" }}
             >
-              Login
-            </Button>
-            </Link>
-          <IconButton
-            size="large"
-            edge="end"
-            color="inherit"
-            aria-label="menu"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            onClick={handleClick}
-            sx={{ ml: 2, color: "Black" }}
-          >
-            <MenuIcon />
-          </IconButton>
+              <MenuIcon />
+            </IconButton>
           </Box>
           <Menu
             id="menu-appbar"
