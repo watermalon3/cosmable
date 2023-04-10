@@ -110,7 +110,6 @@ const ImageUploaderPortfolio = ({
       }}
     >
       <Stack spacing={2}>
-      <Typography variant="h4" sx={{ mb: 2, fontFamily: "Playfair Display" }}>Portfolio</Typography>
         <input type="file" onChange={handleFileSelect} />
         {file && (
           <div style={{ marginTop: "10px" }}>

@@ -178,22 +178,11 @@ const EditBio = ({ userId }) => {
     <Paper
       elevation={3}
       sx={{
-        overflow: "hidden",
-        borderRadius: "15px",
-        boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.3)",
+        padding: 2,
         zIndex: 1,
-        padding: "20px",
         margin: "auto",
         maxWidth: "630px",
-        marginTop: "100px",
-        paddingBottom: "50px",
-        "@media (max-width: 600px)": {
-          maxWidth: "100%", // set the maximum width to 100% on small screens
-          margin: "0px", // remove margin on small screens
-          marginTop: "70px", // adjust the top margin on small screens
-          paddingTop: "30px", // adjust the top padding on small screens
-          paddingBottom: "100px", // adjust the bottom padding on small screens
-        },
+        marginTop: "90px",
       }}
       style={{
         overflow: "hidden",
@@ -228,15 +217,13 @@ const EditBio = ({ userId }) => {
                   </Typography>
                   <Typography variant="h6">{user.user.city}</Typography>
                 </div>
-                <Typography fontFamily="Playfair Display">
-                  <TextField
-                    fullWidth
-                    label="+ Add bio"
-                    {...register("bio")}
-                    //   errors={Boolean(errors.bio)}
-                    //   helperText={errors.bio?.message}
-                  />
-                </Typography>
+                <TextField
+                  fullWidth
+                  label="+ Add bio"
+                  {...register("bio")}
+                  //   errors={Boolean(errors.bio)}
+                  //   helperText={errors.bio?.message}
+                />
                 {/* Add Link */}
                 <TextField
                   label="+ name"
@@ -276,11 +263,9 @@ const EditBio = ({ userId }) => {
                   //   error={Boolean(errors.link)}
                   //   helperText={errors.link?.message}
                 />
-                <Typography variant="h4" fontFamily="Playfair Display">
-                  Portfolio
-                </Typography>
+                <Typography>Portfolio</Typography>
                 <ImageList
-                  sx={{ width: "100%", height: "auto", margin: "auto" }}
+                  sx={{ width: 500, height: 450 }}
                   cols={3}
                   rowHeight={164}
                 >
@@ -298,21 +283,7 @@ const EditBio = ({ userId }) => {
                     );
                   })}
                 </ImageList>
-                <Button
-                  variant="contained"
-                  color="success"
-                  sx={{
-                    display: "flex",
-                    fontFamily: "Playfair Display",
-                    backgroundColor: "#5A5252",
-                    color: "#fff",
-                    height: "40px",
-                    padding: "2px",
-                    width: "150px",
-                    textTransform: "none",
-                  }}
-                  onClick={() => setIsOpen(true)}
-                >
+                <Button variant="contained" onClick={() => setIsOpen(true)}>
                   Update Portfolio
                 </Button>
                 {/* Build Your Portfolio */}
@@ -321,15 +292,6 @@ const EditBio = ({ userId }) => {
                   variant="contained"
                   type="submit"
                   style={{ marginTop: 16 }}
-                  sx={{
-                    fontFamily: "Playfair Display",
-                    backgroundColor: "#5A5252",
-                    color: "#fff",
-                    height: "40px",
-                    padding: "2px",
-                    width: "150px",
-                    textTransform: "none",
-                  }}
                 >
                   Save Changes
                 </Button>
@@ -340,12 +302,10 @@ const EditBio = ({ userId }) => {
               // position="bottom"
               open={isOpen}
               onClose={() => handleClose()}
-              PaperProps={{ sx:  {color: "#333", height: "fit-content", maxWidth: "85vw", mx: "auto", boxShadow: "0px -4px 16px rgba(0, 0, 0, 0.1)",
-            }  }}
-              sx={{ "& .MuiDrawer-paper": { borderRadius: "10px 10px 0 0" } }}
+              PaperProps={{ sx: { height: "fit-content" } }}
             >
-              <Box sx={{ px: 2, py: 4, fontFamily: "Playfair Display" }}>
-              
+              <Box>
+                <Typography>Portfolio</Typography>
                 <ImageUploaderPortfolio
                   portfolioPhotos={portfolioPhotos}
                   setPortfolioPhotos={setPortfolioPhotos}

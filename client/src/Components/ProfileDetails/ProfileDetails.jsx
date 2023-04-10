@@ -251,7 +251,7 @@ const Almost = ({ userId }) => {
               </Stack>
               <Button
                 color="success"
-                variant="contained"
+                varient="contained"
                 type="submit"
                 sx={{
                   fontFamily: "Playfair Display",
