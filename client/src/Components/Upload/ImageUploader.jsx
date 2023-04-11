@@ -65,7 +65,27 @@ const ImageUploader = ({ setProfilePicture, userId }) => {
         style={{ display: "none" }}
       />
       <label htmlFor="photo-upload-input">
-        <Button component="span" variant="contained" color="primary">
+        <Button
+          component="span"
+          variant="contained"
+          color="primary"
+          sx={{
+            width: { xs: "100%", md: "66.7%" },
+            height: "25px",
+            minWidth: "125px",
+            paddingTop: "5px",
+            margin: "5px",
+            border: "2px solid #5A5252",
+            fontFamily: "Playfair Display",
+            textTransform: "none",
+            color: "#FFFFFF",
+            bgcolor: "#5A5252",
+            "&:hover": {
+              bgcolor: "#FFFFFF",
+              color: "#5A5252",
+            },
+          }}
+        >
           Select Photo
         </Button>
       </label>

@@ -1,11 +1,34 @@
 import React, { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { makeStyles } from "@mui/styles";
 import ButtonAppBar from "../Create/header/HeaderNav";
 import { Grid, Typography, TextField, Button, Paper } from "@mui/material";
 import "./home.css";
-// import CreateAccount from "../login/login";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const theme = createTheme({
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: "#5A5252",
+          },
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          "&.Mui-focused": {
+            color: "black",
+          },
+        },
+      },
+    },
+  },
+});
 
 const useStyles = makeStyles(() => ({
   buttonContainer: {
@@ -39,8 +62,6 @@ function HomePage() {
   const navigate = useNavigate();
 
   const handleJoinClick = () => {
-    // <Navigate to="/register" state={{ userName }} />;
-    // `{ state: { myProp: 'Hello World' } }`
     navigate("/register", {
       state: {
         id: userName,
@@ -90,7 +111,6 @@ function HomePage() {
               <Typography
                 variant="h3"
                 sx={{
-                  // display: "flex",
                   textAlign: "center",
                   fontFamily: "Playfair Display",
                   maxWidth: "700px",
@@ -123,38 +143,40 @@ function HomePage() {
             <Grid item sx={{ width: "100%" }}>
               <Grid container direction="column" alignItems="center">
                 <Grid item>
-                  <TextField
-                    label={
-                      <Typography
-                        variant="h6"
-                        sx={{
-                          width: { xs: "100%", md: "66.7%" },
-                          height: { xs: "100%", md: "66.7%" },
-                          borderRadius: 0,
-                          fontFamily: "Playfair Display",
-                        }}
-                      >
-                        Username
-                      </Typography>
-                    }
-                    style={{ backgroundColor: "white" }}
-                    value={userName}
-                    onChange={(e) => setUserName(e.target.value)}
-                    variant="outlined"
-                    margin="dense"
-                    InputProps={{
-                      startAdornment: (
+                  <ThemeProvider theme={theme}>
+                    <TextField
+                      label={
                         <Typography
-                          variant="body1"
+                          variant="h6"
                           sx={{
-                            fontFamily: "'Playfair Display', serif",
+                            width: { xs: "100%", md: "66.7%" },
+                            height: { xs: "100%", md: "66.7%" },
+                            borderRadius: 0,
+                            fontFamily: "Playfair Display",
                           }}
                         >
-                          cosmable.co/
+                          Username
                         </Typography>
-                      ),
-                    }}
-                  />
+                      }
+                      style={{ backgroundColor: "white" }}
+                      value={userName}
+                      onChange={(e) => setUserName(e.target.value)}
+                      variant="outlined"
+                      margin="dense"
+                      InputProps={{
+                        startAdornment: (
+                          <Typography
+                            variant="body1"
+                            sx={{
+                              fontFamily: "'Playfair Display', serif",
+                            }}
+                          >
+                            cosmable.co/
+                          </Typography>
+                        ),
+                      }}
+                    />
+                  </ThemeProvider>
                 </Grid>
                 <Grid item className={classes.buttonContainer}>
                   <Button
@@ -162,21 +184,19 @@ function HomePage() {
                     variant="contained"
                     color="primary"
                     onClick={handleJoinClick}
-                    style={{ backgroundColor: "#5A5252" }}
                     sx={{
                       width: { xs: "100%", md: "66.7%" },
-                      // height: { xs: "100%", md: "66.7%" },
                       height: "40px",
-                      // minHeight: "50px",
                       minWidth: "125px",
-                      // fontFamily: "Playfair Display",
-                      // borderRadius: 0,
                       border: "2px solid #5A5252",
                       fontFamily: "Playfair Display",
                       textTransform: "none",
-                      // fontSize: "18px",
-                      // lineHeight: "22px",
-                      // color: "#5A5252",
+                      color: "#FFFFFF",
+                      bgcolor: "#5A5252",
+                      "&:hover": {
+                        bgcolor: "#FFFFFF",
+                        color: "#5A5252",
+                      },
                     }}
                   >
                     Join for Free

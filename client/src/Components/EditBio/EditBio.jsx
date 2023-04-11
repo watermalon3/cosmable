@@ -23,6 +23,31 @@ import ClearIcon from "@mui/icons-material/Clear";
 import ImageUploader from "../Upload/ImageUploader";
 import ImageUploaderPortfolio from "../UploadPorfolio/UploadPorfolio";
 
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const theme = createTheme({
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: "#5A5252",
+          },
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          "&.Mui-focused": {
+            color: "black",
+          },
+        },
+      },
+    },
+  },
+});
+
 const getUser = async (userId) => {
   const url = `http://localhost:4000/routes/user/${userId}`;
   const response = await fetch(url);
@@ -187,18 +212,17 @@ const EditBio = ({ userId }) => {
         maxWidth: "630px",
         marginTop: "100px",
         paddingBottom: "50px",
-        '@media (max-width: 600px)': {
-          maxWidth: '100%', // set the maximum width to 100% on small screens
-          margin: '0px', // remove margin on small screens
-          marginTop: '70px', // adjust the top margin on small screens
-          paddingTop: '30px', // adjust the top padding on small screens
-          paddingBottom: '100px' // adjust the bottom padding on small screens
-        }
+        "@media (max-width: 600px)": {
+          maxWidth: "100%", // set the maximum width to 100% on small screens
+          margin: "0px", // remove margin on small screens
+          marginTop: "70px", // adjust the top margin on small screens
+          paddingTop: "30px", // adjust the top padding on small screens
+          paddingBottom: "100px", // adjust the bottom padding on small screens
+        },
       }}
       style={{
         overflow: "hidden",
       }}
-
     >
       <>
         {isLoading ? (
@@ -227,109 +251,150 @@ const EditBio = ({ userId }) => {
                   <Typography variant="h6" fontFamily="Playfair Display">
                     {user.user.name}, {user.user.title}
                   </Typography>
-                  <Typography variant="h6" fontFamily="Playfair Display">{user.user.city}</Typography>
+                  <Typography variant="h6" fontFamily="Playfair Display">
+                    {user.user.city}
+                  </Typography>
                 </div>
-                <TextField
-                  fullWidth
-                  label="+ Add bio"
-                  {...register("bio")}
-                  //   errors={Boolean(errors.bio)}
-                  //   helperText={errors.bio?.message}
-                />
-                {/* Add Link */}
-                <TextField
-                  label="+ name"
-                  id="linkName1"
-                  {...register("linkName1")}
-                  //   error={Boolean(errors.link)}
-                  //   helperText={errors.link?.message}
-                />
-                <TextField
-                  label="+ Add link"
-                  {...register("link1")}
-                  //   error={Boolean(errors.link)}
-                  //   helperText={errors.link?.message}
-                />
-                <TextField
-                  label="+ name"
-                  {...register("linkName2")}
-                  //   error={Boolean(errors.link)}
-                  //   helperText={errors.link?.message}
-                />
-                <TextField
-                  label="+ Add link"
-                  {...register("link2")}
-                  //   error={Boolean(errors.link)}
-                  //   helperText={errors.link?.message}
-                />
-                <TextField
-                  label="+ name"
-                  {...register("linkName3")}
-                  //   error={Boolean(errors.link)}
-                  //   helperText={errors.link?.message}
-                />
-                <TextField
-                  label="+ Add link"
-                  id="link3"
-                  {...register("link3")}
-                  //   error={Boolean(errors.link)}
-                  //   helperText={errors.link?.message}
-                />
-                <Typography
-                variant="h4"
-                fontFamily="Playfair Display"
-                >Portfolio</Typography>
+                <ThemeProvider theme={theme}>
+                  <TextField
+                    fullWidth
+                    label="+ Add bio"
+                    {...register("bio")}
+                    //   errors={Boolean(errors.bio)}
+                    //   helperText={errors.bio?.message}
+                  />
+                  {/* Add Link */}
+                  <TextField
+                    label="+ name"
+                    id="linkName1"
+                    {...register("linkName1")}
+                    //   error={Boolean(errors.link)}
+                    //   helperText={errors.link?.message}
+                  />
+                  <TextField
+                    label="+ Add link"
+                    {...register("link1")}
+                    //   error={Boolean(errors.link)}
+                    //   helperText={errors.link?.message}
+                  />
+                  <TextField
+                    label="+ name"
+                    {...register("linkName2")}
+                    //   error={Boolean(errors.link)}
+                    //   helperText={errors.link?.message}
+                  />
+                  <TextField
+                    label="+ Add link"
+                    {...register("link2")}
+                    //   error={Boolean(errors.link)}
+                    //   helperText={errors.link?.message}
+                  />
+                  <TextField
+                    label="+ name"
+                    {...register("linkName3")}
+                    //   error={Boolean(errors.link)}
+                    //   helperText={errors.link?.message}
+                  />
+                  <TextField
+                    label="+ Add link"
+                    id="link3"
+                    {...register("link3")}
+                    //   error={Boolean(errors.link)}
+                    //   helperText={errors.link?.message}
+                  />
+                </ThemeProvider>
+                <Typography variant="h4" fontFamily="Playfair Display">
+                  Portfolio
+                </Typography>
                 <ImageList
-                sx={{ width: "100%", height: "auto", margin: "auto" }}
+                  sx={{
+                    width: 500,
+                    height: 450,
+                    "@media (max-width: 600px)": {
+                      width: "100%", // set the width to 100% on small screens
+                      height: "auto", // adjust the height on small screens
+                      padding: "0px", // remove padding on small screens
+                    },
+                  }}
                   cols={3}
                   rowHeight={164}
+                  gap={8}
                 >
                   {portfolio.foundPortfolio.map((item) => {
                     console.log("item", item);
                     return (
                       <ImageListItem>
-                        <IconButton onClick={() => handleDelete(item._id)}>
-                          <ClearIcon />
+                        <IconButton
+                          onClick={() => handleDelete(item._id)}
+                          style={{
+                            position: "absolute",
+                            top: "0%",
+                            left: "0%",
+                            // transform: "translate(-50%, -50%)",
+                          }}
+                        >
+                          <ClearIcon style={{ color: "red" }} />
                         </IconButton>
                         <img
                           src={`${item.imageLinks}?w=164&h=164&fit=crop&auto=format`}
+                          alt={item.title}
+                          loading="lazy"
+                          style={{
+                            objectFit: "cover", // Adjust how the image fills its container
+                            width: "100%", // Set the width of the image to 100% of the container
+                            height: "100%", // Set the height of the image to 100% of the container
+                          }}
                         />
                       </ImageListItem>
                     );
                   })}
                 </ImageList>
-                <Button variant="contained"
-                color="success"
-                sx={{
-                  display: "flex",
-                  fontFamily: "Playfair Display",
-                  backgroundColor: "#5A5252",
-                  color: "#fff",
-                  height: "40px",
-                  padding: "2px",
-                  width: "150px",
-                  textTransform: "none",
-                }}
-
-                 onClick={() => setIsOpen(true)}>
+                <Button
+                  variant="contained"
+                  color="success"
+                  sx={{
+                    display: "flex",
+                    fontFamily: "Playfair Display",
+                    backgroundColor: "#5A5252",
+                    color: "#fff",
+                    height: "40px",
+                    padding: "2px",
+                    width: "150px",
+                    textTransform: "none",
+                    border: "2px solid #5A5252",
+                    color: "#FFFFFF",
+                    bgcolor: "#5A5252",
+                    "&:hover": {
+                      bgcolor: "#FFFFFF",
+                      color: "#5A5252",
+                    },
+                  }}
+                  onClick={() => setIsOpen(true)}
+                >
                   Update Portfolio
                 </Button>
                 {/* Build Your Portfolio */}
                 <Button
-                color="primary"
-                variant="contained"
-                type="submit"
-                style={{ marginTop: 16 }}
-                sx={{
-                  fontFamily: "Playfair Display",
-                  backgroundColor: "#5A5252",
-                  color: "#fff",
-                  height: "40px",
-                  padding: "2px",
-                  width: "150px",
-                  textTransform: "none",
-                }}
-
+                  color="primary"
+                  variant="contained"
+                  type="submit"
+                  style={{ marginTop: 16 }}
+                  sx={{
+                    fontFamily: "Playfair Display",
+                    backgroundColor: "#5A5252",
+                    color: "#fff",
+                    height: "40px",
+                    padding: "2px",
+                    width: "150px",
+                    textTransform: "none",
+                    border: "2px solid #5A5252",
+                    color: "#FFFFFF",
+                    bgcolor: "#5A5252",
+                    "&:hover": {
+                      bgcolor: "#FFFFFF",
+                      color: "#5A5252",
+                    },
+                  }}
                 >
                   Save Changes
                 </Button>
@@ -337,17 +402,31 @@ const EditBio = ({ userId }) => {
             </form>
             <Drawer
               anchor="bottom"
-              // position="bottom"
               open={isOpen}
               onClose={() => handleClose()}
-              PaperProps={{ sx:  {color: "#333", height: "fit-content", maxWidth: "85vw", mx: "auto", boxShadow: "0px -4px 16px rgba(0, 0, 0, 0.1)",
-            }  }}
+              PaperProps={{
+                sx: {
+                  color: "#333",
+                  height: "fit-content",
+                  maxWidth: "85vw",
+                  mx: "auto",
+                  boxShadow: "0px -4px 16px rgba(0, 0, 0, 0.1)",
+                },
+              }}
               sx={{ "& .MuiDrawer-paper": { borderRadius: "10px 10px 0 0" } }}
-
             >
-              <Box  sx={{ px: 2, py: 4, fontFamily: "Playfair Display" }}>
-              
-                <Typography>Portfolio</Typography>
+              <Box sx={{ px: 2, py: 4, fontFamily: "Playfair Display" }}>
+                <Typography
+                  sx={{
+                    fontFamily: "Playfair Display",
+                    fontWeight: "bold",
+                    fontSize: "25px",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  Portfolio
+                </Typography>
                 <ImageUploaderPortfolio
                   portfolioPhotos={portfolioPhotos}
                   setPortfolioPhotos={setPortfolioPhotos}
