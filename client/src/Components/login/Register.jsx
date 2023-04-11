@@ -6,6 +6,33 @@ import ProfileDetails from "../ProfileDetails/ProfileDetails";
 import ButtonAppBar from "../Create/header/HeaderNav";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const theme = createTheme({
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: "#5A5252",
+          },
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          "&.Mui-focused": {
+            color: "black",
+          },
+        },
+      },
+    },
+  },
+});
+
+
+
 
 const Register = ({ setUserId }) => {
   const { setIsLoggedIn } = useAuth();
@@ -107,6 +134,7 @@ const Register = ({ setUserId }) => {
                 >
                   Create your account
                 </Typography>
+                <ThemeProvider theme={theme}>
                 <TextField
                   label={
                     <Typography
@@ -188,6 +216,7 @@ const Register = ({ setUserId }) => {
                   error={Boolean(errors.confirmPassword)}
                   helperText={errors.confirmPassword?.message}
                 />
+                </ThemeProvider>
                 <Typography
                   className="create-header"
                   variant="h6"
@@ -210,8 +239,15 @@ const Register = ({ setUserId }) => {
                     width: "120px",
                     backgroundColor: "#5A5252",
                     padding: "2px",
+                    border: "2px solid #5A5252",
                     fontFamily: "Playfair Display",
                     textTransform: "none",
+                    color: "#FFFFFF",
+                    bgcolor: "#5A5252",
+                    "&:hover": {
+                      bgcolor: "#FFFFFF",
+                      color: "#5A5252",
+                    },
                   }}
                 >
                   Join for Free

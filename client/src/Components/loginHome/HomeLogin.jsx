@@ -4,6 +4,30 @@ import ButtonAppBar from "../Create/header/HeaderNav";
 import React, { useState } from "react";
 import "./homeLogin.css";
 import { useAuth } from "../../AuthContext";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const theme = createTheme({
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: "#5A5252",
+          },
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          "&.Mui-focused": {
+            color: "black",
+          },
+        },
+      },
+    },
+  },
+});
 
 function HomeLogin({ setUserId }) {
   const [email, setEmail] = useState("");
@@ -83,32 +107,47 @@ function HomeLogin({ setUserId }) {
               Welcome back
             </Typography>
           </Grid>
-          <Grid item>
-            <TextField
-              label="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              variant="outlined"
-              fullWidth
-            />
-          </Grid>
-          <Grid item>
-            <TextField
-              label="Password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              variant="outlined"
-              fullWidth
-            />
-          </Grid>
+          <ThemeProvider theme={theme}>
+            <Grid item>
+              <TextField
+                label="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                variant="outlined"
+                fullWidth
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                label="Password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                variant="outlined"
+                fullWidth
+              />
+            </Grid>
+          </ThemeProvider>
           <Grid item>
             <Button
               variant="contained"
               color="primary"
               onClick={handleLoginClick}
-              style={{ backgroundColor: "#5A5252" }}
-              sx={{ fontFamily: "Playfair Display" }}
+              sx={{
+                fontFamily: "Playfair Display",
+                width: { xs: "100%", md: "66.7%" },
+                height: "40px",
+                minWidth: "125px",
+                border: "2px solid #5A5252",
+                fontFamily: "Playfair Display",
+                textTransform: "none",
+                color: "#FFFFFF",
+                bgcolor: "#5A5252",
+                "&:hover": {
+                  bgcolor: "#FFFFFF",
+                  color: "#5A5252",
+                },
+              }}
             >
               Login
             </Button>
@@ -119,7 +158,10 @@ function HomeLogin({ setUserId }) {
               align="center"
               sx={{ fontFamily: "Playfair Display" }}
             >
-              Don't have an account yet? <a href="/register">Register</a>
+              Don't have an account yet?{" "}
+              <a href="/register" style={{ color: "#5A5252" }}>
+                Register
+              </a>
             </Typography>
           </Grid>
         </Grid>
