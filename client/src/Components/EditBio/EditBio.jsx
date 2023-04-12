@@ -18,12 +18,15 @@ import {
   ImageListItem,
   Box,
   IconButton,
+  Divider,
+  Grid,
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import ImageUploader from "../Upload/ImageUploader";
 import ImageUploaderPortfolio from "../UploadPorfolio/UploadPorfolio";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import InstagramUpload from "../Upload/InstagramUpload";
 
 const theme = createTheme({
   components: {
@@ -230,7 +233,7 @@ const EditBio = ({ userId }) => {
         ) : (
           <>
             <ButtonAppBar isHomePage={false} />
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form  onSubmit={handleSubmit(onSubmit)}>
               <Stack spacing={2}>
                 <div
                   style={{
@@ -306,98 +309,114 @@ const EditBio = ({ userId }) => {
                 <Typography variant="h4" fontFamily="Playfair Display">
                   Portfolio
                 </Typography>
-                <ImageList
-                  sx={{
-                    width: 500,
-                    height: 450,
-                    "@media (max-width: 600px)": {
-                      width: "100%", // set the width to 100% on small screens
-                      height: "auto", // adjust the height on small screens
-                      padding: "0px", // remove padding on small screens
-                    },
-                  }}
-                  cols={3}
-                  rowHeight={164}
-                  gap={8}
+                <Grid alignItems="center" justifyContent="center" paddingLeft={8}
+                paddingBottom={1}>
+                  {/* <Grid alignContent="center" > */}
+
+                  <ImageList
+                    sx={{
+                      width: 500,
+                      height: 450,
+                      "@media (max-width: 600px)": {
+                        width: "100%", // set the width to 100% on small screens
+                        height: "auto", // adjust the height on small screens
+                        padding: "0px", // remove padding on small screens
+                      },
+                    }}
+                    cols={3}
+                    rowHeight={164}
+                    gap={8}
+                  >
+                    {portfolio.foundPortfolio.map((item) => {
+                      console.log("item", item);
+                      return (
+                        <ImageListItem>
+                          <IconButton
+                            onClick={() => handleDelete(item._id)}
+                            style={{
+                              position: "absolute",
+                              top: "0%",
+                              left: "0%",
+                              // transform: "translate(-50%, -50%)",
+                            }}
+                          >
+                            <ClearIcon style={{ color: "grey" }} />
+                          </IconButton>
+                          <img
+                            src={`${item.imageLinks}?w=164&h=164&fit=crop&auto=format`}
+                            alt={item.title}
+                            loading="lazy"
+                            style={{
+                              objectFit: "cover", // Adjust how the image fills its container
+                              width: "100%", // Set the width of the image to 100% of the container
+                              height: "100%", // Set the height of the image to 100% of the container
+                            }}
+                          />
+                        </ImageListItem>
+                      );
+                    })}
+                  </ImageList>
+
+                  {/* </Grid> */}
+                </Grid>
+
+                <Stack
+                  direction="row"
+                  spacing={4}
+                  divider={<Divider orientation="vertical" flexItem />}
+                  paddingLeft={3}
                 >
-                  {portfolio.foundPortfolio.map((item) => {
-                    console.log("item", item);
-                    return (
-                      <ImageListItem>
-                        <IconButton
-                          onClick={() => handleDelete(item._id)}
-                          style={{
-                            position: "absolute",
-                            top: "0%",
-                            left: "0%",
-                            // transform: "translate(-50%, -50%)",
-                          }}
-                        >
-                          <ClearIcon style={{ color: "red" }} />
-                        </IconButton>
-                        <img
-                          src={`${item.imageLinks}?w=164&h=164&fit=crop&auto=format`}
-                          alt={item.title}
-                          loading="lazy"
-                          style={{
-                            objectFit: "cover", // Adjust how the image fills its container
-                            width: "100%", // Set the width of the image to 100% of the container
-                            height: "100%", // Set the height of the image to 100% of the container
-                          }}
-                        />
-                      </ImageListItem>
-                    );
-                  })}
-                </ImageList>
-                <Button
-                  variant="contained"
-                  color="success"
-                  sx={{
-                    display: "flex",
-                    fontFamily: "Playfair Display",
-                    backgroundColor: "#5A5252",
-                    color: "#fff",
-                    height: "40px",
-                    padding: "2px",
-                    width: "150px",
-                    textTransform: "none",
-                    border: "2px solid #5A5252",
-                    color: "#FFFFFF",
-                    bgcolor: "#5A5252",
-                    "&:hover": {
-                      bgcolor: "#FFFFFF",
-                      color: "#5A5252",
-                    },
-                  }}
-                  onClick={() => setIsOpen(true)}
-                >
-                  Update Portfolio
-                </Button>
+                  <Button
+                    variant="contained"
+                    color="success"
+                    sx={{
+                      display: "flex",
+                      fontFamily: "Playfair Display",
+                      backgroundColor: "#5A5252",
+                      color: "#fff",
+                      height: "40px",
+                      padding: "2px",
+                      width: "150px",
+                      textTransform: "none",
+                      border: "2px solid #5A5252",
+                      color: "#FFFFFF",
+                      bgcolor: "#5A5252",
+                      "&:hover": {
+                        bgcolor: "#FFFFFF",
+                        color: "#5A5252",
+                      },
+                    }}
+                    onClick={() => setIsOpen(true)}
+                  >
+                    Upload From Local
+                  </Button>
+                  <InstagramUpload setFlag={setFlag} flag={flag} />
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    type="submit"
+                    sx={{
+                      fontFamily: "Playfair Display",
+                      backgroundColor: "#5A5252",
+                      color: "#fff",
+                      height: "40px",
+                      padding: "2px",
+                      width: "150px",
+                      textTransform: "none",
+                      border: "2px solid #5A5252",
+                      color: "#FFFFFF",
+                      bgcolor: "#5A5252",
+                      "&:hover": {
+                        bgcolor: "#FFFFFF",
+                        color: "#5A5252",
+                      },
+                    }}
+                  >
+                    Save Changes
+                  </Button>
+                </Stack>
+
                 {/* Build Your Portfolio */}
-                <Button
-                  color="primary"
-                  variant="contained"
-                  type="submit"
-                  style={{ marginTop: 16 }}
-                  sx={{
-                    fontFamily: "Playfair Display",
-                    backgroundColor: "#5A5252",
-                    color: "#fff",
-                    height: "40px",
-                    padding: "2px",
-                    width: "150px",
-                    textTransform: "none",
-                    border: "2px solid #5A5252",
-                    color: "#FFFFFF",
-                    bgcolor: "#5A5252",
-                    "&:hover": {
-                      bgcolor: "#FFFFFF",
-                      color: "#5A5252",
-                    },
-                  }}
-                >
-                  Save Changes
-                </Button>
               </Stack>
             </form>
             <Drawer
