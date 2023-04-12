@@ -8,13 +8,14 @@ AWS.config.update({
   signatureVersion: "v4",
 });
 
-const ImageUploader = ({ setProfilePicture }) => {
+const ImageUploader = ({ setProfilePicture, userId }) => {
   const s3 = new AWS.S3();
+  const id = localStorage.getItem("userId");
   const [file, setFile] = useState(null);
 
   const portfolioSend = (body) => {
     console.log(body);
-    let profileId = "642c4208b731d3e2f98f1fee";
+    let profileId = id;
     fetch(`http://localhost:4000/routes/updateUser/${profileId}`, {
       method: "PUT",
       body: JSON.stringify(body),
@@ -64,7 +65,27 @@ const ImageUploader = ({ setProfilePicture }) => {
         style={{ display: "none" }}
       />
       <label htmlFor="photo-upload-input">
-        <Button component="span" variant="contained" color="primary">
+        <Button
+          component="span"
+          variant="contained"
+          color="primary"
+          sx={{
+            width: { xs: "100%", md: "66.7%" },
+            height: "25px",
+            minWidth: "125px",
+            paddingTop: "5px",
+            margin: "5px",
+            border: "2px solid #5A5252",
+            fontFamily: "Playfair Display",
+            textTransform: "none",
+            color: "#FFFFFF",
+            bgcolor: "#5A5252",
+            "&:hover": {
+              bgcolor: "#FFFFFF",
+              color: "#5A5252",
+            },
+          }}
+        >
           Select Photo
         </Button>
       </label>

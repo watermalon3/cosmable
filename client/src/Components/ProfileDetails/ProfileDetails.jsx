@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { makeStyles } from "@mui/styles";
 import ButtonAppBar from "../Create/header/HeaderNav";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../AuthContext";
 import {
   Typography,
   Stack,
@@ -12,6 +13,40 @@ import {
   Button,
   Paper,
 } from "@mui/material";
+
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const theme = createTheme({
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: "#5A5252",
+          },
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          "&.Mui-focused": {
+            color: "black",
+          },
+        },
+      },
+    },
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+          "&.Mui-checked": {
+            color: "#5A5252",
+          },
+        },
+      },
+    },
+  },
+});
 
 const useStyles = makeStyles(() => ({
   buttonContainer: {
@@ -27,17 +62,14 @@ const useStyles = makeStyles(() => ({
   whiteBackground: {
     backgroundColor: "#fff",
   },
-  // astericks: {
-  //   fontSize: "0.8em",
-  //   verticalAlign: "super",
-  //   color: "#5A5252",
-  //   marginLeft: 2,
-  // },
 }));
 
 const Almost = ({ userId }) => {
+  const { setIsLoggedIn } = useAuth();
+
   console.log(userId, " -------");
   const classes = useStyles();
+  const id = localStorage.getItem("userId");
 
   const {
     register,
@@ -57,11 +89,9 @@ const Almost = ({ userId }) => {
           "Content-Type": "application/json",
         }),
       });
-      // const user = response.json();
-      if (response.ok) {
-        // console.log(user);
-        // console.log(response);
 
+      if (response.ok) {
+        setIsLoggedIn(true);
         navigate("/dashboard/edit");
         reset();
       } else {
@@ -72,14 +102,14 @@ const Almost = ({ userId }) => {
       console.error("An error occurred during registration:", error);
     }
   };
-  let url = `http://127.0.0.1:4000/routes/updateUser/${userId}`;
+  let url = `http://127.0.0.1:4000/routes/updateUser/${id}`;
 
   const navigate = useNavigate();
 
   return (
     <>
       <ButtonAppBar isHomePage={false} style={{ backgroundColor: "#fff" }} />
-      <div className="profile-details" >
+      <div className="profile-details">
         <Paper
           elevation={3}
           sx={{
@@ -92,7 +122,6 @@ const Almost = ({ userId }) => {
             maxWidth: "630px",
             marginTop: "100px",
             paddingBottom: "50px",
-            
           }}
           style={{ overflow: "hidden" }}
         >
@@ -101,7 +130,7 @@ const Almost = ({ userId }) => {
               spacing={2}
               sx={{
                 paddingTop: "50px",
-                // alignItems: "flex-start",
+
                 fontFamily: "Playfair Display",
               }}
             >
@@ -118,137 +147,139 @@ const Almost = ({ userId }) => {
               >
                 Almost there
               </Typography>
-              <TextField
-                label={
-                  <Typography
-                    variant="h6"
-                    sx={{ fontFamily: "'Playfair Display', serif" }}
-                  >
-                    Name<span className={classes.asterisk}>*</span>
-                  </Typography>
-                }
-                {...register("name")}
-                error={Boolean(errors.name)}
-                helperText={errors.name?.message}
-                sx={{
-                  width: { xs: "100%", md: "100%" },
-                }}
-              />
-              <TextField
-                label={
-                  <Typography
-                    variant="h6"
-                    sx={{ fontFamily: "'Playfair Display', serif" }}
-                  >
-                    Title or designation, i.e. BSN
-                    <span className={classes.asterisk}>*</span>
-                  </Typography>
-                }
-                type="title"
-                {...register("title")}
-                error={Boolean(errors.title)}
-                helperText={errors.title?.message}
-                sx={{
-                  width: { xs: "100%", md: "100%" },
-                }}
-              />
-              <TextField
-                label={
-                  <Typography
-                    variant="h6"
-                    sx={{ fontFamily: "'Playfair Display', serif" }}
-                  >
-                    Your practice name
-                    <span className={classes.asterisk}>*</span>
-                  </Typography>
-                }
-                type="practiceName"
-                {...register("practiceName")}
-                error={Boolean(errors.practiceName)}
-                helperText={errors.practiceName?.message}
-                sx={{
-                  width: { xs: "100%", md: "100%" },
-                }}
-                stlye={{ fontFamily: "Playfair Display " }}
-              />
-              <TextField
-                label={
-                  <Typography
-                    variant="h6"
-                    sx={{ fontFamily: "'Playfair Display', serif" }}
-                  >
-                    Your practice zipcode
-                    <span className={classes.asterisk}>*</span>
-                  </Typography>
-                }
-                type="zipcode"
-                {...register("zipcode")}
-                error={Boolean(errors.zipcode)}
-                helperText={errors.zipcode?.message}
-                sx={{
-                  width: { xs: "100%", md: "100%" },
-                }}
-              />
-              <Typography
-                variant="h6"
-                sx={{ textAlign: "left", fontFamily: "Playfair Display" }}
-              >
-                You are an...
-              </Typography>
-              <Stack direction="column">
-                <Stack direction="row">
-                  <FormControlLabel
-                    control={<Checkbox {...register("aesthetician")} />}
-                    label={
-                      <Typography
-                        variant="h6"
-                        sx={{ fontFamily: "'Playfair Display', serif" }}
-                      >
-                        Aesthetician
-                      </Typography>
-                    }
-                  />
-                  <FormControlLabel
-                    control={<Checkbox {...register("injector")} />}
-                    label={
-                      <Typography
-                        variant="h6"
-                        sx={{ fontFamily: "'Playfair Display', serif" }}
-                      >
-                        Injector
-                      </Typography>
-                    }
-                  />
-                </Stack>
+              <ThemeProvider theme={theme}>
+                <TextField
+                  label={
+                    <Typography
+                      variant="h6"
+                      sx={{ fontFamily: "'Playfair Display', serif" }}
+                    >
+                      Name<span className={classes.asterisk}>*</span>
+                    </Typography>
+                  }
+                  {...register("name")}
+                  error={Boolean(errors.name)}
+                  helperText={errors.name?.message}
+                  sx={{
+                    width: { xs: "100%", md: "100%" },
+                  }}
+                />
+                <TextField
+                  label={
+                    <Typography
+                      variant="h6"
+                      sx={{ fontFamily: "'Playfair Display', serif" }}
+                    >
+                      Title or designation, i.e. BSN
+                      <span className={classes.asterisk}>*</span>
+                    </Typography>
+                  }
+                  type="title"
+                  {...register("title")}
+                  error={Boolean(errors.title)}
+                  helperText={errors.title?.message}
+                  sx={{
+                    width: { xs: "100%", md: "100%" },
+                  }}
+                />
+                <TextField
+                  label={
+                    <Typography
+                      variant="h6"
+                      sx={{ fontFamily: "'Playfair Display', serif" }}
+                    >
+                      Your practice name
+                      <span className={classes.asterisk}>*</span>
+                    </Typography>
+                  }
+                  type="practiceName"
+                  {...register("practiceName")}
+                  error={Boolean(errors.practiceName)}
+                  helperText={errors.practiceName?.message}
+                  sx={{
+                    width: { xs: "100%", md: "100%" },
+                  }}
+                  stlye={{ fontFamily: "Playfair Display " }}
+                />
+                <TextField
+                  label={
+                    <Typography
+                      variant="h6"
+                      sx={{ fontFamily: "'Playfair Display', serif" }}
+                    >
+                      Your practice city, state
+                      <span className={classes.asterisk}>*</span>
+                    </Typography>
+                  }
+                  type="city"
+                  {...register("city")}
+                  error={Boolean(errors.city)}
+                  helperText={errors.city?.message}
+                  sx={{
+                    width: { xs: "100%", md: "100%" },
+                  }}
+                />
+                <Typography
+                  variant="h6"
+                  sx={{ textAlign: "left", fontFamily: "Playfair Display" }}
+                >
+                  You are an...
+                </Typography>
                 <Stack direction="column">
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        {...register("aestheticianPracticeOwnerManager")}
-                      />
-                    }
-                    label={
-                      <Typography
-                        variant="h6"
-                        sx={{ fontFamily: "'Playfair Display', serif" }}
-                      >
-                        Practice Owner/Manager
-                      </Typography>
-                    }
-                  />
-                  <FormControlLabel
-                    control={<Checkbox {...register("other")} />}
-                    label={
-                      <Typography
-                        variant="h6"
-                        sx={{ fontFamily: "'Playfair Display', serif" }}
-                      >
-                        Other
-                      </Typography>
-                    }
-                  />
+                  <Stack direction="row">
+                    <FormControlLabel
+                      control={<Checkbox {...register("aesthetician")} />}
+                      label={
+                        <Typography
+                          variant="h6"
+                          sx={{ fontFamily: "'Playfair Display', serif" }}
+                        >
+                          Aesthetician
+                        </Typography>
+                      }
+                    />
+                    <FormControlLabel
+                      control={<Checkbox {...register("injector")} />}
+                      label={
+                        <Typography
+                          variant="h6"
+                          sx={{ fontFamily: "'Playfair Display', serif" }}
+                        >
+                          Injector
+                        </Typography>
+                      }
+                    />
+                  </Stack>
+                  <Stack direction="column">
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          {...register("aestheticianPracticeOwnerManager")}
+                        />
+                      }
+                      label={
+                        <Typography
+                          variant="h6"
+                          sx={{ fontFamily: "'Playfair Display', serif" }}
+                        >
+                          Practice Owner/Manager
+                        </Typography>
+                      }
+                    />
+                    <FormControlLabel
+                      control={<Checkbox {...register("other")} />}
+                      label={
+                        <Typography
+                          variant="h6"
+                          sx={{ fontFamily: "'Playfair Display', serif" }}
+                        >
+                          Other
+                        </Typography>
+                      }
+                    />
+                  </Stack>
                 </Stack>
-              </Stack>
+              </ThemeProvider>
               <Button
                 color="success"
                 varient="contained"
@@ -258,9 +289,16 @@ const Almost = ({ userId }) => {
                   backgroundColor: "#5A5252",
                   color: "#fff",
                   height: "40px",
+                  border: "2px solid #5A5252",
                   padding: "2px",
                   width: "120px",
                   textTransform: "none",
+                  color: "#FFFFFF",
+                  bgcolor: "#5A5252",
+                  "&:hover": {
+                    bgcolor: "#FFFFFF",
+                    color: "#5A5252",
+                  },
                 }}
               >
                 Get Started

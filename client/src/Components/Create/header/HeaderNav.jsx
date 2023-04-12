@@ -10,15 +10,26 @@ import Menu from "@mui/material/Menu";
 import Button from "@mui/material/Button";
 import "./nav.css";
 import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../AuthContext";
+import { useTheme } from "@mui/material/styles";
+import Stack from "@mui/material/Stack";
 
-export default function ButtonAppBar({ isHomePage, onLoginClick }) {
+export default function ButtonAppBar({ isHomePage }) {
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
+  const theme = useTheme();
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem("token");
+    console.log("Logged out");
+  };
 
   const navigate = useNavigate();
 
   const handleClicked = () => {
-    navigate("/")
-  }
+    navigate("/");
+  };
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -43,42 +54,86 @@ export default function ButtonAppBar({ isHomePage, onLoginClick }) {
           color: "black",
           borderBottom: "2px solid #5A5252",
         }}
-       
       >
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           <nav>
-          <Button onClick={handleClicked} sx={{ color: "black"}}>
-          <Typography
-            variant="h3"
-            component="div"
-            sx={{ marginLeft: "0", fontFamily: "Playfair Display" }}
-          >
-            Cosmable
-          </Typography>
-          </Button>
+            <Button onClick={handleClicked} sx={{ color: "black" }}>
+              <Typography
+                variant="h3"
+                component="div"
+                sx={{ marginLeft: "0", fontFamily: "Playfair Display" }}
+              >
+                Cosmable
+              </Typography>
+            </Button>
           </nav>
           <Box>
-          <Link to="/home-login">
-          <Button
-              variant="outlined" edge="end"
-              sx={{ color: "black", borderColor: "transparent", fontFamily: "Playfair Display", marginRight: "16px", fontWeight: "bold" }}
-              onClick={onLoginClick}
-            >
-              Login
-            </Button>
-            </Link>
-          <IconButton
-            size="large"
-            edge="end"
-            color="inherit"
-            aria-label="menu"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            onClick={handleClick}
-            sx={{ ml: 2, color: "Black" }}
-          >
-            <MenuIcon />
-          </IconButton>
+            <Stack spacing={1} direction="row" justifyContent={"space-evenly"}>
+              {isLoggedIn ? (
+                <Link key="logout-link" to="/">
+                  <Button
+                    key="logout-button"
+                    variant="outlined"
+                    edge="end"
+                    sx={{
+                      color: "black",
+                      padding: "none",
+                      borderColor: "transparent",
+                      fontFamily: "Playfair Display",
+
+                      fontWeight: "bold",
+                      ":hover": {
+                        bgcolor: "#5A5252",
+                        color: "white",
+                      },
+                      [theme.breakpoints.down("sm")]: {
+                        fontSize: "12px",
+                      },
+                    }}
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </Button>
+                </Link>
+              ) : (
+                <Link key="login-link" to="/home-login">
+                  <Button
+                    key="login-button"
+                    variant="outlined"
+                    edge="end"
+                    sx={{
+                      marginTop: "5px",
+                      color: "black",
+                      borderColor: "transparent",
+                      fontFamily: "Playfair Display",
+
+                      fontWeight: "bold",
+                      ":hover": {
+                        bgcolor: "#5A5252",
+                        color: "white",
+                      },
+                      [theme.breakpoints.down("sm")]: {
+                        fontSize: "12px",
+                      },
+                    }}
+                  >
+                    Login
+                  </Button>
+                </Link>
+              )}
+              <IconButton
+                size="large"
+                edge="end"
+                color="inherit"
+                aria-label="menu"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleClick}
+                sx={{ ml: 1, color: "Black" }}
+              >
+                <MenuIcon />
+              </IconButton>
+            </Stack>
           </Box>
           <Menu
             id="menu-appbar"
