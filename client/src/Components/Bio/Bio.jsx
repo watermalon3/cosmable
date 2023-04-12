@@ -324,7 +324,6 @@ const Bio = ({ userId }) => {
                       "@media (max-width: 600px)": {
                         justifyContent: "space-evenly",
                       },
-                      mb: 2,
                     }}
                   >
                     <InputLabel>Age</InputLabel>

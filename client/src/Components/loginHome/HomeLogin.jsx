@@ -131,10 +131,9 @@ function HomeLogin({ setUserId }) {
           <Grid item>
             <Button
               variant="contained"
-              color="primary"
+              // color="primary"
               onClick={handleLoginClick}
               sx={{
-                fontFamily: "Playfair Display",
                 width: { xs: "100%", md: "66.7%" },
                 height: "40px",
                 minWidth: "125px",

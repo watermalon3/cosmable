@@ -233,7 +233,7 @@ const EditBio = ({ userId }) => {
         ) : (
           <>
             <ButtonAppBar isHomePage={false} />
-            <form  onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <Stack spacing={2}>
                 <div
                   style={{
@@ -309,8 +309,12 @@ const EditBio = ({ userId }) => {
                 <Typography variant="h4" fontFamily="Playfair Display">
                   Portfolio
                 </Typography>
-                <Grid alignItems="center" justifyContent="center" paddingLeft={8}
-                paddingBottom={1}>
+                <Grid
+                  alignItems="center"
+                  justifyContent="center"
+                  paddingLeft={8}
+                  paddingBottom={1}
+                >
                   {/* <Grid alignContent="center" > */}
 
                   <ImageList
@@ -373,7 +377,6 @@ const EditBio = ({ userId }) => {
                       display: "flex",
                       fontFamily: "Playfair Display",
                       backgroundColor: "#5A5252",
-                      color: "#fff",
                       height: "40px",
                       padding: "2px",
                       width: "150px",
@@ -398,7 +401,7 @@ const EditBio = ({ userId }) => {
                     sx={{
                       fontFamily: "Playfair Display",
                       backgroundColor: "#5A5252",
-                      color: "#fff",
+
                       height: "40px",
                       padding: "2px",
                       width: "150px",

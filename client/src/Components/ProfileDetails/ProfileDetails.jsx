@@ -199,7 +199,7 @@ const Almost = ({ userId }) => {
                   sx={{
                     width: { xs: "100%", md: "100%" },
                   }}
-                  stlye={{ fontFamily: "Playfair Display " }}
+                  style={{ fontFamily: "Playfair Display " }}
                 />
                 <TextField
                   label={
@@ -282,12 +282,11 @@ const Almost = ({ userId }) => {
               </ThemeProvider>
               <Button
                 color="success"
-                varient="contained"
+                variant="contained"
                 type="submit"
                 sx={{
                   fontFamily: "Playfair Display",
                   backgroundColor: "#5A5252",
-                  color: "#fff",
                   height: "40px",
                   border: "2px solid #5A5252",
                   padding: "2px",

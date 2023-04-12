@@ -178,7 +178,6 @@ const ImageUploaderPortfolio = ({
                   padding: "1px",
                   width: "70px",
                   backgroundColor: "#5A5252",
-                  // color: "white",
                   cursor: "pointer",
                   borderRadius: "5px",
                   userSelect: "none",
@@ -197,7 +196,6 @@ const ImageUploaderPortfolio = ({
             <Button
               onClick={uploadToS3}
               sx={{
-                fontFamily: "Playfair Display",
                 width: { xs: "100%", md: "66.7%" },
                 height: "25px",
                 minWidth: "125px",
@@ -319,7 +317,6 @@ const ImageUploaderPortfolio = ({
               <Button
                 onClick={() => handleSave()}
                 sx={{
-                  fontFamily: "Playfair Display",
                   width: { xs: "100%", md: "66.7%" },
                   height: "25px",
                   minWidth: "125px",
